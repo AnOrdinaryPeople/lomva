@@ -15,12 +15,13 @@ class UserTableSeeder extends Seeder
     {
         User::insert([
         	[
-        		'email' => 'admin@mail.com',
+        		'email' => 'teacher@mail.com',
         		'password' => Hash::make('12345678'),
         		'role' => 1
         	],[
-        		'email' => 'user@mail.com',
-        		'password' => Hash::make('12345678')
+        		'email' => 'student@mail.com',
+        		'password' => Hash::make('12345678'),
+                'role' => 0
         	]
         ]);
     }
