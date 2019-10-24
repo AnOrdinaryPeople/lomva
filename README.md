@@ -23,3 +23,6 @@
 
 ### email + password
 liat di `database/seeds/UserTableSeeder.php`
+
+### recaptcha
+Ambil site key sama secret key di [recaptcha](https://www.google.com/recaptcha) simpen di `.env` buat site key `RECAPTCHA_SITE_KEY=kode_site_key`. buat secret key `RECAPTCHA_SECRET=kode_secret_key`
