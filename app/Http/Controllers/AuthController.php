@@ -24,7 +24,8 @@ class AuthController extends Controller
     	else{
     		User::create([
     			'email' => $req->email,
-    			'password' => Hash::make($req->password)
+    			'password' => Hash::make($req->password),
+                'role' => $req->role
     		]);
 
     		return response()->json(['status' => 'success']);
@@ -55,7 +56,7 @@ class AuthController extends Controller
     	]);
     }
 
-    public function refresh(){
+    public function refresh(Request $req){
     	$token = Auth::guard()->attempt($req->only('email', 'password'));
 
     	if($token) return response()->json(['status' => 'success'], 200)
