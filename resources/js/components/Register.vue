@@ -28,6 +28,10 @@
 						<label for="reg-con-pass">Confirm password</label>
 						<input id="reg-con-pass" class="form-control" type="password" v-model="passCon">
 					</div>
+					<div class="form-group">
+						<vue-recaptcha ref="recaptcha" @verify="onVerify" :sitekey="key"></vue-recaptcha>
+						<small v-if="has_error && errors.recaptcha" v-for="errRecap in errors.recaptcha" class="text-danger">{{ errRecap }}<br/></small>
+					</div>
 					<button id="btn-reg-submit" class="btn btn-primary" type="submit">Daftar</button>
 				</form>
 			</div>
@@ -36,16 +40,26 @@
 </template>
 
 <script>
+	import VueRecaptcha from 'vue-recaptcha'
+
 	export default{
+		components: {
+			VueRecaptcha
+		},
 		data: () => ({
+			key: process.env.MIX_SITE_KEY,
 			email: '',
 			pass: '',
 			passCon: '',
 			role: 0,
+			recaptcha: '',
 			has_error: false,
-			errors: {}
+			errors: {},
 		}),
 		methods: {
+			onVerify(resp){
+				this.recaptcha = resp
+			},
 			register(){
 				var id = document.getElementById('btn-reg-submit')
 
@@ -55,7 +69,8 @@
 						email: this.email,
 						password: this.pass,
 						password_confirmation: this.passCon,
-						role: this.role
+						role: this.role,
+						recaptcha: this.recaptcha
 					},
 					success: () => {
 						this.$router.push({
@@ -65,11 +80,13 @@
 							}
 						})
 						id.removeAttribute('disabled')
+						this.$refs.recaptcha.reset()
 					},
 					error: (resp) => {
 						this.has_error = true
 						this.errors = resp.response.data.errors || {}
 						id.removeAttribute('disabled')
+						console.log(resp.response)
 					}
 				})
 			},
