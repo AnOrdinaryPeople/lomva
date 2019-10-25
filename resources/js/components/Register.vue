@@ -86,7 +86,6 @@
 						this.has_error = true
 						this.errors = resp.response.data.errors || {}
 						id.removeAttribute('disabled')
-						console.log(resp.response)
 					}
 				})
 			},
