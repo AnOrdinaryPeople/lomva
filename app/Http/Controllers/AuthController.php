@@ -7,13 +7,15 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use App\Rules\Recaptcha;
 
 class AuthController extends Controller
 {
-	public function register(Request $req){
+	public function register(Request $req, Recaptcha $recap){
     	$check = Validator::make($req->all(), [
     		'email' => 'required|email|unique:users',
-    		'password' => 'required|min:8|confirmed'
+    		'password' => 'required|min:8|confirmed',
+            'recaptcha' => ['required', $recap]
     	]);
 
     	if($check->fails())
