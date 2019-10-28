@@ -15,8 +15,7 @@ export default new VueRouter({
 		{
 			path: '/',
 			name: 'home',
-			component: Home,
-			meta: { auth: false }
+			component: Home
 		},{
 			path: '/register',
 			name: 'register',
