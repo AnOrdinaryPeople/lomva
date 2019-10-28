@@ -3094,21 +3094,6 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/AuthSocial.vue?vue&type=script&lang=js&":
-/*!*********************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/AuthSocial.vue?vue&type=script&lang=js& ***!
-  \*********************************************************************************************************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ({
-  mounted: function mounted() {}
-});
-
-/***/ }),
-
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Login.vue?vue&type=script&lang=js&":
 /*!****************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Login.vue?vue&type=script&lang=js& ***!
@@ -54710,56 +54695,6 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/js/components/AuthSocial.vue":
-/*!************************************************!*\
-  !*** ./resources/js/components/AuthSocial.vue ***!
-  \************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _AuthSocial_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AuthSocial.vue?vue&type=script&lang=js& */ "./resources/js/components/AuthSocial.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
-var render, staticRenderFns
-
-
-
-
-/* normalize component */
-
-var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__["default"])(
-  _AuthSocial_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"],
-  render,
-  staticRenderFns,
-  false,
-  null,
-  null,
-  null
-  
-)
-
-/* hot reload */
-if (false) { var api; }
-component.options.__file = "resources/js/components/AuthSocial.vue"
-/* harmony default export */ __webpack_exports__["default"] = (component.exports);
-
-/***/ }),
-
-/***/ "./resources/js/components/AuthSocial.vue?vue&type=script&lang=js&":
-/*!*************************************************************************!*\
-  !*** ./resources/js/components/AuthSocial.vue?vue&type=script&lang=js& ***!
-  \*************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AuthSocial_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./AuthSocial.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/AuthSocial.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AuthSocial_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
-
-/***/ }),
-
 /***/ "./resources/js/components/Home.vue":
 /*!******************************************!*\
   !*** ./resources/js/components/Home.vue ***!
@@ -55070,10 +55005,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_Home__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/Home */ "./resources/js/components/Home.vue");
 /* harmony import */ var _components_Register__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/Register */ "./resources/js/components/Register.vue");
 /* harmony import */ var _components_Login__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/Login */ "./resources/js/components/Login.vue");
-/* harmony import */ var _components_AuthSocial__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/AuthSocial */ "./resources/js/components/AuthSocial.vue");
-/* harmony import */ var _components_user_UserHome__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/user/UserHome */ "./resources/js/components/user/UserHome.vue");
-/* harmony import */ var _components_teacher_TeacherHome__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/teacher/TeacherHome */ "./resources/js/components/teacher/TeacherHome.vue");
-
+/* harmony import */ var _components_user_UserHome__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/user/UserHome */ "./resources/js/components/user/UserHome.vue");
+/* harmony import */ var _components_teacher_TeacherHome__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/teacher/TeacherHome */ "./resources/js/components/teacher/TeacherHome.vue");
 
 
 
@@ -55106,7 +55039,7 @@ __webpack_require__.r(__webpack_exports__);
   }, {
     path: '/home-user',
     name: 'home-user',
-    component: _components_user_UserHome__WEBPACK_IMPORTED_MODULE_5__["default"],
+    component: _components_user_UserHome__WEBPACK_IMPORTED_MODULE_4__["default"],
     meta: {
       auth: {
         roles: 0,
@@ -55118,7 +55051,7 @@ __webpack_require__.r(__webpack_exports__);
   }, {
     path: '/home-teacher',
     name: 'home-teacher',
-    component: _components_teacher_TeacherHome__WEBPACK_IMPORTED_MODULE_6__["default"],
+    component: _components_teacher_TeacherHome__WEBPACK_IMPORTED_MODULE_5__["default"],
     meta: {
       auth: {
         roles: 1,
