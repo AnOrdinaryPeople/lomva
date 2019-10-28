@@ -4,6 +4,11 @@ Route::prefix('auth')->group(function(){
 	Route::post('register', 'AuthController@register');
 	Route::post('login', 'AuthController@login');
 	Route::get('refresh', 'AuthController@refresh');
+	
+	Route::group(['middleware' => ['web']], function(){
+		Route::get('{provider}/redirect', 'OutController@redirectToProvider');
+		Route::get('{provider}/callback', 'OutController@handleProviderCallback');
+	});
 
 	Route::group(['middleware' => 'auth:api'], function(){
 		Route::get('user', 'AuthController@user');
