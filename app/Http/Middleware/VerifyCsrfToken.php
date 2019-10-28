@@ -19,6 +19,7 @@ class VerifyCsrfToken extends Middleware
      * @var array
      */
     protected $except = [
-        //
+        '/api/auth/google/redirect', '/api/auth/facebook/redirect',
+        '/api/auth/google/callback', '/api/auth/facebook/callback'
     ];
 }
