@@ -4,7 +4,9 @@
 			<div class="card-header">Login</div>
 			<div class="card-body">
 				<div v-if="has_error" class="alert alert-danger">Email atau password salah</div>
-				<form autocomplete="off" @submit.prevent="login" method="post">
+				<button class="btn btn-google" @click="authProvider('google')">Login dengan Google</button>
+				<button class="btn btn-facebook" @click="authProvider('facebook')">Login dengan Facebook</button>
+				<form autocomplete="off" @submit.prevent="login()" method="post">
 					<div class="form-group">
 						<label for="log-email">Email</label>
 						<input id="log-email" class="form-control" type="email" v-model="email">
@@ -28,16 +30,24 @@
 			has_error: false,
 			errors: {}
 		}),
+		mounted(){
+			const q = this.$route.query.token
+			
+			if(q){
+				var data = JSON.parse(atob(q))
+				this.login(data.email, data.pass)
+			}
+		},
 		methods: {
-			login(){
+			login(e = '', p = ''){
 				var id = document.getElementById('btn-log-submit'),
 					rdr = this.$auth.redirect()
 
 				id.setAttribute('disabled', 1)
 				this.$auth.login({
 					data: {
-						email: this.email,
-						password: this.pass
+						email: e !== '' ? e : this.email,
+						password: p !== '' ? p : this.pass
 					},
 					success: () => {
 						this.$router.push({name: rdr ? rdr.from.name : this.$auth.user().role === 1 ? 'home-teacher' : 'home-user' })
@@ -49,6 +59,17 @@
 					},
 					rememberMe: true,
 					fetchUser: true
+				})
+			},
+			authProvider(prov){
+				axios({
+					method: 'GET',
+					url: `/auth/${prov}/redirect`,
+					headers: {'Authorization': null}
+				}).then(resp => {
+					window.location.href = resp.data.uri
+				}).catch(err => {
+					console.log(err)
 				})
 			}
 		}
