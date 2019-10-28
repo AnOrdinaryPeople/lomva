@@ -18,7 +18,6 @@ Vue.use(VueRouter)
 
 Vue.use(VueAuth, auth)
 
-
 new Vue({
 	router,
     render: h => h(App)
