@@ -25,6 +25,7 @@ class AuthController extends Controller
 	    	], 422);
     	else{
     		User::create([
+                'name' => 'user',
     			'email' => $req->email,
     			'password' => Hash::make($req->password),
                 'role' => $req->role
