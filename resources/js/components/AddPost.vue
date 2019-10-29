@@ -1,0 +1,103 @@
+<template>
+	<div class="card">
+		<div class="card-header">
+			<ul class="nav nav-tabs card-header-tabs">
+				<li class="nav-item">
+					<a class="nav-link" href="#" :class="page === 0 ? 'active' : ''" @click.prevent="checker(0)">Input postingan</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="#" :class="page === 1 ? 'active' : ''" @click.prevent="checker(1)">Lihat hasil isi postingan</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="#" :class="page === 2 ? 'active' : ''" @click.prevent="checker(2)">Tambahan</a>
+				</li>
+			</ul>
+		</div>
+		<div class="card-body">
+			<div v-if="$auth.user().role === 1 && page === 0" class="form-group">
+				<label>Jenis postingan</label>
+				<div class="custom-control custom-radio">
+					<input id="radio-public" class="custom-control-input" type="radio" v-model="type" value="0">
+					<label class="custom-control-label" for="radio-public">Umum</label>
+				</div>
+				<div class="custom-control custom-radio">
+					<input id="radio-bk" class="custom-control-input" type="radio" v-model="type" value="1">
+					<label class="custom-control-label" for="radio-bk">Khusus guru BK</label>
+				</div>
+			</div>
+			<div v-if="page === 0" class="form-group">
+				<input class="form-control" page="text" v-model="title" placeholder="Judul postingan">
+				<small v-if="errors.title" v-for="e in errors.title" class="text-danger">{{ e }}<br/></small>
+			</div>
+			<div v-if="page === 0" class="form-group">
+				<textarea class="form-control mt-2" v-model="content" style="height: 450px" placeholder="Isi postingan"></textarea>
+				<small v-if="errors.desc" v-for="e in errors.desc" class="text-danger">{{ e }}<br/></small>
+			</div>
+			<markdown-it-vue v-if="page === 1" class="md-body" :content="content" />
+			<guide v-if="page === 2"></guide>
+			<button v-if="page === 0 || page === 1" class="btn mt-4" :class="$auth.user().role === 1 ? 'btn-success' : 'btn-primary'" @click="send">{{ btnTitle }}</button>
+		</div>
+	</div>
+</template>
+
+<script>
+	import MarkdownItVue from 'markdown-it-vue'
+	import 'markdown-it-vue/dist/markdown-it-vue.css'
+	import Guide from './Guide.vue'
+
+	export default{
+		components: {
+			MarkdownItVue,
+			Guide
+		},
+		data: () => ({
+			title: '',
+			content: '',
+			type: 0,
+			page: 0,
+			btnTitle: 'Tambah postingan',
+			errors: {}
+		}),
+		mounted(){
+			this.checkPath()
+		},
+		methods: {
+			checker(t){
+				this.page = t
+			},
+			send(){
+				const req = {
+					type: this.type,
+					title: this.title,
+					desc: this.content
+				}
+
+				if(this.$route.name == 'add-post') axios.post(`/post-save/${this.$auth.user().id}`, req)
+					.then(resp => this.$router.push({path: resp.data.url}))
+					.catch(err => this.errors = err.response.data.errors)
+				else axios.post('/post-update/'+this.$route.params.id, req)
+					.then(resp => this.$router.push({path: resp.data.url}))
+					.catch(err => console.error(err))
+			},
+			checkPath(){
+				if(this.$route.name != 'add-post') axios.post('/my-post/edit/'+this.$route.params.id)
+					.then(resp => {
+						this.title = resp.data.title
+						this.content = resp.data.desc
+						this.type = resp.data.type
+						this.btnTitle = 'Update postingan'
+					})
+			}
+		},
+		watch: {
+			$route(to){
+				if(to.name == 'add-post'){
+					this.title = ''
+					this.content = ''
+					this.type = 0
+					this.btnTitle = 'Tambah postingan'
+				}else if(to.name == 'edit-my-post') this.checkPath()
+			}
+		}
+	}
+</script>
