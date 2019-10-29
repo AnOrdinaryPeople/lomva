@@ -4,10 +4,10 @@
 			<div class="card-header">
 				<ul class="nav nav-tabs card-header-tabs">
 					<li class="nav-item">
-						<a class="nav-link" href="#" :class="role === 0 ? 'active' : ''" @click="btnReg(0)">Daftar sebagai siswa</a>
+						<a class="nav-link" href="#" :class="role === 0 ? 'active' : ''" @click.prevent="btnReg(0)">Daftar sebagai siswa</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="#" :class="role === 1 ? 'active' : ''" @click="btnReg(1)">Daftar sebagai guru BK</a>
+						<a class="nav-link" href="#" :class="role === 1 ? 'active' : ''" @click.prevent="btnReg(1)">Daftar sebagai guru BK</a>
 					</li>
 				</ul>
 			</div>

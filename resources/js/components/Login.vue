@@ -27,8 +27,7 @@
 		data: () => ({
 			email: '',
 			pass: '',
-			has_error: false,
-			errors: {}
+			has_error: false
 		}),
 		mounted(){
 			const q = this.$route.query.token
@@ -50,7 +49,7 @@
 						password: p !== '' ? p : this.pass
 					},
 					success: () => {
-						this.$router.push({name: rdr ? rdr.from.name : this.$auth.user().role === 1 ? 'home-teacher' : 'home-user' })
+						this.$router.push({name: 'dashboard' })
 						id.removeAttribute('disabled')
 					},
 					error: () => {
