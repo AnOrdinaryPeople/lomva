@@ -4,8 +4,12 @@ import Router from 'vue-router'
 import Home from './components/Home'
 import Register from './components/Register'
 import Login from './components/Login'
-import UserHome from './components/user/UserHome'
-import TeacherHome from './components/teacher/TeacherHome'
+import Profile from './components/Profile'
+import AddPost from './components/AddPost'
+import Guide from './components/Guide'
+import UserHome from './components/UserHome'
+import Post from './components/Post'
+import MyPost from './components/MyPost'
 
 export default new VueRouter({
 	history: true,
@@ -27,21 +31,33 @@ export default new VueRouter({
 			component: Login,
 			meta: { auth: false }
 		},{
-			path: '/home-user',
-			name: 'home-user',
-			component: UserHome,
-			meta: { auth: {
-				roles: 0,
-				redirect: { name: 'home' }
-			}}
+			path: '/dashboard',
+			name: 'dashborad',
+			component: UserHome
 		},{
-			path: '/home-teacher',
-			name: 'home-teacher',
-			component: TeacherHome,
-			meta: { auth: {
-				roles: 1,
-				redirect: { name: 'home' }
-			}}
+			path: '/profile',
+			name: 'profile',
+			component: Profile,
+			meta: { auth: true }
+		},{
+			path: '/add-post',
+			name: 'add-post',
+			component: AddPost,
+			meta: { auth: true }
+		},{
+			path: '/post/:id',
+			name: 'post-user',
+			component: Post
+		},{
+			path: '/my-post',
+			name: 'my-post',
+			component: MyPost,
+			meta: { auth: true }
+		},{
+			path: '/my-post/:id',
+			name: 'edit-my-post',
+			component: AddPost,
+			meta: { auth: true }
 		},{
 			path: '*',
 			redirect: { name: 'home' }
