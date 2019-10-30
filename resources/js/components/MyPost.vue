@@ -1,7 +1,8 @@
 <template>
 	<div>
-		<div v-if="counter > 0">
-			<div v-for="c in content" class="card mb-4">
+		<laravel-vue-pagination :data="content" @pagination-change-page="changePage"></laravel-vue-pagination>
+		<div v-if="content.total > 0">
+			<div v-for="c in content.data" class="card mb-4">
 				<div class="card-header">
 					<button class="btn btn-danger" @click="openModalDel(c.id, c.title)">Hapus postingan</button>
 				</div>
@@ -14,6 +15,7 @@
 			<h1>Tidak ada postingan</h1>
 			<router-link to="/add-post">Buat postingan baru</router-link>
 		</div>
+		<laravel-vue-pagination :data="content" @pagination-change-page="changePage"></laravel-vue-pagination>
 		<div id="post-del" class="modal fade" tabindex="-1">
 			<div class="modal-dialog">
 				<div class="modal-content">
@@ -42,12 +44,16 @@
 </style>
 
 <script>
+	import LaravelVuePagination from 'laravel-vue-pagination'
+
 	export default{
+		components: {
+			LaravelVuePagination
+		},
 		data: () => ({
-			content: {},
+			content: {total: 1},
 			ttl : '',
-			idDel: '',
-			counter: 0
+			idDel: ''
 		}),
 		mounted(){
 			this.getMyPost()
@@ -69,10 +75,12 @@
 			},
 			getMyPost(){
 				axios.post('/my-post/'+this.$auth.user().id)
-					.then(resp => {
-						this.counter = resp.data.total
-						this.content = resp.data.data
-					}).catch(err => console.error(err))
+					.then(resp => this.content = resp.data).catch(err => console.error(err))
+			},
+			changePage(page = 1){
+				axios.post('/my-post/'+this.$auth.user().id)
+					.then(resp => this.content = resp.data)
+					.catch(err => console.error(err))
 			}
 		}
 	}
