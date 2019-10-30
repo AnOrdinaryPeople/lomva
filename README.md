@@ -3,7 +3,7 @@
 1. [git](https://git-scm.com/downloads)
 1. [composer](https://getcomposer.org/download/)
 1. [node.js](https://nodejs.org/en/download/current/)
-1. Size 100mb - 200mb
+1. Size 250mb - 350mb
 
 # install
 1. buka htdocs
@@ -26,3 +26,9 @@ liat di `database/seeds/UserTableSeeder.php`
 
 ### recaptcha
 Ambil site key sama secret key di [recaptcha](https://www.google.com/recaptcha) simpen di `.env` buat site key `RECAPTCHA_SITE_KEY=kode_site_key`. buat secret key `RECAPTCHA_SECRET=kode_secret_key`
+
+### Google API sama Facebook API
+Ambil client id sama secret key di [Google developer console](https://console.developers.google.com) sama [Facebook developer](https://developers.facebook.com)
+
+- untuk Google simpen client id sama secret key di `.env` bagian `GOOGLE_CLIENT_ID=` dan `GOOGLE_CLIENT_SECRET=`
+- untuk Facebook simpen client id sama secret key di `.env` bagian `FACEBOOK_CLIENT_ID=` dan `FACEBOOK_CLIENT_SECRET=`
