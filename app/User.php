@@ -52,4 +52,7 @@ class User extends Authenticatable implements JWTSubject
     public function userPost(){
         return $this->hasMany(\App\UserPost::class);
     }
+    public function comment(){
+        return $this->hasMany(\App\Comment::class);
+    }
 }
