@@ -46,7 +46,7 @@
         <div class="container-fluid">
             <div :class="$auth.check() ? 'row' : ''">
                 <div v-if="$auth.check()" class="col-2 bg-white position-sticky overflow-auto shadow-sm" style="height: 100vh;top: 0">
-                    <nav class="nav nav-pills flex-column">
+                    <nav class="nav nav-pills flex-column pt-3">
                         <router-link class="nav-link" to="/dashboard">Dashboard</router-link>
                         <router-link class="nav-link" to="/add-post">Buat postingan baru</router-link>
                         <router-link class="nav-link" to="/my-post">Postinganku</router-link>
