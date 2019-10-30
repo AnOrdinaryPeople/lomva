@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Comment;
 use App\Profile;
 use App\User;
 use App\UserPost;
@@ -65,14 +66,13 @@ class UserController extends Controller
     	}
     }
     public function getPost($id){
-    	return response()->json(UserPost::getPost($id));
+    	return response()->json(['post' => UserPost::getPost($id), 'reply' => Comment::getReply($id)]);
     }
     public function allPost($check){
     	return response()->json(UserPost::allPost($check));
     }
     public function getUserPost($id){
-    	$data = UserPost::getUserPost($id);
-    	return response()->json(['data' => $data, 'total' => $data->count()]);
+    	return response()->json(UserPost::getUserPost($id));
     }
     public function getThisPost($id){
     	return response()->json(UserPost::find($id));
@@ -99,5 +99,21 @@ class UserController extends Controller
     }
     public function search(Request $req){
     	return response()->json(UserPost::search($req->search, $req->role));
+    }
+    public function sendReply($id, $userId, Request $req){
+        Comment::create([
+            'reply' => $req->reply,
+            'post_id' => $id,
+            'user_id' => $userId
+        ]);
+        return response()->json(Comment::getReply($id));
+    }
+    public function replyUpdate($id, $postId, Request $req){
+        Comment::find($id)->update($req->all());
+        return response()->json(Comment::getReply($postId));
+    }
+    public function replyDestroy($id, $postId){
+        Comment::destroy($id);
+        return response()->json(Comment::getReply($postId));
     }
 }
