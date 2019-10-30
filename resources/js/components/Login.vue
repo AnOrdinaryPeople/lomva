@@ -39,8 +39,7 @@
 		},
 		methods: {
 			login(e = '', p = ''){
-				var id = document.getElementById('btn-log-submit'),
-					rdr = this.$auth.redirect()
+				var id = document.getElementById('btn-log-submit')
 
 				id.setAttribute('disabled', 1)
 				this.$auth.login({
@@ -49,7 +48,7 @@
 						password: p !== '' ? p : this.pass
 					},
 					success: () => {
-						this.$router.push({name: 'dashboard' })
+						this.$router.push({ name: 'dashboard' })
 						id.removeAttribute('disabled')
 					},
 					error: () => {
