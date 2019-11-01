@@ -48,12 +48,12 @@
 						<input id="prof-email" class="form-control" type="email" :value="email" disabled="1">
 					</div>
 					<div class="form-group">
-						<label for="prof-pass">Password</label>
+						<label for="prof-pass">Password (baru)</label>
 						<input id="prof-pass" class="form-control" type="password" v-model="profile.pass">
 						<small v-if="errors" v-for="err in errors" class="text-danger">{{ err }}<br/></small>
 					</div>
 					<div class="form-group">
-						<label for="prof-pass-con">Konfirmasi password</label>
+						<label for="prof-pass-con">Konfirmasi password (baru)</label>
 						<input id="prof-pass-con" class="form-control" type="password" v-model="profile.passCon">
 					</div>
 					<div class="form-group">
