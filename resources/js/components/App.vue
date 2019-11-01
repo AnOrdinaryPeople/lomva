@@ -1,7 +1,10 @@
 <template>
     <div>
+        <div id="app-back-top" class="bg-secondary text-light text-center rounded-circle pt-3" style="display: none">
+            <i id="top" class="material-icons">keyboard_arrow_up</i>
+        </div>
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
-            <router-link class="navbar-brand" :to="{name: 'home'}">{{ appName }}</router-link>
+            <router-link class="navbar-brand" :to="{name: 'home'}"><img :src="sauce+'/img/ini.png'" width="75" height="30" /></router-link>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -12,14 +15,29 @@
                         <router-link class="nav-link" to="/dashboard">Dashboard</router-link>
                     </li>
                     <li class="nav-item">
-                        <div class="input-group">
-                            <div class="input-group-prepend">
+                        <form>
+                            <div class="input-group">
                                 <input class="form-control" type="text" v-model="searchApp" placeholder="Cari postingan..">
+                                <div class="input-group-append">
+                                    <button class="btn btn-outline-secondary" @click.prevent="btnSearchApp">Cari</button>
+                                </div>
                             </div>
-                            <div class="input-group-append">
-                                <button class="btn btn-outline-secondary" @click.prevent="btnSearchApp">Cari</button>
-                            </div>
-                        </div>
+                        </form>
+                    </li>
+                    <li v-if="resize" class="nav-item">
+                        <router-link class="nav-link" to="/dashboard">Dashboard</router-link>
+                    </li>
+                    <li v-if="resize" class="nav-item">
+                        <router-link class="nav-link" :to="$auth.user().role === 1 ? '/teacher/questionnaire' : '/questionnaire'">Kuesioner</router-link>
+                    </li>
+                    <li v-if="resize" class="nav-item">
+                        <router-link class="nav-link" to="/add-post">Buat postingan baru</router-link>
+                    </li>
+                    <li v-if="resize" class="nav-item">
+                        <router-link class="nav-link" to="/my-post">Postinganku</router-link>
+                    </li>
+                    <li v-if="resize" class="nav-item">
+                        <a class="nav-link" href="#" @click.prevent="openAppModal()">Format tambahan</a>
                     </li>
                 </ul>
                 <ul v-if="!$auth.check()" class="navbar-nav ml-auto">
@@ -44,15 +62,17 @@
             </div>
         </nav>
         <div class="container-fluid">
-            <div :class="$auth.check() ? 'row' : ''">
-                <div v-if="$auth.check()" class="col-2 bg-white position-sticky overflow-auto shadow-sm" style="height: 100vh;top: 0">
-                    <nav class="nav nav-pills flex-column pt-3">
+            <div :class="$auth.check() ? (!resize ? 'row' : '') : ''">
+                <div v-if="$auth.check()" :class="!resize ? 'col-2 bg-white position-sticky overflow-auto shadow-sm' : 'invisible'" :style="!resize ? 'height: 100vh;top: 0' : ''">
+                    <nav v-if="!resize" class="nav nav-pills flex-column pt-3">
                         <router-link class="nav-link" to="/dashboard">Dashboard</router-link>
+                        <router-link class="nav-link" :to="$auth.user().role === 1 ? '/teacher/questionnaire' : '/questionnaire'">Kuesioner</router-link>
                         <router-link class="nav-link" to="/add-post">Buat postingan baru</router-link>
                         <router-link class="nav-link" to="/my-post">Postinganku</router-link>
+                        <a class="nav-link" href="#" @click.prevent="openAppModal()">Format tambahan</a>
                     </nav>
                 </div>
-                <div :class="$auth.check() ? 'col-10 py-4 px-4' : 'container py-4'">
+                <div :class="$auth.check() ? (!resize ? 'col-10 py-4 px-4' : 'container py-4') : 'container py-4'">
                     <transition name="slide-fade" mode="out-in" @beforeLeave="before" @enter="enter" @afterEnter="after">
                         <router-view></router-view>
                     </transition>
@@ -62,19 +82,71 @@
         <footer class="bg-white py-2 text-center">
             <p id="footer-desc">&copy;</p>
         </footer>
+        <div v-if="$auth.check()" id="app-modal-format" class="modal fade" tabindex="-1">
+            <div class="modal-dialog modal-dialog-scrollable modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5>Format tambahan</h5>
+                        <button class="close" data-dismiss="modal">
+                            <span>&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <guide></guide>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
+<style scoped>
+    #app-back-top {
+        position: fixed;
+        width: 55px;
+        height: 55px;
+        bottom: 25px;
+        right: 25px;
+        z-index: 9999
+    }
+    #app-back-top:hover {
+        cursor: pointer;
+        background-color: #595C5E!important
+    }
+</style>
 
 <script>
+    import Guide from './Guide'
+
     export default {
+        components: {
+            Guide
+        },
         data: () => ({
-            appName: process.env.MIX_APP_NAME,
             sauce: process.env.MIX_APP_URL,
             height: 0,
-            searchApp: ''
+            searchApp: '',
+            resize: false
         }),
         mounted(){
-            document.getElementById('footer-desc').innerHTML += ` ${new Date().getFullYear()} SMK BPI. All Right Reserved`
+            document.getElementById('footer-desc').innerHTML += ` ${new Date().getFullYear()} <a href="http://smkbpi.sch.id/" target="_blank">SMK BPI</a>. All Right Reserved`
+            
+            if(window.innerWidth <= 768) this.resize = true
+            else this.resize = false
+
+            window.addEventListener('resize', e => {
+                if(e.target.innerWidth <= 768) this.resize =  true
+                else this.resize = false
+            })
+            $(window).scroll(function(){
+                if ($(this).scrollTop() > 100) $('#app-back-top').fadeIn()
+                else $('#app-back-top').fadeOut()
+            })
+            $('#app-back-top i').click(function(){
+                $('body,html').animate({
+                    scrollTop: 0
+                }, 250)
+                return false
+            });
         },
         methods: {
             before(el){
@@ -93,6 +165,9 @@
             },
             btnSearchApp(){
                 this.$router.push({ path: '/dashboard?q='+this.searchApp })
+            },
+            openAppModal(){
+                $('#app-modal-format').modal()
             }
         }
     }
