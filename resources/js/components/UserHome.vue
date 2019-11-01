@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div class="bg-white p-4">
 		<laravel-vue-pagination :data="content" @pagination-change-page="changePage"></laravel-vue-pagination>
 		<div v-if="content.total > 0">
 			<div v-for="c in content.data" class="card mb-4" @click="goTo(c.toId)">
