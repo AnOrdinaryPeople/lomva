@@ -1,0 +1,114 @@
+<template>
+	<div class="bg-white p-4">
+		<div v-if="!isFinish" class="row">
+			<div class="col-3">
+				<button v-for="(i, key) in loop(total)" :id="`btn-q-${key}`" class="btn btn-outline-primary m-1" @click="toNumber(i)">{{ i }}</button>
+			</div>
+			<div class="col-9">
+				<h1>{{ content[n]['number'] }}. {{ content[n]['question'] }}</h1>
+				<div class="form-group">
+					<div v-for="(a, key) in content[n]['answer']" class="custom-control custom-radio">
+						<input :id="`q-${n}-${key}`" class="custom-control-input" type="radio" name="option" @click.prevent="saveAnswer(n, a.score, key)" :checked="checker(n, key)">
+						<label class="custom-control-label" :for="`q-${n}-${key}`">{{ a.answer }}</label>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col">
+						<button class="btn btn-secondary mr-2" @click="next(n - 1)">Soal sebelumnya</button>
+						<button class="btn btn-primary" @click="next(n + 1)">Soal selanjutnya</button>
+					</div>
+					<div class="col text-right">
+						<button v-if="btnFinish" class="btn btn-warning" @click="getResult">Kirimkan jawaban</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div v-else class="container">
+			<h4 class="text-center">Skor kamu {{ totalScore }}</h4>
+			<p>{{ descFinish }}</p>
+		</div>
+	</div>
+</template>
+
+<script>
+	export default{
+		data: () => ({
+			content: {0:{number: 1}},
+			total: 0,
+			n: 0,
+			answer: [],
+			result: {},
+			btnFinish: false,
+			isFinish: false,
+			descFinish: '',
+			totalScore: 0
+		}),
+		mounted(){
+			axios.post(`/questionnaire/test/${this.$route.params.id}`)
+				.then(resp => {
+					this.content = resp.data.data
+					this.total = resp.data.total
+					this.result = resp.data.result
+				})
+				.catch(err => console.error(err))
+		},
+		methods: {
+			loop(max){
+				var data = []
+
+				for(var i = 0; i < max; i++) data[i] = i + 1
+				return data
+			},
+			toNumber(i){
+				this.n = i - 1
+			},
+			next(i){
+				if(i < 0) i = 0
+				else if(i >= this.content.length) i = this.content.length - 1
+				this.n = i
+			},
+			saveAnswer(n, score, key){
+				var id = document.getElementById('btn-q-'+n).classList
+				this.answer[n] = {'score': score, 'key': key}
+
+				if(!this.answer.includes(undefined) && this.total === this.answer.length) this.btnFinish = true
+				else this.btnFinish = false
+
+				id.add('btn-primary')
+				id.remove('btn-outline-primary')
+			},
+			checker(n, key){
+				try{
+					if(this.answer[n]['key'] === key) return true
+					else return false
+				}catch(e){
+					return false
+				}
+			},
+			getResult(){
+				var n = 0,
+					r = this.result
+
+				for(var i = 0; i < this.answer.length; i++) n += this.answer[i]['score']
+
+				this.totalScore = n
+				
+				for(var j = 0; j < r.length; j++){
+					if(n >= r[j]['min_score'] && n <= r[j]['max_score']){
+						this.descFinish = r[j]['desc']
+						this.isFinish = true
+						break
+					}
+				}
+			}
+		},
+		beforeRouteLeave(to, from, next){
+			if(this.isFinish) next()
+			else{
+				if(window.confirm('Apakah kamu yakin ingin keluar dari halaman ini? kamu belum menyelesaikan test ini'))
+					next()
+				else next(false)
+			}
+		}
+	}
+</script>
