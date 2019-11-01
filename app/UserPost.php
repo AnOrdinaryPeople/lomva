@@ -35,6 +35,7 @@ class UserPost extends Model
     	return DB::table('user_posts')
     		->select('id', 'title')
     		->where('user_id', $id)
+            ->orderBy('id', 'desc')
     		->paginate(10);
     }
     public static function search($q, $role){
