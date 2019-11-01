@@ -78,7 +78,7 @@
 					.then(resp => this.content = resp.data).catch(err => console.error(err))
 			},
 			changePage(page = 1){
-				axios.post('/my-post/'+this.$auth.user().id)
+				axios.post('/my-post/'+this.$auth.user().id+'?page='+page)
 					.then(resp => this.content = resp.data)
 					.catch(err => console.error(err))
 			}
