@@ -31,3 +31,18 @@ Route::delete('/my-post/delete/{id}', 'UserController@destroy');
 Route::post('/my-post/edit/{id}', 'UserController@getThisPost');
 Route::post('/post-update/{id}', 'UserController@updatePost');
 Route::post('/post-search', 'UserController@search');
+
+Route::prefix('questionnaire')->group(function(){
+	Route::post('all-quest', 'QuestController@getAll');
+	Route::post('search', 'QuestController@search');
+	Route::post('{id}', 'QuestController@getThisQuest');
+	Route::post('test/{id}', 'QuestController@test');
+});
+
+Route::prefix('quest')->group(function(){
+	Route::post('teacher/{id}', 'QuestController@getOwnQuest');
+	Route::post('teacher/{id}/send', 'QuestController@store');
+	Route::post('teacher/{id}/edit', 'QuestController@edit');
+	Route::post('teacher/{id}/update/{userId}', 'QuestController@update');
+	Route::delete('teacher/{id}/destroy', 'QuestController@destroy');
+});
