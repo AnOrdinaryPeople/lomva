@@ -58,9 +58,6 @@
 			btnTitle: 'Tambah postingan',
 			errors: {}
 		}),
-		mounted(){
-			this.checkPath()
-		},
 		methods: {
 			checker(t){
 				this.page = t
@@ -74,10 +71,16 @@
 
 				if(this.$route.name == 'add-post') axios.post(`/post-save/${this.$auth.user().id}`, req)
 					.then(resp => this.$router.push({path: resp.data.url}))
-					.catch(err => this.errors = err.response.data.errors)
+					.catch(err => {
+						this.errors = err.response.data.errors
+						this.page = 0
+					})
 				else axios.post('/post-update/'+this.$route.params.id, req)
 					.then(resp => this.$router.push({path: resp.data.url}))
-					.catch(err => console.error(err))
+					.catch(err => {
+						this.errors = err.response.data.errors
+						this.page = 0
+					})
 			},
 			checkPath(){
 				if(this.$route.name != 'add-post') axios.post('/my-post/edit/'+this.$route.params.id)
@@ -98,6 +101,13 @@
 					this.btnTitle = 'Tambah postingan'
 				}else if(to.name == 'edit-my-post') this.checkPath()
 			}
+		},
+		beforeRouteLeave(to, from, next){
+			if(this.title != '' || this.content != ''){
+				if(window.confirm('Apakah kamu yakin ingin keluar dari halaman ini? hasil postingan kamu belum disimpan'))
+					next()
+				else next(false)
+			}else next()
 		}
 	}
 </script>
