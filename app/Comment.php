@@ -22,6 +22,6 @@ class Comment extends Model
     		->join('users', 'users.id', '=', 'comments.user_id')
     		->where('post_id', $id)
     		->orderBy('comments.id', 'desc')
-    		->paginate(4);
+    		->paginate(10);
     }
 }
