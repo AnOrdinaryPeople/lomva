@@ -68,12 +68,12 @@
 					<input id="teach-email" class="form-control" type="email" :value="email" disabled="1">
 				</div>
 				<div class="form-group">
-					<label for="teach-pass">Password</label>
+					<label for="teach-pass">Password (baru)</label>
 					<input id="teach-pass" class="form-control" type="password" v-model="profile.pass">
 					<small v-if="errors" v-for="err in errors" class="text-danger">{{ err }}<br/></small>
 				</div>
 				<div class="form-group">
-					<label for="teach-pass-con">Konfirmasi password</label>
+					<label for="teach-pass-con">Konfirmasi password (baru)</label>
 					<input id="teach-pass-con" class="form-control" type="password" v-model="profile.passCon">
 				</div>
 				<div class="form-group">
@@ -126,6 +126,7 @@
 			axios.post(`/user-profile/${this.$auth.user().id}`)
 				.then(resp => {
 					var r = resp.data
+					console.log(r)
 					this.profile.phone = r.phone || ''
 					this.profile.gender = r.gender || ''
 					this.profile.cls = r.cls || ''

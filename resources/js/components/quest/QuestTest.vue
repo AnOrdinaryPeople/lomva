@@ -26,6 +26,7 @@
 		<div v-else class="container">
 			<h4 class="text-center">Skor kamu {{ totalScore }}</h4>
 			<p>{{ descFinish }}</p>
+			<router-link class="mt-4 btn btn-primary" to="/dashboard">Kembali ke dashboard</router-link>
 		</div>
 	</div>
 </template>
@@ -44,13 +45,18 @@
 			totalScore: 0
 		}),
 		mounted(){
-			axios.post(`/questionnaire/test/${this.$route.params.id}`)
+			axios.post(`/questionnaire/test/${this.$route.params.id}/${this.$auth.user().id}`)
 				.then(resp => {
 					this.content = resp.data.data
 					this.total = resp.data.total
 					this.result = resp.data.result
 				})
-				.catch(err => console.error(err))
+				.catch(err => {
+					if(err.response.data.status === 'done'){
+						this.isFinish = true
+						this.$router.push(`/questionnaire`)
+					}else console.error(err)
+				})
 		},
 		methods: {
 			loop(max){
@@ -100,6 +106,10 @@
 						break
 					}
 				}
+				axios.post(`/questionnaire/${this.$route.params.id}/score/${this.$auth.user().id}`, {
+					score: this.totalScore
+				}).then(() => {})
+				.catch(err => console.error(err))
 			}
 		},
 		beforeRouteLeave(to, from, next){

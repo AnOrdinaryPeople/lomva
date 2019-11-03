@@ -15,6 +15,7 @@ import InfoQuest from './components/quest/InfoQuest'
 import QuestTest from './components/quest/QuestTest'
 import QuestTeacher from './components/quest/QuestTeacher'
 import CreateQuest from './components/quest/CreateQuest'
+import DoneQuest from './components/quest/DoneQuest'
 
 export default new VueRouter({
 	history: true,
@@ -101,6 +102,14 @@ export default new VueRouter({
 			path: '/teacher/questionnaire/:id/edit',
 			name: 'teacher-quest-edit',
 			component: CreateQuest,
+			meta: { auth: {
+				roles: 1,
+				redirect: '/questionnaire'
+			}}
+		},{
+			path: '/teacher/questionnaire/:id/done',
+			name: 'teacher-quest-done',
+			component: DoneQuest,
 			meta: { auth: {
 				roles: 1,
 				redirect: '/questionnaire'

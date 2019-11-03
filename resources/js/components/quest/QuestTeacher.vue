@@ -5,6 +5,7 @@
 		<div v-if="total > 0">
 			<div v-for="c in content.data" class="card mb-4">
 				<div class="card-header">
+					<router-link class="btn btn-primary" :to="`/teacher/questionnaire/${c.id}/done`">Lihat hasil akhir</router-link>
 					<button class="btn btn-danger" @click="openDel(c.id, c.title)">Hapus kuesioner</button>
 				</div>
 				<div class="card-body" @click="$router.push({path: `/teacher/questionnaire/${c.id}/edit`})">

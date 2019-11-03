@@ -3,6 +3,7 @@
 		<div v-if="error" class="alert alert-danger">
 			<ol>
 				<li>Ada inputan yang kosong!</li>
+				<li>Pastikan nilai skor terkecil harus lebih kecil dari skor terbesar!</li>
 				<li>Pastikan nilai skor tertinggi harus lebih besar dari skor terkecil!</li>
 			</ol>
 		</div>
@@ -70,7 +71,7 @@
 			</div>
 		</div>
 		<div class="text-right pt-4">
-			<button class="btn btn-primary" data-toggle="modal" data-target="#confirm-quest">{{ id ? 'Update kuesioner' : 'Kirim kuesioner'}}</button>
+			<button class="btn btn-primary" data-toggle="modal" data-target="#confirm-quest">{{ routeName == 'teacher-quest-create' ? 'Kirim' : 'Update' }} kuesioner</button>
 		</div>
 		<div id="confirm-quest" class="modal fade" tabindex="-1">
 			<div class="modal-dialog modal-dialog-scrollable">
@@ -87,7 +88,7 @@
 					</div>
 					<div class="modal-footer">
 						<button class="btn btn-secondary" data-dismiss="modal">Batalkan</button>
-						<button id="btn-confirm-modal" class="btn btn-success" @click="confirmQuest">{{ id ? 'Update' : 'Kirim' }} kuesioner</button>
+						<button id="btn-confirm-modal" class="btn btn-success" @click="confirmQuest">{{ routeName == 'teacher-quest-create' ? 'Kirim' : 'Update' }} kuesioner</button>
 					</div>
 				</div>
 			</div>
@@ -117,41 +118,11 @@
 			error: false,
 			canLeave: false,
 			id: 0,
+			routeName: ''
 		}),
 		mounted(){
-			this.id = this.$route.params.id
-
-			if(this.id) axios.post(`/quest/teacher/${this.id}/edit`)
-				.then(resp => {
-					var r = resp.data
-
-					this.title = r.info.title
-					this.desc = r.info.desc
-					this.questions = []
-					this.results = []
-
-					for(var i = 0; i < r.question.length; i++){
-						var q = r.question[i]
-
-						this.questions.push({
-							question: q.question,
-							answers: []
-						})
-						for(var j = 0; j < q.answer.length; j++){
-							var a = q.answer[j]
-							
-							this.questions[i].answers.push({
-								answer: a.answer,
-								score: a.score
-							})
-						}
-					}
-					for(var i = 0; i < r.result.length; i++) this.results.push({
-						min: r.result[i].min_score,
-						max: r.result[i].max_score,
-						desc: r.result[i].desc
-					})
-				})
+			this.routeName = this.$route.name
+			this.checkPath()
 		},
 		methods: {
 			countQuest(number){
@@ -198,25 +169,85 @@
 			},
 			confirmQuest(){
 				var id = document.getElementById('btn-confirm-modal'),
-					url = this.id ? `quest/teacher/${this.id}/update/${this.$auth.user().id}` : `quest/teacher/${this.$auth.user().id}/send`
+					url = this.routeName == 'teacher-quest-create' ? `quest/teacher/${this.$auth.user().id}/send` : `quest/teacher/${this.id}/update/${this.$auth.user().id}`
 
 				id.setAttribute('disabled', 1)
-				axios.post(url, {
-					title: this.title,
-					desc: this.desc,
-					questions: this.questions,
-					results: this.results
-				}).then(resp => {
-					this.canLeave = true
-					this.$router.push({ name: 'teacher-quest' })
-					$('#confirm-quest').modal('hide')
-					id.removeAttribute('disabled')
-				}).catch(err => {
-					console.error(err.response)
-					$('#confirm-quest').modal('hide')
-					id.removeAttribute('disabled')
-					if(_.size(err.response.data) > 0) this.error = true
-				})
+					axios.post(url, {
+						title: this.title,
+						desc: this.desc,
+						questions: this.questions,
+						results: this.results
+					}).then(resp => {
+						this.canLeave = true
+						this.$router.push({ name: 'teacher-quest' })
+						$('#confirm-quest').modal('hide')
+						id.removeAttribute('disabled')
+					}).catch(err => {
+						console.error(err.response)
+						$('#confirm-quest').modal('hide')
+						id.removeAttribute('disabled')
+						if(_.size(err.response.data) > 0) this.error = true
+					})
+			},
+			checkPath(){
+				this.id = this.$route.params.id
+
+				if(this.routeName != 'teacher-quest-create')
+					axios.post(`/quest/teacher/${this.id}/edit/${this.$auth.user().id}`)
+						.then(resp => {
+							var r = resp.data
+
+							if(r.info.title === undefined) this.$router.push({name: 'teacher-quest-create'})
+							else{
+								this.title = r.info.title
+								this.desc = r.info.desc
+								this.questions = []
+								this.results = []
+
+								for(var i = 0; i < r.question.length; i++){
+									var q = r.question[i]
+
+									this.questions.push({
+										question: q.question,
+										answers: []
+									})
+									for(var j = 0; j < q.answer.length; j++){
+										var a = q.answer[j]
+										
+										this.questions[i].answers.push({
+											answer: a.answer,
+											score: a.score
+										})
+									}
+								}
+								for(var i = 0; i < r.result.length; i++) this.results.push({
+									min: r.result[i].min_score,
+									max: r.result[i].max_score,
+									desc: r.result[i].desc
+								})
+							}
+						}).catch(err => console.error(err))
+			}
+		},
+		watch: {
+			$route(to){
+				this.routeName = to.name
+				if(to.name == 'teacher-quest-create'){
+					this.title = ''
+					this.content = ''
+					this.questions = [{
+						question: '',
+						answers: [{
+							answer: '',
+							score: ''
+						}]
+					}]
+					this.results = [{
+						min: '',
+						max: '',
+						desc: '' 
+					}]
+				}else if(to.name == 'teacher-quest-edit') this.checkPath()
 			}
 		},
 		beforeRouteLeave(to, from, next){

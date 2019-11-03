@@ -56,8 +56,15 @@
 			type: 0,
 			page: 0,
 			btnTitle: 'Tambah postingan',
-			errors: {}
+			errors: {},
+			id: 0,
+			routeName: '',
+			canLeave: false
 		}),
+		mounted(){
+			this.routeName = this.$route.name
+			this.checkPath()
+		},
 		methods: {
 			checker(t){
 				this.page = t
@@ -67,33 +74,37 @@
 					type: this.type,
 					title: this.title,
 					desc: this.content
-				}
+				}, url = this.routeName == 'add-post' ? `/post-save/${this.$auth.user().id}` : '/post-update/'+this.id
 
-				if(this.$route.name == 'add-post') axios.post(`/post-save/${this.$auth.user().id}`, req)
-					.then(resp => this.$router.push({path: resp.data.url}))
-					.catch(err => {
-						this.errors = err.response.data.errors
-						this.page = 0
+				axios.post(url, req)
+					.then(resp => {
+						this.canLeave = true
+						this.$router.push({path: resp.data.url})
 					})
-				else axios.post('/post-update/'+this.$route.params.id, req)
-					.then(resp => this.$router.push({path: resp.data.url}))
 					.catch(err => {
 						this.errors = err.response.data.errors
 						this.page = 0
 					})
 			},
 			checkPath(){
-				if(this.$route.name != 'add-post') axios.post('/my-post/edit/'+this.$route.params.id)
-					.then(resp => {
-						this.title = resp.data.title
-						this.content = resp.data.desc
-						this.type = resp.data.type
-						this.btnTitle = 'Update postingan'
-					})
+				if(this.routeName != 'add-post'){
+					this.id = this.$route.params.id
+					axios.post(`my-post/edit/${this.id}/${this.$auth.user().id}`)
+						.then(resp => {
+							if(resp.data.title === undefined) this.$router.push({path: '/add-post'})
+							else{
+								this.title = resp.data.title
+								this.content = resp.data.desc
+								this.type = resp.data.type
+								this.btnTitle = 'Update postingan'
+							}
+						})
+				}
 			}
 		},
 		watch: {
 			$route(to){
+				this.routeName = to.name
 				if(to.name == 'add-post'){
 					this.title = ''
 					this.content = ''
@@ -103,7 +114,8 @@
 			}
 		},
 		beforeRouteLeave(to, from, next){
-			if(this.title != '' || this.content != ''){
+			if(this.canLeave) next()
+			else if(this.title != '' || this.content != ''){
 				if(window.confirm('Apakah kamu yakin ingin keluar dari halaman ini? hasil postingan kamu belum disimpan'))
 					next()
 				else next(false)

@@ -46,15 +46,16 @@
 			url: ''
 		}),
 		mounted(){
-			const q = this.$route.query.q
-			this.url = q ? '/questionnaire/search' : '/questionnaire/all-quest'
+			const q = this.$route.query.q,
+				id = this.$auth.user().id
+			this.url = q ? '/questionnaire/search/'+id : '/questionnaire/all-quest/'+id
 
 			if(q) axios.post(this.url, {search: q})
 				.then(resp => this.content = resp.data)
 				.catch(err => console.error(err))
 			else axios.post(this.url)
 				.then(resp => this.content = resp.data)
-				.catch(err => console.error(err))
+				.catch(err => console.error(err.response))
 		},
 		methods: {
 			searchQ(){
