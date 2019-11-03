@@ -47,4 +47,10 @@ class UserPost extends Model
     	if($role === 1) return $db->paginate(10);
     	else return $db->where('type', 0)->paginate(10);
     }
+    public static function getThisPost($id, $userId){
+        return DB::table('user_posts')
+            ->where('user_id', $userId)
+            ->where('id', $id)
+            ->first();
+    }
 }

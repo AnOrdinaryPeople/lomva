@@ -12,10 +12,11 @@ class Result extends Model
     public function questionnaire(){
     	return $this->belongsTo(\App\Questionnaire::class);
     }
+
     public static function getResult($id){
     	return DB::table('results')
     		->select('min_score', 'max_score', 'desc')
     		->where('quest_id', $id)
-    		->get();
+            ->get();
     }
 }

@@ -19,17 +19,21 @@ class Questionnaire extends Model
     	return $this->hasMany(\App\Result::class);
     }
 
-    public static function getAll(){
+    public static function getAll($user){
         return DB::table('questionnaires')
             ->select('title', 'name', 'avatar', 'questionnaires.id as quest_id')
             ->join('users', 'users.id', '=', 'user_id')
+            ->join('dones', 'quest_id', '=', 'questionnaires.id')
+            ->where('dones.user_id', '!=', $user)
             ->orderBy('questionnaires.id', 'desc')
             ->paginate(10);
     }
-    public static function search($q){
+    public static function search($q, $user){
         return DB::table('questionnaires')
             ->select('title', 'name', 'avatar', 'questionnaires.id as quest_id')
             ->join('users', 'users.id', '=', 'user_id')
+            ->join('dones', 'quest_id', '=', 'questionnaires.id')
+            ->where('dones.user_id', '!=', $user)
             ->where('title', 'like', '%'.$q.'%')
             ->orWhere('name', 'like', '%'.$q.'%')
             ->orderBy('questionnaires.id', 'desc')
@@ -47,6 +51,20 @@ class Questionnaire extends Model
             ->select('id', 'title')
             ->where('user_id', $id)
             ->orderBy('id', 'desc')
+            ->paginate(10);
+    }
+    public static function getEdit($id, $userId){
+        return DB::table('questionnaires')
+            ->where('id', $id)
+            ->where('user_id', $userId)
+            ->first();
+    }
+    public static function getDone($id){
+        return DB::table('questionnaires')
+            ->select('name', 'avatar', 'total_score')
+            ->join('dones', 'quest_id', 'questionnaires.id')
+            ->join('users', 'users.id', '=', 'dones.user_id')
+            ->where('questionnaires.id', $id)
             ->paginate(10);
     }
 }
