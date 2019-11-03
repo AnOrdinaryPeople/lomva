@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Answer;
+use App\Done;
 use App\Question;
 use App\Questionnaire as Quest;
 use App\Result;
@@ -11,21 +12,30 @@ use Illuminate\Support\Facades\Validator;
 
 class QuestController extends Controller
 {
-    public function getAll(){
-    	return response()->json(Quest::getAll());
+    public function getAll($userId){
+    	return response()->json(Quest::getAll($userId));
     }
-    public function search(Request $req){
-    	return response()->json(Quest::search($req->search));
+    public function search($userId, Request $req){
+    	return response()->json(Quest::search($req->search, $userId));
     }
     public function getThisQuest($id){
     	return response()->json(Quest::getThisQuest($id));
     }
-    public function test($id){
-    	return response()->json([
+    public function test($id, $userId){
+    	if(Done::testCheck($userId)) return response()->json(['status' => 'done'], 422);
+    	else return response()->json([
     		'data' => Question::test($id),
     		'result' => Result::getResult($id),
     		'total' => Question::total($id)
     	]);
+    }
+    public function score($id, $userId, Request $req){
+    	Done::create([
+    		'id' => $id,
+    		'user_id' => $userId,
+    		'total_score' => $req->score
+    	]);
+    	return response()->json();
     }
     public function getOwnQuest($id){
     	return response()->json(Quest::getOwnQuest($id));
@@ -85,30 +95,23 @@ class QuestController extends Controller
 	    	return response()->json(['status' => 'success']);
     	}
     }
-	public function edit($id){
-		return response()->json([
-			'info' => Quest::find($id),
+	public function edit($id, $userId){
+		$info = Quest::getEdit($id, $userId);
+		
+		if(!$info) return response()->json([
+			'info' => '',
+			'question' => '',
+			'result' => ''
+		]);
+		else return response()->json([
+			'info' => $info,
 			'question' => Question::test($id, true),
 			'result' => Result::getResult($id)
 		]);
 	}
 	public function update($id, $userId, Request $req){
-		$val = 'required|numeric|min:0';
-    	$check = Validator::make($req->all(), [
-    		'title' => 'required',
-    		'desc' => 'required',
-    		'questions.*.question' => 'required',
-    		'questions.*.answers.*.answer' => 'required',
-    		'questions.*.answers.*.score' => $val,
-    		'results.*.min' => $val,
-    		'results.*.max' => $val,
-    		'results.*.desc' => 'required'
-    	]);
-    	if($check->fails()) return response()->json($check->errors(), 422);
-    	else{
-			$this->destroy($id, true);
-			$this->store($userId, $req);
-    	}
+		$this->store($userId, $req);
+		$this->destroy($id, true);
 
 		return response()->json(['status' => 'success']);
 	}
@@ -124,5 +127,11 @@ class QuestController extends Controller
 		Quest::destroy($id);
 
 		if(!$checker) return response()->json(['status' => 'success']);
+	}
+	public function getDone($id, $userId){
+		return response()->json([
+			'student' => Quest::getDone($id),
+			'result' => Result::getResult($id, true, $userId)
+		]);
 	}
 }
