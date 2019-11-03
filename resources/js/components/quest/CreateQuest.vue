@@ -34,7 +34,7 @@
 										<input class="form-control" type="number" :min="r.min" placeholder="skor terbesar" v-model="r.max">
 									</td>
 								<td :class="results.length > 1 ? 'col-7 px-0' : 'col-8 pl-1'">
-									<textarea class="form-control" placeholder="penjelasan untuk mengapa murid mendapatkan skor disekitar yang sudah ditentukan" v-model="r.desc"></textarea>
+									<textarea class="form-control" placeholder="penjelasan" v-model="r.desc"></textarea>
 								</td>
 								<td v-if="results.length > 1" class="col-1 pl-1">
 									<button class="btn btn-danger btn-block" @click="delResult(delKey)">X</button>
