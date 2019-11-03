@@ -28,21 +28,23 @@ Route::delete('/reply-delete/{id}/{postId}', 'UserController@replyDestroy');
 Route::post('/post-save/{id}', 'UserController@savePost');
 Route::post('/my-post/{id}', 'UserController@getUserPost');
 Route::delete('/my-post/delete/{id}', 'UserController@destroy');
-Route::post('/my-post/edit/{id}', 'UserController@getThisPost');
+Route::post('/my-post/edit/{id}/{userId}', 'UserController@getThisPost');
 Route::post('/post-update/{id}', 'UserController@updatePost');
 Route::post('/post-search', 'UserController@search');
 
 Route::prefix('questionnaire')->group(function(){
-	Route::post('all-quest', 'QuestController@getAll');
-	Route::post('search', 'QuestController@search');
+	Route::post('all-quest/{userId}', 'QuestController@getAll');
+	Route::post('search/{userId}', 'QuestController@search');
 	Route::post('{id}', 'QuestController@getThisQuest');
-	Route::post('test/{id}', 'QuestController@test');
+	Route::post('test/{id}/{userId}', 'QuestController@test');
+	Route::post('{id}/score/{userId}', 'QuestController@score');
 });
 
 Route::prefix('quest')->group(function(){
 	Route::post('teacher/{id}', 'QuestController@getOwnQuest');
 	Route::post('teacher/{id}/send', 'QuestController@store');
-	Route::post('teacher/{id}/edit', 'QuestController@edit');
+	Route::post('teacher/{id}/edit/{userId}', 'QuestController@edit');
 	Route::post('teacher/{id}/update/{userId}', 'QuestController@update');
 	Route::delete('teacher/{id}/destroy', 'QuestController@destroy');
+	Route::post('done/{id}/{userId}', 'QuestController@getDone');
 });
