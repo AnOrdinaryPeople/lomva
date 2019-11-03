@@ -21,7 +21,7 @@ class ResultTableSeeder extends Seeder
 		        	'quest_id' => $i,
 		        	'min_score' => $min[$j],
 		        	'max_score' => $max[$j],
-		        	'desc' => Faker\Factory::create()->sentence(6, 9),
+		        	'desc' => Faker\Factory::create()->text(50),
 		        	'created_at' => now(),
 		        	'updated_at' => now()
 		        ];

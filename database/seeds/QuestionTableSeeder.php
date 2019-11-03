@@ -16,7 +16,7 @@ class QuestionTableSeeder extends Seeder
         	for($j = 1; $j <= 5; $j++){
         		$data[] = [
 	        		'number' => $j,
-	        		'question' => Faker\Factory::create()->sentence(mt_rand(3, 6)),
+	        		'question' => str_replace('.', '?', Faker\Factory::create()->sentence(mt_rand(3, 6))),
 	        		'quest_id' => $i,
 	        		'created_at' => now(),
 	        		'updated_at' => now()

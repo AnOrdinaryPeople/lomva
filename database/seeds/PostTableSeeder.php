@@ -21,7 +21,7 @@ class PostTableSeeder extends Seeder
         	else $user = rand(1, 10);
 
         	$data[] = [
-        		'title' => $faker->sentence(mt_rand(3, 6)),
+        		'title' => str_replace('.', '', $faker->sentence(mt_rand(3, 6))),
         		'desc' => $faker->text(255),
         		'type' => $type,
         		'user_id' => $user,

@@ -15,8 +15,8 @@ class QuestionnaireTableSeeder extends Seeder
         $faker = Faker\Factory::create();
 
         for($i = 1; $i <= 5; $i++) $data[] = [
-        	'title' => $faker->sentence(mt_rand(3, 6)),
-            'desc' => $faker->sentence(mt_rand(15, 30)),
+        	'title' => str_replace('.', '', $faker->sentence(mt_rand(3, 6))),
+            'desc' => $faker->text(255),
         	'user_id' => $i,
         	'created_at' => now(),
         	'updated_at' => now()
