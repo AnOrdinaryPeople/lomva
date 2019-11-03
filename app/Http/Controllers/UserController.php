@@ -28,20 +28,18 @@ class UserController extends Controller
     	];
 
     	if(!empty($req->pass)){
-    		if(strlen($req->pass) <= 8) $errors[] = 'The password must be at least 8 characters.';
+    		if(strlen($req->pass) < 8) $errors[] = 'The password must be at least 8 characters.';
     		if($req->pass != $req->passCon) $errors[] = 'The password confirmation does not match.';
 
     		if(!empty($errors) && count($errors))
-    			return response()->json(['status' => 'error','errors' => $errors], 422);
+    			return response()->json(['errors' => $errors], 422);
     		else $data['password'] = Hash::make($req->pass);
     	}
-    	
     	if(!empty($req->file('avatar')) && !empty($user->avatar)){
     		Storage::disk('public_upload')->delete($user->avatar);
 			$data['avatar'] = $req->file('avatar')->store('pic','public_upload');
-    	}else if(!empty($req->file('avatar'))){
+    	}else if(!empty($req->file('avatar')))
             $data['avatar'] = url('/').'/'.$req->file('avatar')->store('pic','public_upload');
-        }
     	
     	$user->update($data);
     	
@@ -75,8 +73,8 @@ class UserController extends Controller
     public function getUserPost($id){
     	return response()->json(UserPost::getUserPost($id));
     }
-    public function getThisPost($id){
-    	return response()->json(UserPost::find($id));
+    public function getThisPost($id, $userId){
+    	return response()->json(UserPost::getThisPost($id, $userId));
     }
     public function updatePost($id, Request $req){
     	$check = Validator::make($req->all(), [
