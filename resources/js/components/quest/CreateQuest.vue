@@ -21,7 +21,7 @@
 			</div>
 			<div class="col-sm-12 col-md-12 col-lg-9 mt-2">
 				<div v-if="page === 1">
-					<textarea class="form-control" style="height: 250px" placeholder="deskripsi tentang kuesioner ini" v-model="desc"></textarea>
+					<textarea class="form-control" style="height: 250px" placeholder="deskripsi tentang kuesioner ini *Bisa menggunakan format tambahan" v-model="desc"></textarea>
 				</div>
 				<div v-else-if="page === 2">
 					<form>

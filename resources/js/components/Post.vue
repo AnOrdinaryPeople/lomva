@@ -31,7 +31,7 @@
 		</div>
 		<laravel-vue-pagination :data="reply" @pagination-change-page="changePage"></laravel-vue-pagination>
 		<div v-if="$auth.check()" class="form-group">
-			<textarea class="form-control" placeholder="Isi komentar.." style="height: 100px" v-model="replyTxt"></textarea>
+			<textarea class="form-control" placeholder="Isi komentar.. *Bisa menggunakan format tambahan" style="height: 100px" v-model="replyTxt"></textarea>
 			<button class="mt-2 btn" :class="$auth.user().role === 1 ? 'btn-success' : 'btn-primary'" @click.prevent="sendReply">Kirim komentar</button>
 		</div>
 		<div v-else class="text-center">
@@ -67,7 +67,7 @@
 						</button>
 					</div>
 					<div class="modal-body">
-						<textarea class="form-control" placeholder="Isi komentar.." style="height: 250px" v-model="editReply"></textarea>
+						<textarea class="form-control" placeholder="Isi komentar.. *Bisa menggunakan format tambahan" style="height: 250px" v-model="editReply"></textarea>
 					</div>
 					<div class="modal-footer">
 						<button class="btn btn-secondary" data-dismiss="modal">Batalkan</button>
