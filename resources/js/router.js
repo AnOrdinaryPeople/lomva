@@ -16,6 +16,7 @@ import QuestTest from './components/quest/QuestTest'
 import QuestTeacher from './components/quest/QuestTeacher'
 import CreateQuest from './components/quest/CreateQuest'
 import DoneQuest from './components/quest/DoneQuest'
+import Chat from './components/Chat'
 
 export default new VueRouter({
 	history: true,
@@ -114,6 +115,11 @@ export default new VueRouter({
 				roles: 1,
 				redirect: '/questionnaire'
 			}}
+		},{
+			path: '/chat',
+			name: 'chat',
+			component: Chat,
+			meta: { auth: true }
 		},{
 			path: '*',
 			redirect: { name: 'home' }
