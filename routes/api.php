@@ -48,3 +48,9 @@ Route::prefix('quest')->group(function(){
 	Route::delete('teacher/{id}/destroy', 'QuestController@destroy');
 	Route::post('done/{id}/{userId}', 'QuestController@getDone');
 });
+
+Route::prefix('chat')->group(function(){
+	Route::post('list/{id}/{role}', 'ChatController@getAll');
+	Route::post('open/{id}/{userId}', 'ChatController@getChat');
+	Route::post('send/{userId}/{chatWith}', 'ChatController@sendChat');
+});
