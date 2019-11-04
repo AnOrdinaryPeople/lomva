@@ -10,10 +10,7 @@
             </button>
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav mr-auto">
-                    <li v-if="!$auth.check()" class="nav-item">
-                        <router-link class="nav-link" to="/dashboard">Dashboard</router-link>
-                    </li>
+                <ul v-if="$auth.check()" class="navbar-nav mr-auto">
                     <li class="nav-item">
                         <form>
                             <div class="input-group">
@@ -31,6 +28,9 @@
                         <router-link class="nav-link" :to="$auth.user().role === 1 ? '/teacher/questionnaire' : '/questionnaire'">Kuesioner</router-link>
                     </li>
                     <li v-if="resize" class="nav-item">
+                        <router-link class="nav-link" to="/chat">Chat</router-link>
+                    </li>
+                    <li v-if="resize" class="nav-item">
                         <router-link class="nav-link" to="/add-post">Buat postingan baru</router-link>
                     </li>
                     <li v-if="resize" class="nav-item">
@@ -38,6 +38,21 @@
                     </li>
                     <li v-if="resize" class="nav-item">
                         <a class="nav-link" href="#" @click.prevent="openAppModal()">Format tambahan</a>
+                    </li>
+                </ul>
+                <ul v-else class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <router-link class="nav-link" to="/dashboard">Dashboard</router-link>
+                    </li>
+                    <li class="nav-item">
+                        <form>
+                            <div class="input-group">
+                                <input class="form-control" type="text" v-model="searchApp" placeholder="Cari postingan..">
+                                <div class="input-group-append">
+                                    <button class="btn btn-outline-secondary" @click.prevent="btnSearchApp">Cari</button>
+                                </div>
+                            </div>
+                        </form>
                     </li>
                 </ul>
                 <ul v-if="!$auth.check()" class="navbar-nav ml-auto">
@@ -67,6 +82,7 @@
                     <nav v-if="!resize" class="nav nav-pills flex-column pt-3">
                         <router-link class="nav-link" to="/dashboard">Dashboard</router-link>
                         <router-link class="nav-link" :to="$auth.user().role === 1 ? '/teacher/questionnaire' : '/questionnaire'">Kuesioner</router-link>
+                        <router-link class="nav-link" to="/chat">Chat</router-link>
                         <router-link class="nav-link" to="/add-post">Buat postingan baru</router-link>
                         <router-link class="nav-link" to="/my-post">Postinganku</router-link>
                         <a class="nav-link" href="#" @click.prevent="openAppModal()">Format tambahan</a>
