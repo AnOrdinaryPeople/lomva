@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div id="app-back-top" class="bg-secondary text-light text-center rounded-circle pt-3" style="display: none">
+        <div id="app-back-top" class="bg-secondary text-light text-center rounded-circle pt-3" style="display: none" @click="appToTop">
             <i id="top" class="material-icons">keyboard_arrow_up</i>
         </div>
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
@@ -22,7 +22,7 @@
                         </form>
                     </li>
                     <li v-if="resize" class="nav-item">
-                        <router-link class="nav-link" to="/dashboard">Dashboard</router-link>
+                        <router-link class="nav-link" to="/home">Beranda</router-link>
                     </li>
                     <li v-if="resize" class="nav-item">
                         <router-link class="nav-link" :to="$auth.user().role === 1 ? '/teacher/questionnaire' : '/questionnaire'">Kuesioner</router-link>
@@ -42,7 +42,7 @@
                 </ul>
                 <ul v-else class="navbar-nav mr-auto">
                     <li class="nav-item">
-                        <router-link class="nav-link" to="/dashboard">Dashboard</router-link>
+                        <router-link class="nav-link" to="/home">Beranda</router-link>
                     </li>
                     <li class="nav-item">
                         <form>
@@ -80,7 +80,7 @@
             <div :class="$auth.check() ? (!resize ? 'row' : '') : ''">
                 <div v-if="$auth.check()" :class="!resize ? 'col-2 bg-white position-sticky overflow-auto shadow-sm' : 'invisible'" :style="!resize ? 'height: 100vh;top: 0' : ''">
                     <nav v-if="!resize" class="nav nav-pills flex-column pt-3">
-                        <router-link class="nav-link" to="/dashboard">Dashboard</router-link>
+                        <router-link class="nav-link" to="/home">Beranda</router-link>
                         <router-link class="nav-link" :to="$auth.user().role === 1 ? '/teacher/questionnaire' : '/questionnaire'">Kuesioner</router-link>
                         <router-link class="nav-link" to="/chat">Chat</router-link>
                         <router-link class="nav-link" to="/add-post">Buat postingan baru</router-link>
@@ -157,12 +157,6 @@
                 if ($(this).scrollTop() > 100) $('#app-back-top').fadeIn()
                 else $('#app-back-top').fadeOut()
             })
-            $('#app-back-top i').click(function(){
-                $('body,html').animate({
-                    scrollTop: 0
-                }, 250)
-                return false
-            });
         },
         methods: {
             before(el){
@@ -184,6 +178,11 @@
             },
             openAppModal(){
                 $('#app-modal-format').modal()
+            },
+            appToTop(){
+                $('body,html').animate({
+                    scrollTop: 0
+                }, 250)
             }
         }
     }

@@ -18,12 +18,14 @@
 					</div>
 				</div>
 			</div>
-			<div v-if="selected" class="col-9 overflow-auto" style="height: 100vh">
-				<div v-for="m in msg">
-					<p v-if="m.user_id === $auth.user().id"><img class="img-fluid rounded-circle" width="40" height="40" :src="$auth.user().avatar || sauce+'/img/default.png'" /> {{ $auth.user().name }} <small class="text-muted">{{ m.created_at }}</small></p>
-					<p v-else><img class="img-fluid rounded-circle" width="40" height="40" :src="select.avatar || sauce+'/img/default.png'" /> {{ select.name }} <small class="text-muted">{{ m.created_at }}</small></p>
-					<p>{{ m.msg }}</p>
-					<hr/>
+			<div v-if="selected" class="col-9">
+				<div class="overflow-auto mb-2" style="height: 100vh">
+					<div v-for="m in msg">
+						<p v-if="m.user_id === $auth.user().id"><img class="img-fluid rounded-circle" width="40" height="40" :src="$auth.user().avatar || sauce+'/img/default.png'" /> {{ $auth.user().name }} <small class="text-muted">{{ m.created_at }}</small></p>
+						<p v-else><img class="img-fluid rounded-circle" width="40" height="40" :src="select.avatar || sauce+'/img/default.png'" /> {{ select.name }} <small class="text-muted">{{ m.created_at }}</small></p>
+						<p>{{ m.msg }}</p>
+						<hr/>
+					</div>
 				</div>
 				<form @submit.prevent="send">
 					<div class="input-group">

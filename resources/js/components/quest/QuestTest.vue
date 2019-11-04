@@ -26,7 +26,7 @@
 		<div v-else class="container">
 			<h4 class="text-center">Skor kamu {{ totalScore }}</h4>
 			<p>{{ descFinish }}</p>
-			<router-link class="mt-4 btn btn-primary" to="/dashboard">Kembali ke dashboard</router-link>
+			<router-link class="mt-4 btn btn-primary" to="/home">Kembali ke beranda</router-link>
 		</div>
 	</div>
 </template>

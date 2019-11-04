@@ -25,7 +25,7 @@ export default new VueRouter({
 	routes: [
 		{
 			path: '/',
-			name: 'home',
+			name: 'homepage',
 			component: Home
 		},{
 			path: '/register',
@@ -38,8 +38,8 @@ export default new VueRouter({
 			component: Login,
 			meta: { auth: false }
 		},{
-			path: '/dashboard',
-			name: 'dashborad',
+			path: '/home',
+			name: 'home',
 			component: UserHome
 		},{
 			path: '/profile',
@@ -71,7 +71,7 @@ export default new VueRouter({
 			component: Questionnaire,
 			meta: { auth: {
 				roles: 0,
-				redirect: '/dashborad'
+				redirect: '/home'
 			}}
 		},{
 			path: '/questionnaire/:id',
@@ -122,7 +122,7 @@ export default new VueRouter({
 			meta: { auth: true }
 		},{
 			path: '*',
-			redirect: { name: 'home' }
+			redirect: { name: 'homepage' }
 		}
 	]
 })
