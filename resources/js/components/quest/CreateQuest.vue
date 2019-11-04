@@ -24,24 +24,22 @@
 					<textarea class="form-control" style="height: 250px" placeholder="deskripsi tentang kuesioner ini *Bisa menggunakan format tambahan" v-model="desc"></textarea>
 				</div>
 				<div v-else-if="page === 2">
-					<form>
-						<table class="w-100">
-							<tr v-for="(r, delKey) in results" class="row">
-									<td class="col-2 pr-0">
-										<input class="form-control" type="number" min="0" placeholder="skor terkecil" v-model="r.min">
-									</td>
-									<td class="col-2 px-1">
-										<input class="form-control" type="number" :min="r.min" placeholder="skor terbesar" v-model="r.max">
-									</td>
-								<td :class="results.length > 1 ? 'col-7 px-0' : 'col-8 pl-1'">
-									<textarea class="form-control" placeholder="penjelasan" v-model="r.desc"></textarea>
+					<table class="w-100">
+						<tr v-for="(r, delKey) in results" class="row">
+								<td class="col-2 pr-0">
+									<input class="form-control" type="number" min="0" placeholder="skor terkecil" v-model="r.min">
 								</td>
-								<td v-if="results.length > 1" class="col-1 pl-1">
-									<button class="btn btn-danger btn-block" @click="delResult(delKey)">X</button>
+								<td class="col-2 px-1">
+									<input class="form-control" type="number" :min="r.min" placeholder="skor terbesar" v-model="r.max">
 								</td>
-							</tr>
-						</table>
-					</form>
+							<td :class="results.length > 1 ? 'col-7 px-0' : 'col-8 pl-1'">
+								<textarea class="form-control" placeholder="penjelasan" v-model="r.desc"></textarea>
+							</td>
+							<td v-if="results.length > 1" class="col-1 pl-1">
+								<button class="btn btn-danger btn-block" @click="delResult(delKey)">X</button>
+							</td>
+						</tr>
+					</table>
 					<button class="btn btn-success" @click="addResult">+ hasil rata-rata</button>
 				</div>
 				<div v-else-if="page === 3">
