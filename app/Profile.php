@@ -18,4 +18,11 @@ class Profile extends Model
     		->where('user_id', $id)
     		->first();
     }
+    public static function checkUser($id){
+        return DB::table('profiles')
+            ->select('school')
+            ->join('users', 'user_id', '=', 'users.id')
+            ->where('user_id', $id)
+            ->first();
+    }
 }

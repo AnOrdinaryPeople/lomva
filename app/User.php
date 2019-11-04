@@ -65,6 +65,7 @@ class User extends Authenticatable implements JWTSubject
             ->select('users.id as id', 'name', 'avatar', 'school')
             ->join('profiles', 'user_id', '=', 'users.id')
             ->where('role', '!=', $role)
+            ->where('school', '!=', null)
             ->get();
     }
 }

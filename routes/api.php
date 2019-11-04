@@ -54,3 +54,5 @@ Route::prefix('chat')->group(function(){
 	Route::post('open/{id}/{userId}', 'ChatController@getChat');
 	Route::post('send/{userId}/{chatWith}', 'ChatController@sendChat');
 });
+
+Route::post('check-profile/{id}', 'UserController@checkProfile');

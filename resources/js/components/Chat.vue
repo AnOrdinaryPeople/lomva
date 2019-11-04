@@ -1,6 +1,6 @@
 <template>
 	<div class="bg-white p-4">
-		<div class="row">
+		<div v-if="checkProfile" class="row">
 			<div class="col-3 overflow-auto" style="height: 100vh">
 				<input class="form-control mb-2" type="text" :placeholder="$auth.user().role ? 'cari murid..' : 'cari guru..'" v-model="sQuery">
 				<div v-for="(t, key) in list" class="card mb-2" @click="openChat(t.id, key)">
@@ -35,6 +35,10 @@
 				</form>
 			</div>
 		</div>
+		<div v-else class="text-center">
+			<h1>Lengkapi data profil sebelum mulai chat</h1>
+			<h4>Minimal nama sekolah sudah diisi</h4>
+		</div>
 	</div>
 </template>
 <style scoped>
@@ -56,11 +60,18 @@
 			msgChat: '',
 			id: 0,
 			key: 0,
+			checkProfile: true,
 			sauce: process.env.MIX_APP_URL
 		}),
 		mounted(){
-			axios.post(`/chat/list/${this.$auth.user().id}/${this.$auth.user().role}`)
-				.then(resp => this.teacher = resp.data)
+			axios.post(`/check-profile/${this.$auth.user().id}`)
+				.then(resp => {
+					if(resp.data.result)
+						this.checkProfile = false
+					else axios.post(`/chat/list/${this.$auth.user().id}/${this.$auth.user().role}`)
+						.then(resp => this.teacher = resp.data)
+						.catch(err => console.error(err))
+				})
 				.catch(err => console.error(err))
 		},
 		methods: {

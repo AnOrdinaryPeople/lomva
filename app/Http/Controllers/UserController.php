@@ -115,4 +115,9 @@ class UserController extends Controller
         Comment::destroy($id);
         return response()->json(Comment::getReply($postId));
     }
+    public function checkProfile($id){
+        if(Profile::checkUser($id)->school === null)
+            return response()->json(['result' => true]);
+        else return response()->json(['result' => false]);
+    }
 }
