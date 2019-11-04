@@ -6,6 +6,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Tymon\JWTAuth\Contracts\JWTSubject;
+use Illuminate\Support\Facades\DB;
 
 class User extends Authenticatable implements JWTSubject
 {
@@ -54,5 +55,16 @@ class User extends Authenticatable implements JWTSubject
     }
     public function comment(){
         return $this->hasMany(\App\Comment::class);
+    }
+    public function chat(){
+        return $this->hasMany(\App\Chat::class);
+    }
+
+    public static function getReceiver($role){
+        return DB::table('users')
+            ->select('users.id as id', 'name', 'avatar', 'school')
+            ->join('profiles', 'user_id', '=', 'users.id')
+            ->where('role', '!=', $role)
+            ->get();
     }
 }
