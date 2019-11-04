@@ -3,7 +3,7 @@
 1. [git](https://git-scm.com/downloads)
 1. [composer](https://getcomposer.org/download/)
 1. [node.js](https://nodejs.org/en/download/current/)
-1. Size 250mb - 350mb
+1. Size 300 - 400 MB
 
 # install
 1. buka htdocs
