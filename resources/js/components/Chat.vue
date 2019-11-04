@@ -21,8 +21,8 @@
 			<div v-if="selected" class="col-9">
 				<div class="overflow-auto mb-2" style="height: 100vh">
 					<div v-for="m in msg">
-						<p v-if="m.user_id === $auth.user().id"><img class="img-fluid rounded-circle" width="40" height="40" :src="$auth.user().avatar || sauce+'/img/default.png'" /> {{ $auth.user().name }} <small class="text-muted">{{ m.created_at }}</small></p>
-						<p v-else><img class="img-fluid rounded-circle" width="40" height="40" :src="select.avatar || sauce+'/img/default.png'" /> {{ select.name }} <small class="text-muted">{{ m.created_at }}</small></p>
+						<p v-if="m.user_id === $auth.user().id"><img class="img-fluid rounded-circle" width="40" height="40" :src="$auth.user().avatar || sauce+'/img/default.png'" /> {{ $auth.user().name }} <small class="text-muted">{{ dateFill(m.created_at) }}</small></p>
+						<p v-else><img class="img-fluid rounded-circle" width="40" height="40" :src="select.avatar || sauce+'/img/default.png'" /> {{ select.name }} <small class="text-muted">{{ dateFill(m.created_at) }}</small></p>
 						<p>{{ m.msg }}</p>
 						<hr/>
 					</div>
@@ -77,6 +77,10 @@
 				.catch(err => console.error(err))
 		},
 		methods: {
+			dateFill(date){
+				var d = new Date(date)
+				return d.toLocaleString('id-ID', {dateStyle: 'medium', timeStyle: 'short'})
+			},
 			openChat(id, key){
 				this.selected = true
 				this.select = {
