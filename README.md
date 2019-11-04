@@ -13,6 +13,7 @@
 1. buat file baru namanya `.env` buat isinya copas di `.env.example`
 1. bikin database baru namanya bebas contoh `bebas`
 1. di `.env` pastikan `DB_DATABASE` nya sesuai sama step yg di atas. contoh `DB_DATABASE=bebas`
+1. buat folder baru di `public` namanya `pic`
 1. di `git bash` ketik `composer install`
 1. klo udh beres instal ketik lagi `npm install`
 1. klo udh beres instal ketik lagi `php artisan key:generate`
