@@ -22,7 +22,7 @@ class QuestController extends Controller
     	return response()->json(Quest::getThisQuest($id));
     }
     public function test($id, $userId){
-    	if(Done::testCheck($userId)) return response()->json(['status' => 'done'], 422);
+    	if(Done::testCheck($userId, $id)) return response()->json(['status' => 'done'], 422);
     	else return response()->json([
     		'data' => Question::test($id),
     		'result' => Result::getResult($id),
