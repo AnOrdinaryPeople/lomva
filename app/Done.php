@@ -13,10 +13,11 @@ class Done extends Model
     	return $this->belongsTo(\App\Questionnaire::class);
     }
 
-    public static function testCheck($id){
+    public static function testCheck($id, $questId){
     	return DB::table('dones')
     		->join('questionnaires', 'questionnaires.id', '=', 'quest_id')
     		->where('dones.user_id', $id)
+            ->where('questionnaires.id', $questId)
     		->count();
     }
 }
