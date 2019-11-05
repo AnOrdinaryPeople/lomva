@@ -120,4 +120,7 @@ class UserController extends Controller
             return response()->json(['result' => true]);
         else return response()->json(['result' => false]);
     }
+    public function getStudents(){
+        return response()->json(User::getStudents());
+    }
 }
