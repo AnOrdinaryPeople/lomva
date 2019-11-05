@@ -1,12 +1,12 @@
 <template>
 	<div class="bg-white p-4">
-		<router-link class="btn btn-success mb-4" to="/teacher/questionnaire/create">Buat kuesioner baru</router-link>
+		<router-link class="btn btn-success mb-4" to="/teacher/questionnaire/create"><font-awesome icon="plus" /> Buat kuesioner baru</router-link>
 		<laravel-vue-pagination :data="content" @pagination-change-page="changePage"></laravel-vue-pagination>
 		<div v-if="total > 0">
 			<div v-for="c in content.data" class="card mb-4">
 				<div class="card-header">
-					<router-link class="btn btn-primary" :to="`/teacher/questionnaire/${c.id}/done`">Lihat hasil akhir</router-link>
-					<button class="btn btn-danger" @click="openDel(c.id, c.title)">Hapus kuesioner</button>
+					<router-link class="btn btn-primary" :to="`/teacher/questionnaire/${c.id}/done`"><font-awesome icon="eye" /> Lihat hasil akhir</router-link>
+					<button class="btn btn-danger" @click="openDel(c.id, c.title)"><font-awesome icon="trash" /> Hapus kuesioner</button>
 				</div>
 				<div class="card-body" @click="$router.push({path: `/teacher/questionnaire/${c.id}/edit`})">
 					<h1>{{ c.title }}</h1>
@@ -45,12 +45,7 @@
 </style>
 
 <script>
-	import LaravelVuePagination from 'laravel-vue-pagination'
-
 	export default{
-		components: {
-			LaravelVuePagination
-		},
 		data: () => ({
 			content: {0:{title:''}},
 			total: 1,

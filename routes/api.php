@@ -56,3 +56,5 @@ Route::prefix('chat')->group(function(){
 });
 
 Route::post('check-profile/{id}', 'UserController@checkProfile');
+
+Route::post('students', 'UserController@getStudents');

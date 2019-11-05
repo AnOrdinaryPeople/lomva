@@ -1,6 +1,6 @@
 <template>
 	<div class="bg-white p-4">
-		<button class="btn btn-success mb-4" data-toggle="modal" data-target="#result-score">Lihat hasil kuesioner</button>
+		<button class="btn btn-success mb-4" data-toggle="modal" data-target="#result-score"><font-awesome :icon="['far', 'eye']" /> Lihat hasil kuesioner</button>
 		<div v-for="c in content.data" class="card mb-4">
 			<div class="card-body">
 				<div class="row">
@@ -51,12 +51,7 @@
 </template>
 
 <script>
-	import LaravelVuePagination from 'laravel-vue-pagination'
-
 	export default{
-		components: {
-			LaravelVuePagination
-		},
 		data: () => ({
 			content: {},
 			result: {},

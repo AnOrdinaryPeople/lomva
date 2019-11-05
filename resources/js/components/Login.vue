@@ -4,18 +4,19 @@
 			<div class="card-header">Login</div>
 			<div class="card-body">
 				<div v-if="has_error" class="alert alert-danger">Email atau password salah</div>
-				<button class="btn btn-google" @click="authProvider('google')">Login dengan Google</button>
-				<button class="btn btn-facebook" @click="authProvider('facebook')">Login dengan Facebook</button>
+				<button class="btn btn-google" @click="authProvider('google')"><font-awesome :icon="['fab', 'google']" /> Login dengan Google</button>
+				<button class="btn btn-facebook" @click="authProvider('facebook')"><font-awesome :icon="['fab', 'facebook']" /> Login dengan Facebook</button>
 				<form autocomplete="off" @submit.prevent="login()" method="post">
 					<div class="form-group">
-						<label for="log-email">Email</label>
-						<input id="log-email" class="form-control" type="email" v-model="email">
+						<label for="log-email"><font-awesome icon="envelope" /> Email</label>
+						<input id="log-email" class="form-control" type="email" v-model="email" autofocus>
 					</div>
 					<div class="form-group">
-						<label for="log-pass">Password</label>
+						<label for="log-pass"><font-awesome icon="key" /> Password</label>
 						<input id="log-pass" class="form-control" type="password" v-model="pass">
 					</div>
-					<button id="btn-log-submit" class="btn btn-primary">Masuk</button>
+					<button id="btn-log-submit" class="btn btn-primary"><font-awesome icon="sign-in-alt" /> Masuk</button>
+					<font-awesome icon="spinner" spin size="lg" class="text-primary" style="display: none" id="icon-loader" />
 				</form>
 			</div>
 		</div>
@@ -42,18 +43,22 @@
 				var id = document.getElementById('btn-log-submit')
 
 				id.setAttribute('disabled', 1)
+				$('#icon-loader').show()
+
 				this.$auth.login({
 					data: {
 						email: e !== '' ? e : this.email,
 						password: p !== '' ? p : this.pass
 					},
 					success: () => {
-						this.$router.push({ name: 'dashboard' })
+						this.$router.push({ name: 'home' })
 						id.removeAttribute('disabled')
+						$('#icon-loader').hide()
 					},
 					error: () => {
 						this.has_error = true
 						id.removeAttribute('disabled')
+						$('#icon-loader').hide()
 					},
 					rememberMe: true,
 					fetchUser: true

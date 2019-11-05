@@ -33,12 +33,7 @@
 </style>
 
 <script>
-	import LaravelVuePagination from 'laravel-vue-pagination'
-
 	export default{
-		components: {
-			LaravelVuePagination
-		},
 		data: () => ({
 			searchQuest: '',
 			content: { total: 1 },

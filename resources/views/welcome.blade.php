@@ -20,7 +20,6 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/icon.css') }}" rel="stylesheet">
     <style type="text/css">
         .slide-fade-enter-active, .slide-fade-leave-active{
 			transition-duration: .3s;

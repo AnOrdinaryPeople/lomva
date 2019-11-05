@@ -4,7 +4,7 @@
 		<div v-if="content.total > 0">
 			<div v-for="c in content.data" class="card mb-4">
 				<div class="card-header">
-					<button class="btn btn-danger" @click="openModalDel(c.id, c.title)">Hapus postingan</button>
+					<button class="btn btn-danger" @click="openModalDel(c.id, c.title)"><font-awesome :icon="['far', 'trash-alt']" /> Hapus postingan</button>
 				</div>
 				<div class="card-body" @click="goTo(c.id)">
 					<h1>{{ c.title }}</h1>
@@ -13,7 +13,7 @@
 		</div>
 		<div v-else class="text-center">
 			<h1>Tidak ada postingan</h1>
-			<router-link to="/add-post">Buat postingan baru</router-link>
+			<router-link to="/add-post"><font-awesome icon="plus" /> Buat postingan baru</router-link>
 		</div>
 		<laravel-vue-pagination :data="content" @pagination-change-page="changePage"></laravel-vue-pagination>
 		<div id="post-del" class="modal fade" tabindex="-1">
@@ -44,12 +44,7 @@
 </style>
 
 <script>
-	import LaravelVuePagination from 'laravel-vue-pagination'
-
 	export default{
-		components: {
-			LaravelVuePagination
-		},
 		data: () => ({
 			content: {total: 1},
 			ttl : '',

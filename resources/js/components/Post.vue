@@ -80,12 +80,7 @@
 </template>
 
 <script>
-	import MarkdownItVue from 'markdown-it-vue'
-	import 'markdown-it-vue/dist/markdown-it-vue.css'
-	import LaravelVuePagination from 'laravel-vue-pagination'
-
 	export default{
-		components: { MarkdownItVue, LaravelVuePagination },
 		data: () => ({
 			content: {},
 			reply: {},

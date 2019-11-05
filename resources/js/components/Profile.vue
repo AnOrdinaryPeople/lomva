@@ -4,14 +4,15 @@
 		<form autocomplete="off" @submit.prevent="save">
 			<div class="row">
 				<div class="col-6">
-					<h1>Edit Profil</h1>
+					<h1><font-awesome icon="user-edit" /> Edit Profil</h1>
 				</div>
 				<div class="col-6 text-right">
-					<button id="prof-btn" class="btn" :class="role > 0 ? 'btn-success' : 'btn-primary'">Save</button>
+					<button id="prof-btn" class="btn" :class="role > 0 ? 'btn-success' : 'btn-primary'">Simpan</button>
+					<font-awesome icon="spinner" spin size="lg" class="text-primary" style="display: none" id="icon-loader" />
 				</div>
 			</div>
 			<div class="row">
-				<div class="col-sm-12 col-md-4 col-lg-4">
+				<div class="col-sm-12 col-md-4 col-lg-4 text-center">
 					<input id="prof-upload" type="file" style="display: none" @change="imgChange" accept="image/x-png, image/gif, image/jpeg">
 					<img class="img-fluid rounded-circle imej" width="250" height="250" :src="preview" @click="oven()" />
 				</div>
@@ -149,16 +150,19 @@
 				let data = new FormData()
 
 				id.setAttribute('disabled', 1)
+				$('#icon-loader').show()
 				for(var [key, val] of Object.entries(this.profile)) data.append(key, val)
 
 				axios.post(`/user-profile/${this.$auth.user().id}/save`, data, {
 					headers: {'content-type': 'multipart/form-data'}
 				}).then((resp) => {
 					this.info = 'Berhasil disimpan'
+					$('#icon-loader').hide()
 					id.removeAttribute('disabled')
 				}).catch(err => {
 					this.errors = err.response.data.errors
 					console.error(err)
+					$('#icon-loader').hide()
 					id.removeAttribute('disabled')
 				})
 			},

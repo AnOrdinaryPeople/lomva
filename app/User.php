@@ -68,4 +68,11 @@ class User extends Authenticatable implements JWTSubject
             ->where('school', '!=', null)
             ->get();
     }
+    public static function getStudents(){
+        return DB::table('users')
+            ->select('phone', 'gender', 'cls', 'school', 'born', 'name', 'avatar', 'email')
+            ->join('profiles', 'user_id', '=', 'users.id')
+            ->where('role', 0)
+            ->paginate(10);
+    }
 }

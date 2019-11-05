@@ -35,21 +35,14 @@
 			</div>
 			<markdown-it-vue v-if="page === 1" class="md-body" :content="content" />
 			<guide v-if="page === 2"></guide>
-			<button v-if="page === 0 || page === 1" class="btn mt-4" :class="$auth.user().role === 1 ? 'btn-success' : 'btn-primary'" @click="send">{{ btnTitle }}</button>
+			<button id="btn-add-post" v-if="page === 0 || page === 1" class="btn" :class="$auth.user().role === 1 ? 'btn-success' : 'btn-primary'" @click="send">{{ btnTitle }}</button>
+			<font-awesome icon="spinner" spin size="lg" class="text-primary" style="display: none" id="icon-loader" />
 		</div>
 	</div>
 </template>
 
 <script>
-	import MarkdownItVue from 'markdown-it-vue'
-	import 'markdown-it-vue/dist/markdown-it-vue.css'
-	import Guide from './Guide.vue'
-
 	export default{
-		components: {
-			MarkdownItVue,
-			Guide
-		},
 		data: () => ({
 			title: '',
 			content: '',
@@ -70,20 +63,28 @@
 				this.page = t
 			},
 			send(){
+				var id = document.getElementById('btn-add-post')
 				const req = {
 					type: this.type,
 					title: this.title,
 					desc: this.content
 				}, url = this.routeName == 'add-post' ? `/post-save/${this.$auth.user().id}` : '/post-update/'+this.id
 
+				id.setAttribute('disabled', 1)
+				$('#icon-loader').show()
+
 				axios.post(url, req)
 					.then(resp => {
 						this.canLeave = true
 						this.$router.push({path: resp.data.url})
+						$('#icon-loader').hide()
+						id.removeAttribute('disabled')
 					})
 					.catch(err => {
 						this.errors = err.response.data.errors
 						this.page = 0
+						$('#icon-loader').hide()
+						id.removeAttribute('disabled')
 					})
 			},
 			checkPath(){

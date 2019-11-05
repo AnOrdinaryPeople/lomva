@@ -13,7 +13,7 @@ export default {
 	loginData: {
 		url: 'auth/login',
 		method: 'POST',
-		redirect: '/',
+		redirect: '/home',
 		fetchUser: true
 	},
 	logoutData: {

@@ -44,13 +44,7 @@
 </template>
 
 <script>
-	import MarkdownItVue from 'markdown-it-vue'
-	import 'markdown-it-vue/dist/markdown-it-vue.css'
-
 	export default{
-		components: {
-			MarkdownItVue
-		},
 		data: () => ({
 			content: {},
 			desc: '',

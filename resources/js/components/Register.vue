@@ -15,12 +15,12 @@
 				<div v-if="has_error" class="alert alert-danger">Ada error</div>
 				<form autocomplete="off" @submit.prevent="register" method="post">
 					<div class="form-group">
-						<label for="reg-email">Email</label>
-						<input id="reg-email" class="form-control" :class="has_error && errors.email ? 'is-invalid' : ''" type="email" v-model="email">
+						<label for="reg-email"><font-awesome icon="envelope" /> Email</label>
+						<input id="reg-email" class="form-control" :class="has_error && errors.email ? 'is-invalid' : ''" type="email" v-model="email" autofocus>
 						<small v-if="has_error && errors.email" v-for="errEmail in errors.email" class="text-danger">{{ errEmail }}<br/></small>
 					</div>
 					<div class="form-group">
-						<label for="reg-pass">Password</label>
+						<label for="reg-pass"><font-awesome icon="key" /> Password</label>
 						<input id="reg-pass" class="form-control" :class="has_error && errors.password ? 'is-invalid' : ''" type="password" v-model="pass">
 						<small class="text-muted">Minimal panjang password 8 huruf</small><br/>
 						<small v-if="has_error && errors.password" v-for="errPass in errors.password" class="text-danger">{{ errPass }}<br/></small>
@@ -34,6 +34,7 @@
 						<small v-if="has_error && errors.recaptcha" v-for="errRecap in errors.recaptcha" class="text-danger">{{ errRecap }}<br/></small>
 					</div>
 					<button id="btn-reg-submit" class="btn btn-primary" type="submit">Daftar</button>
+					<font-awesome icon="spinner" spin size="lg" class="text-primary" style="display: none" id="icon-loader" />
 				</form>
 			</div>
 		</div>
@@ -65,6 +66,8 @@
 				var id = document.getElementById('btn-reg-submit')
 
 				id.setAttribute('disabled', 1)
+				$('#icon-loader').show()
+
 				this.$auth.register({
 					data: {
 						email: this.email,
@@ -80,12 +83,14 @@
 								successRegistrationRedirect: true
 							}
 						})
+						$('#icon-loader').hide()
 						id.removeAttribute('disabled')
 						this.$refs.recaptcha.reset()
 					},
 					error: (resp) => {
 						this.has_error = true
 						this.errors = resp.response.data.errors || {}
+						$('#icon-loader').hide()
 						id.removeAttribute('disabled')
 						this.$refs.recaptcha.reset()
 					}

@@ -17,6 +17,7 @@ import QuestTeacher from './components/quest/QuestTeacher'
 import CreateQuest from './components/quest/CreateQuest'
 import DoneQuest from './components/quest/DoneQuest'
 import Chat from './components/Chat'
+import Students from './components/Students'
 
 export default new VueRouter({
 	history: true,
@@ -26,7 +27,8 @@ export default new VueRouter({
 		{
 			path: '/',
 			name: 'homepage',
-			component: Home
+			component: Home,
+			alias: '/homepage'
 		},{
 			path: '/register',
 			name: 'register',
@@ -114,6 +116,14 @@ export default new VueRouter({
 			meta: { auth: {
 				roles: 1,
 				redirect: '/questionnaire'
+			}}
+		},{
+			path: '/students',
+			name: 'students',
+			component: Students,
+			meta: { auth: {
+				roles: 1,
+				redirect: '/home'
 			}}
 		},{
 			path: '/chat',

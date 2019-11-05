@@ -87,6 +87,7 @@
 					<div class="modal-footer">
 						<button class="btn btn-secondary" data-dismiss="modal">Batalkan</button>
 						<button id="btn-confirm-modal" class="btn btn-success" @click="confirmQuest">{{ routeName == 'teacher-quest-create' ? 'Kirim' : 'Update' }} kuesioner</button>
+						<font-awesome icon="spinner" spin size="lg" class="text-primary" style="display: none" id="icon-loader" />
 					</div>
 				</div>
 			</div>
@@ -170,22 +171,26 @@
 					url = this.routeName == 'teacher-quest-create' ? `quest/teacher/${this.$auth.user().id}/send` : `quest/teacher/${this.id}/update/${this.$auth.user().id}`
 
 				id.setAttribute('disabled', 1)
-					axios.post(url, {
-						title: this.title,
-						desc: this.desc,
-						questions: this.questions,
-						results: this.results
-					}).then(resp => {
-						this.canLeave = true
-						this.$router.push({ name: 'teacher-quest' })
-						$('#confirm-quest').modal('hide')
-						id.removeAttribute('disabled')
-					}).catch(err => {
-						console.error(err.response)
-						$('#confirm-quest').modal('hide')
-						id.removeAttribute('disabled')
-						if(_.size(err.response.data) > 0) this.error = true
-					})
+				$('#icon-loader').show()
+
+				axios.post(url, {
+					title: this.title,
+					desc: this.desc,
+					questions: this.questions,
+					results: this.results
+				}).then(resp => {
+					this.canLeave = true
+					this.$router.push({ name: 'teacher-quest' })
+					$('#confirm-quest').modal('hide')
+					$('#icon-loader').hide()
+					id.removeAttribute('disabled')
+				}).catch(err => {
+					console.error(err)
+					$('#confirm-quest').modal('hide')
+					$('#icon-loader').hide()
+					id.removeAttribute('disabled')
+					if(_.size(err.response.data) > 0) this.error = true
+				})
 			},
 			checkPath(){
 				this.id = this.$route.params.id
