@@ -22,13 +22,13 @@
                         </form>
                     </li>
                     <li v-if="resize" class="nav-item">
-                        <router-link v-if="$auth.user().role === 1" class="nav-link" to="/students"><font-awesome icon="users" /> Daftar siswa</router-link>
-                    </li>
-                    <li v-if="resize" class="nav-item">
                         <router-link class="nav-link" to="/home"><font-awesome icon="home" /> Beranda</router-link>
                     </li>
                     <li v-if="resize" class="nav-item">
-                        <router-link class="nav-link" :to="$auth.user().role === 1 ? '/teacher/questionnaire' : '/questionnaire'"><font-awesome icon="window-restore" /> Kuesioner</router-link>
+                        <router-link class="nav-link" :to="$auth.user().role === 1 ? '/teacher/questionnaire' : '/questionnaire'"><font-awesome icon="pen-square" /> Kuesioner</router-link>
+                    </li>
+                    <li v-if="resize" class="nav-item">
+                        <router-link v-if="$auth.user().role === 1" class="nav-link" to="/students"><font-awesome icon="users" /> Daftar siswa</router-link>
                     </li>
                     <li v-if="resize" class="nav-item">
                         <router-link class="nav-link" to="/chat"><font-awesome icon="comments" /> Chat</router-link>
@@ -84,7 +84,7 @@
                 <div v-if="$auth.check()" :class="!resize ? 'col-2 bg-white position-sticky overflow-auto shadow-sm' : 'invisible'" :style="!resize ? 'height: 100vh;top: 0' : ''">
                     <nav v-if="!resize" class="nav nav-pills flex-column pt-3">
                         <router-link class="nav-link" to="/home"><font-awesome icon="home" size="lg" /> Beranda</router-link>
-                        <router-link class="nav-link" :to="$auth.user().role === 1 ? '/teacher/questionnaire' : '/questionnaire'"><font-awesome icon="window-restore" size="lg" /> Kuesioner</router-link>
+                        <router-link class="nav-link" :to="$auth.user().role === 1 ? '/teacher/questionnaire' : '/questionnaire'"><font-awesome icon="pen-square" size="lg" /> Kuesioner</router-link>
                         <router-link v-if="$auth.user().role === 1" class="nav-link" to="/students"><font-awesome icon="users" size="lg" /> Daftar siswa</router-link>
                         <router-link class="nav-link" to="/chat"><font-awesome icon="comments" size="lg" /> Chat</router-link>
                         <router-link class="nav-link" to="/add-post"><font-awesome icon="plus-square" size="lg" /> Buat postingan baru</router-link>
@@ -146,11 +146,11 @@
         mounted(){
             document.getElementById('footer-desc').innerHTML += ` ${new Date().getFullYear()} <strong><a class="text-light" href="http://smkbpi.sch.id/" target="_blank">SMK BPI</a></strong>. All Right Reserved`
             
-            if(window.innerWidth <= 768) this.resize = true
+            if(window.innerWidth <= 992) this.resize = true
             else this.resize = false
 
             window.addEventListener('resize', e => {
-                if(e.target.innerWidth <= 768) this.resize =  true
+                if(e.target.innerWidth <= 992) this.resize =  true
                 else this.resize = false
             })
             $(window).scroll(function(){

@@ -1,16 +1,16 @@
 <template>
 	<div class="bg-white p-4">
 		<div class="row">
-			<div class="col-9">
+			<div class="col-sm-6 col-md-6 col-lg-9">
 				<h1 class="m-0">{{ content.title }}</h1>
 				<small>{{ dateFill(content.date_post) }}</small>
 			</div>
-			<div class="col-3">
+			<div class="col-sm-6 col-md-6 col-lg-3">
 				<div class="row">
-					<div class="col-sm-6 col-md-9 col-lg-9 pt-2 text-right">
+					<div class="col-9 pt-2 text-right">
 						<p>{{ content.name }}</p>
 					</div>
-					<div class="col-sm-6 col-md-3 col-lg-3 pl-0">
+					<div class="col-3 pl-0">
 						<img class="rounded-circle" :src="content.avatar || sauce+'/img/default.png'" width="40" height="40">
 					</div>
 				</div>

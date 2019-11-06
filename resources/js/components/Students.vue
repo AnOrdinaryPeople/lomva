@@ -3,10 +3,10 @@
 		<div v-for="(s, key) in student.data" class="card mb-2" @click="detailClick(key)">
 			<div class="card-body">
 				<div class="row">
-					<div class="col-1 text-center">
+					<div class="col-sm-6 col-md-3 col-lg-1 text-center">
 						<img class="img-fluid rounded-circle" width="75" height="75" :src="s.avatar || sauce+'/img/default.png'" />
 					</div>
-					<div class="col-10">
+					<div class="col-sm-6 col-md-9 col-lg-10">
 						<h4>{{ s.name }}</h4>
 						<p class="text-muted">{{ s.school }}</p>
 					</div>

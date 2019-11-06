@@ -71,7 +71,7 @@
 			</div>
 			<div class="col-6">
 				<h4>Hasil</h4>
-				<p><img :src="sauce+'/img/default.png'" alt="Nama gambar"></p>
+				<p><img class="img-fluid" :src="sauce+'/img/default.png'" alt="Nama gambar"></p>
 			</div>
 		</div>
 		<hr/>
