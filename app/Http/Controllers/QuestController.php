@@ -31,7 +31,7 @@ class QuestController extends Controller
     }
     public function score($id, $userId, Request $req){
     	Done::create([
-    		'id' => $id,
+    		'quest_id' => $id,
     		'user_id' => $userId,
     		'total_score' => $req->score
     	]);
@@ -124,6 +124,7 @@ class QuestController extends Controller
 			Answer::where('q_id', $key->id)->delete();
 
 		$q->delete();
+		Done::where('quest_id', $id)->delete();
 		Quest::destroy($id);
 
 		if(!$checker) return response()->json(['status' => 'success']);
