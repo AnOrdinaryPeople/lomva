@@ -3,7 +3,7 @@
 		<div class="input-group col-sm-12 col-md-12 col-lg-6 mb-4 p-0">
 			<input class="form-control" type="text" placeholder="Cari kuesioner / pembuat kuesioner" v-model="searchQuest">
 			<div class="input-group-append">
-				<button class="btn btn-primary" @click="searchQ">Cari</button>
+				<button class="btn btn-primary" @click="searchQ"><font-awesome icon="search" /></button>
 			</div>
 		</div>
 		<div v-if="content.total > 0">
@@ -54,7 +54,8 @@
 		},
 		methods: {
 			searchQ(){
-				this.$router.push({ path: '/questionnaire?q='+this.searchQuest })
+				if(this.searchQuest != '')
+					this.$router.push({ path: '/questionnaire?q='+this.searchQuest })
 			},
 			changePage(page = 1){
 				axios.post(this.url+'?page='+page)

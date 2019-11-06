@@ -174,7 +174,8 @@
                 el.style.height = 'auto'
             },
             btnSearchApp(){
-                this.$router.push({ path: '/home?q='+this.searchApp })
+                if(this.searchApp != '')
+                    this.$router.push({ path: '/home?q='+this.searchApp })
             },
             openAppModal(){
                 $('#app-modal-format').modal()
