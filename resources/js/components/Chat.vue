@@ -28,7 +28,7 @@
 				</div>
 			</div>
 			<div class="col-sm-12 col-md-9 col-lg-9">
-				<div class="overflow-auto mb-2" style="height: 100vh">
+				<div id="id-chat" class="overflow-auto mb-2" style="height: 100vh">
 					<div class="text-center">
 						<font-awesome icon="spinner" spin size="3x" class="text-primary" style="display: none" id="icon-loader" />
 					</div>
@@ -121,6 +121,9 @@
 
 					axios.post(`/chat/open/${id}/${this.$auth.user().id}`)
 						.then(resp => {
+							$('#id-chat').stop().animate({
+								scrollTop: $('#id-chat')[0].scrollHeight
+							}, 250)
 							pass ? this.msg = [] : ''
 
 							for(var i = 0; i < resp.data.receive.length; i++)

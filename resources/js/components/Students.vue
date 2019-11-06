@@ -34,19 +34,19 @@
 						</div>
 						<div class="border-bottom py-1 pr-4">
 							<h5>Sekolah</h5>
-							<p>{{ detail.school }}</p>
+							<p>{{ detail.school || 'Belum diisi' }}</p>
 						</div>
 						<div class="border-bottom py-1 pr-4">
 							<h5>No. Telepon</h5>
-							<p>{{ detail.phone }}</p>
+							<p>{{ detail.phone || 'Belum diisi' }}</p>
 						</div>
 						<div class="border-bottom py-1 pr-4">
 							<h5>Jenis Kelamin</h5>
-							<p>{{ detail.gender ? 'Laki-laki' : 'Perempuan' }}</p>
+							<p>{{ detail.gender ? 'Laki-laki' : (detail.gender != null ? 'Perempuan' : 'Belum diisi') }}</p>
 						</div>
 						<div class="py-1 pr-4">
 							<h5>Tanggal Lahir</h5>
-							<p>{{ dateFill(detail.born) }}</p>
+							<p>{{ detail.born != null ? dateFill(detail.born) : 'Belum diisi' }}</p>
 						</div>
 					</div>
 				</div>
@@ -88,7 +88,6 @@
 			},
 			detailClick(key){
 				this.detail = this.student.data[key]
-				console.log(this.student.data[key])
 				$('#detail-modal').modal()
 			},
 			dateFill(date){

@@ -31,7 +31,7 @@
                         <router-link v-if="$auth.user().role === 1" class="nav-link" to="/students"><font-awesome icon="users" /> Daftar siswa</router-link>
                     </li>
                     <li v-if="resize" class="nav-item">
-                        <router-link class="nav-link" to="/chat"><font-awesome icon="comments" /> Chat</router-link>
+                        <router-link class="nav-link" to="/chat"><font-awesome icon="comments" /> Konsultasi</router-link>
                     </li>
                     <li v-if="resize" class="nav-item">
                         <router-link class="nav-link" to="/add-post"><font-awesome icon="plus-square" /> Buat postingan baru</router-link>
@@ -86,7 +86,7 @@
                         <router-link class="nav-link" to="/home"><font-awesome icon="home" size="lg" /> Beranda</router-link>
                         <router-link class="nav-link" :to="$auth.user().role === 1 ? '/teacher/questionnaire' : '/questionnaire'"><font-awesome icon="pen-square" size="lg" /> Kuesioner</router-link>
                         <router-link v-if="$auth.user().role === 1" class="nav-link" to="/students"><font-awesome icon="users" size="lg" /> Daftar siswa</router-link>
-                        <router-link class="nav-link" to="/chat"><font-awesome icon="comments" size="lg" /> Chat</router-link>
+                        <router-link class="nav-link" to="/chat"><font-awesome icon="comments" size="lg" /> Konsultasi</router-link>
                         <router-link class="nav-link" to="/add-post"><font-awesome icon="plus-square" size="lg" /> Buat postingan baru</router-link>
                         <router-link class="nav-link" to="/my-post"><font-awesome icon="list" size="lg" /> Postinganku</router-link>
                         <a class="nav-link" href="#" @click.prevent="openAppModal()"><font-awesome icon="info-circle" size="lg" /> Format tambahan</a>

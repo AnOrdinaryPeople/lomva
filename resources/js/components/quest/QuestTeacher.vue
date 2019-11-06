@@ -31,7 +31,8 @@
 					</div>
 					<div class="modal-footer">
 						<button class="btn btn-secondary" data-dismiss="modal">Tidak</button>
-						<button class="btn btn-danger" @click.prevent="del">Ya</button>
+						<button id="del-modal" class="btn btn-danger" @click.prevent="del">Ya</button>
+						<font-awesome icon="spinner" spin size="lg" class="text-primary" style="display: none" id="icon-loader" />
 					</div>
 				</div>
 			</div>
@@ -67,12 +68,23 @@
 				$('#confirm-del').modal()
 			},
 			del(){
+				var id = document.getElementById('del-modal')
+
+				id.setAttribute('disabled', 1)
+				$('#icon-loader').show()
+
 				axios.delete(`/quest/teacher/${this.idModal}/destroy`)
 					.then(() => {
 						this.refresh()
+						id.removeAttribute('disabled')
+						$('#icon-loader').hide()
 						$('#confirm-del').modal('hide')
 					})
-					.catch(err => console.error(err))
+					.catch(err => {
+						console.error(err)
+						id.removeAttribute('disabled')
+						$('#icon-loader').hide()
+					})
 			},
 			refresh(){
 				axios.post('/quest/teacher/'+this.$auth.user().id)

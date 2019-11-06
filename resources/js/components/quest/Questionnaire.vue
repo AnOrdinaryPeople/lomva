@@ -1,11 +1,13 @@
 <template>
 	<div class="bg-white p-4">
-		<div class="input-group col-sm-12 col-md-12 col-lg-6 mb-4 p-0">
-			<input class="form-control" type="text" placeholder="Cari kuesioner / pembuat kuesioner" v-model="searchQuest">
-			<div class="input-group-append">
-				<button class="btn btn-primary" @click="searchQ"><font-awesome icon="search" /></button>
+		<form>
+			<div class="input-group col-sm-12 col-md-12 col-lg-6 mb-4 p-0">
+				<input class="form-control" type="text" placeholder="Cari kuesioner / pembuat kuesioner" v-model="searchQuest">
+				<div class="input-group-append">
+					<button class="btn btn-primary" @click="searchQ"><font-awesome icon="search" /></button>
+				</div>
 			</div>
-		</div>
+		</form>
 		<div v-if="content.total > 0">
 			<div v-for="c in content.data" class="card mb-4" @click="toQuest(c.quest_id)">
 				<div class="card-body">
