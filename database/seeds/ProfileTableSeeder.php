@@ -25,7 +25,7 @@ class ProfileTableSeeder extends Seeder
         ];
         Profile::insert($data);
         for($i = 6; $i <= 10; $i++) $dataa[] = [
-        	'phone' => '\''.$faker->e164PhoneNumber.'\'',
+        	'phone' => $faker->e164PhoneNumber,
         	'gender' => rand(0, 1),
         	'cls' => $cls[rand(0, 2)].'-'.$clss[rand(0, 6)],
         	'school' => $faker->company,
