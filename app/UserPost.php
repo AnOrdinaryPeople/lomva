@@ -24,7 +24,7 @@ class UserPost extends Model
     }
     public static function allPost($check){
     	$db = DB::table('user_posts')
-    		->select('user_posts.id as toId', 'title', 'name', 'user_posts.created_at as date_post')
+    		->select('user_posts.id as toId', 'title', 'name', 'user_posts.created_at as date_post', 'desc')
     		->join('users', 'user_id', '=', 'users.id')
     		->orderBy('user_posts.id', 'desc');
 

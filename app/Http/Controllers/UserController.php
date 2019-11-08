@@ -36,7 +36,7 @@ class UserController extends Controller
     		else $data['password'] = Hash::make($req->pass);
     	}
     	if(!empty($req->file('avatar')) && !empty($user->avatar)){
-    		Storage::disk('public_upload')->delete($user->avatar);
+    		Storage::disk('public_upload')->delete(str_replace(url('/').'/','',$user->avatar));
 			$data['avatar'] = $req->file('avatar')->store('pic','public_upload');
     	}else if(!empty($req->file('avatar')))
             $data['avatar'] = url('/').'/'.$req->file('avatar')->store('pic','public_upload');
@@ -47,7 +47,7 @@ class UserController extends Controller
     		$user->profile()->update($prof);
     	else $user->profile()->create($prof);
 
-    	return response()->json(['status' => 'saved']);
+    	return response()->json($user);
     }
     public function savePost($id, Request $req){
     	$check = Validator::make($req->all(), [

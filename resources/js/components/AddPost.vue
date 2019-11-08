@@ -33,7 +33,9 @@
 				<textarea class="form-control mt-2" v-model="content" style="height: 450px" placeholder="Isi postingan"></textarea>
 				<small v-if="errors.desc" v-for="e in errors.desc" class="text-danger">{{ e }}<br/></small>
 			</div>
-			<markdown-it-vue v-if="page === 1" class="md-body" :content="content" />
+			<div v-if="page === 1" class="mb-2">
+				<markdown-it-vue class="md-body" :content="content" />
+			</div>
 			<guide v-if="page === 2"></guide>
 			<button id="btn-add-post" v-if="page === 0 || page === 1" class="btn" :class="$auth.user().role === 1 ? 'btn-success' : 'btn-primary'" @click="send">{{ btnTitle }}</button>
 			<font-awesome icon="spinner" spin size="lg" class="text-primary" style="display: none" id="icon-loader" />

@@ -14,7 +14,7 @@ class ProfileTableSeeder extends Seeder
     {
         $faker = Faker\Factory::create();
         $cls = ['X','XI','XII'];
-        $clss = ['RPL','TKJ','OTKP','IPS','IPA','MTK','BAHASA'];
+        $clss = ['RPL','TKJ','OTKP','IPS','IPA','MTK'];
 
         for($i = 1; $i <= 5; $i++) $data[] = [
         	'phone' => $faker->e164PhoneNumber,

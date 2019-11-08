@@ -127,7 +127,7 @@
 			axios.post(`/user-profile/${this.$auth.user().id}`)
 				.then(resp => {
 					var r = resp.data
-					console.log(r)
+
 					this.profile.phone = r.phone || ''
 					this.profile.gender = r.gender || ''
 					this.profile.cls = r.cls || ''
@@ -155,13 +155,17 @@
 
 				axios.post(`/user-profile/${this.$auth.user().id}/save`, data, {
 					headers: {'content-type': 'multipart/form-data'}
-				}).then((resp) => {
+				}).then(resp => {
 					this.info = 'Berhasil disimpan'
+
 					$('#icon-loader').hide()
 					id.removeAttribute('disabled')
+					
+					this.$auth.user(resp.data)
 				}).catch(err => {
 					this.errors = err.response.data.errors
 					console.error(err)
+					
 					$('#icon-loader').hide()
 					id.removeAttribute('disabled')
 				})

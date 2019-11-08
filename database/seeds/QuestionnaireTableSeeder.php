@@ -17,6 +17,7 @@ class QuestionnaireTableSeeder extends Seeder
         for($i = 1; $i <= 5; $i++) $data[] = [
         	'title' => str_replace('.', '', $faker->sentence(mt_rand(3, 6))),
             'desc' => $faker->text(255),
+            'category' => rand(1, 4),
         	'user_id' => $i,
         	'created_at' => now(),
         	'updated_at' => now()

@@ -4,8 +4,18 @@
 		<div v-if="content.total > 0">
 			<div v-for="c in content.data" class="card mb-4" @click="goTo(c.toId)">
 				<div class="card-body">
-					<h1>{{ c.title }}</h1>
-					<small>Dibuat oleh <strong>{{ c.name }}</strong> | {{ dateFill(c.date_post) }}</small>
+					<h1 class="text-bold">{{ c.title }}</h1>
+					<p class="text-secondary">{{ regexDesc(c.desc) }}</p>
+					<div class="row">
+						<div class="col">
+							<small>Dibuat oleh <strong>{{ c.name }}</strong> | {{ dateFill(c.date_post) }}</small>
+						</div>
+						<div class="col">
+							<div class="text-right">
+								<small>Comments (...)</small>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -23,12 +33,7 @@
 </style>
 
 <script>
-	import LaravelVuePagination from 'laravel-vue-pagination'
-
 	export default{
-		components: {
-			LaravelVuePagination
-		},
 		data: () => ({
 			content: {total: 1},
 			sauce: ''
@@ -56,6 +61,13 @@
 			dateFill(date){
 				var d = new Date(date)
 				return d.toLocaleString('id-ID', {dateStyle: 'medium'})
+			},
+			regexDesc(desc){
+				var d = desc.replace(/\[([^])*\]/, '')
+					.replace(/\(([^])*\)/, '')
+					.replace(/[#*_~>\`]/g, '')
+
+				return d.length > 50 ? d.substring(0, 50)+'....' : d
 			}
 		},
 		watch: {

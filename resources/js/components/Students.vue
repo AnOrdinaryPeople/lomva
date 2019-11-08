@@ -29,24 +29,40 @@
 							<h2 class="mt-2">{{ detail.name }}</h2>
 						</div>
 						<div class="border-bottom py-1 pr-4">
-							<h5>Email</h5>
-							<p>{{ detail.email }}</p>
+							<div class="row">
+								<div class="col-6">
+									<h5>Email</h5>
+									<p>{{ detail.email }}</p>
+								</div>
+								<div class="col-6">
+									<h5>No. Telepon</h5>
+									<p>{{ detail.phone || 'Belum diisi' }}</p>
+								</div>
+							</div>
 						</div>
 						<div class="border-bottom py-1 pr-4">
-							<h5>Sekolah</h5>
-							<p>{{ detail.school || 'Belum diisi' }}</p>
+							<div class="row">
+								<div class="col-6">
+									<h5>Sekolah</h5>
+									<p>{{ detail.school || 'Belum diisi' }}</p>
+								</div>
+								<div class="col-6">
+									<h5>Kelas</h5>
+									<p>{{ detail.cls || 'Belum diisi' }}</p>
+								</div>
+							</div>
 						</div>
 						<div class="border-bottom py-1 pr-4">
-							<h5>No. Telepon</h5>
-							<p>{{ detail.phone || 'Belum diisi' }}</p>
-						</div>
-						<div class="border-bottom py-1 pr-4">
-							<h5>Jenis Kelamin</h5>
-							<p>{{ detail.gender ? 'Laki-laki' : (detail.gender != null ? 'Perempuan' : 'Belum diisi') }}</p>
-						</div>
-						<div class="py-1 pr-4">
-							<h5>Tanggal Lahir</h5>
-							<p>{{ detail.born != null ? dateFill(detail.born) : 'Belum diisi' }}</p>
+							<div class="row">
+								<div class="col-6">
+									<h5>Jenis Kelamin</h5>
+									<p>{{ detail.gender ? 'Laki-laki' : (detail.gender != null ? 'Perempuan' : 'Belum diisi') }}</p>
+								</div>
+								<div class="col-6">
+									<h5>Tanggal Lahir</h5>
+									<p>{{ detail.born != null ? dateFill(detail.born) : 'Belum diisi' }}</p>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>

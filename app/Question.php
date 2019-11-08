@@ -22,16 +22,12 @@ class Question extends Model
             ->select('id', 'number', 'question')
             ->get();
         
-        if($edit) foreach($db as $key) $data[] = [
+        foreach($db as $key) $data[] = [
             'number' => $key->number,
             'question' => $key->question,
-            'answer' => DB::table('answers')->select('answer', 'score')->where('q_id', $key->id)->get()
-        ];
-        else foreach($db as $key) $data[] = [
-            'number' => $key->number,
-            'question' => $key->question,
-            'answer' => DB::table('answers')->select('answer', 'score')->where('q_id', $key->id)
-                ->inRandomOrder()
+            'answer' => DB::table('answers')
+                ->select('answer', 'score')
+                ->where('q_id', $key->id)
                 ->get()
         ];
 

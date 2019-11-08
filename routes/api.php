@@ -33,8 +33,8 @@ Route::post('/post-update/{id}', 'UserController@updatePost');
 Route::post('/post-search', 'UserController@search');
 
 Route::prefix('questionnaire')->group(function(){
-	Route::post('all-quest/{userId}', 'QuestController@getAll');
-	Route::post('search/{userId}', 'QuestController@search');
+	Route::post('all-quest', 'QuestController@getAll');
+	Route::post('search', 'QuestController@search');
 	Route::post('{id}', 'QuestController@getThisQuest');
 	Route::post('test/{id}/{userId}', 'QuestController@test');
 	Route::post('{id}/score/{userId}', 'QuestController@score');
@@ -47,6 +47,7 @@ Route::prefix('quest')->group(function(){
 	Route::post('teacher/{id}/update/{userId}', 'QuestController@update');
 	Route::delete('teacher/{id}/destroy', 'QuestController@destroy');
 	Route::post('done/{id}/{userId}', 'QuestController@getDone');
+	Route::post('done/user/{id}/{userId}', 'QuestController@getUserDone');
 });
 
 Route::prefix('chat')->group(function(){

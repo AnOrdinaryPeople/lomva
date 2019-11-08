@@ -1,19 +1,28 @@
 <template>
 	<div class="bg-white p-4">
-		<form>
-			<div class="input-group col-sm-12 col-md-12 col-lg-6 mb-4 p-0">
+		<form @submit.prevent="searchQ">
+			<div class="input-group col-sm-12 col-md-12 col-lg-6 mb-2 p-0">
 				<input class="form-control" type="text" placeholder="Cari kuesioner / pembuat kuesioner" v-model="searchQuest">
 				<div class="input-group-append">
-					<button class="btn btn-primary" @click="searchQ"><font-awesome icon="search" /></button>
+					<button class="btn btn-primary"><font-awesome icon="search" /></button>
 				</div>
 			</div>
 		</form>
+		<select class="form-control mb-4 col-sm-6 col-md-6 col-lg-3" v-model="category">
+			<option value="" disabled>-- Jenis kuesioner --</option>
+			<option value="all">Semua jenis</option>
+			<option value="1">Akademik</option>
+			<option value="2">Karir</option>
+			<option value="3">Sosial</option>
+			<option value="4">Pribadi</option>
+		</select>
 		<div v-if="content.total > 0">
-			<div v-for="c in content.data" class="card mb-4" @click="toQuest(c.quest_id)">
+			<div v-for="c in list" class="card mb-4" @click="toQuest(c.quest_id)">
 				<div class="card-body">
 					<div class="row">
 						<div class="col-8">
 							<h1>{{ c.title }}</h1>
+							<small class="text-secondary">Jenis kuesioner <strong>{{ ctg(c.category) }}</strong></small>
 						</div>
 						<div class="col-4 text-right">
 							<p>{{ c.name }} <img class="img-fluid rounded-circle" width="40" height="40" :src="c.avatar || sauce+'/img/default.png'"></p>
@@ -40,12 +49,12 @@
 			searchQuest: '',
 			content: { total: 1 },
 			sauce: process.env.MIX_APP_URL,
-			url: ''
+			url: '',
+			category: 0
 		}),
 		mounted(){
-			const q = this.$route.query.q,
-				id = this.$auth.user().id
-			this.url = q ? '/questionnaire/search/'+id : '/questionnaire/all-quest/'+id
+			const q = this.$route.query.q
+			this.url = q ? '/questionnaire/search/' : '/questionnaire/all-quest/'
 
 			if(q) axios.post(this.url, {search: q})
 				.then(resp => this.content = resp.data)
@@ -66,10 +75,28 @@
 			},
 			toQuest(id){
 				this.$router.push({ path:'/questionnaire/'+id })
+			},
+			ctg(c){
+				return c === 1 ? 'Akademik'
+					: (c === 2 ? 'Karir' : (c === 3 ? 'Sosial' : 'Pribadi'))
+			}
+		},
+		computed: {
+			list(){
+				let filter = this.content.data
+
+				if(this.category === 'all') return this.content.data
+				else if(this.category !== 'all' && this.category > 0)
+					filter = this.content.data.filter(e => e.category == this.category)
+
+				return filter
 			}
 		},
 		watch: {
 			$route(to){
+				const q = this.$route.query.q
+				this.url = q ? '/questionnaire/search/' : '/questionnaire/all-quest/'
+
 				axios.post(this.url, {search: this.$route.query.q})
 					.then(resp => this.content = resp.data)
 					.catch(err => console.error(err))

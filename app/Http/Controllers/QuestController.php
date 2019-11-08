@@ -12,18 +12,17 @@ use Illuminate\Support\Facades\Validator;
 
 class QuestController extends Controller
 {
-    public function getAll($userId){
-    	return response()->json(Quest::getAll($userId));
+    public function getAll(){
+    	return response()->json(Quest::getAll());
     }
-    public function search($userId, Request $req){
-    	return response()->json(Quest::search($req->search, $userId));
+    public function search(Request $req){
+    	return response()->json(Quest::search($req->search));
     }
     public function getThisQuest($id){
     	return response()->json(Quest::getThisQuest($id));
     }
     public function test($id, $userId){
-    	if(Done::testCheck($userId, $id)) return response()->json(['status' => 'done'], 422);
-    	else return response()->json([
+    	return response()->json([
     		'data' => Question::test($id),
     		'result' => Result::getResult($id),
     		'total' => Question::total($id)
@@ -45,6 +44,7 @@ class QuestController extends Controller
     	$check = Validator::make($req->all(), [
     		'title' => 'required',
     		'desc' => 'required',
+    		'category' => 'required|numeric|min:1|max:4',
     		'questions.*.question' => 'required',
     		'questions.*.answers.*.answer' => 'required',
     		'questions.*.answers.*.score' => $val,
@@ -57,6 +57,7 @@ class QuestController extends Controller
 	    	$store = Quest::create([
 	    		'title' => $req->title,
 	    		'desc' => $req->desc,
+	    		'category' => $req->category,
 	    		'user_id' => $id,
 	    	]);
 	    	for($i = 0; $i < count($req->questions); $i++){
@@ -101,7 +102,7 @@ class QuestController extends Controller
 		if(!$info) return response()->json([
 			'info' => '',
 			'question' => '',
-			'result' => ''
+			'result' => '',
 		]);
 		else return response()->json([
 			'info' => $info,
@@ -131,8 +132,13 @@ class QuestController extends Controller
 	}
 	public function getDone($id, $userId){
 		return response()->json([
-			'student' => Quest::getDone($id),
+			'student' => Done::getDone($id),
 			'result' => Result::getResult($id, true, $userId)
 		]);
+	}
+	public function getUserDone($id, $userId){
+		return response()->json(Done::where('quest_id', $id)
+			->where('user_id', $userId)
+			->get());
 	}
 }

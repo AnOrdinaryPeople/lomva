@@ -7,7 +7,20 @@
 				<li>Pastikan nilai skor tertinggi harus lebih besar dari skor terkecil!</li>
 			</ol>
 		</div>
-		<input class="form-control" type="text" placeholder="Judul kuesioner" v-model="title">
+		<div class="row">
+			<div class="col-9 pr-1">
+				<input class="form-control" type="text" placeholder="Judul kuesioner" v-model="title">
+			</div>
+			<div class="col-3 pl-1">
+				<select class="form-control" v-model="category">
+					<option value="" disabled>-- Jenis kuesioner --</option>
+					<option value="1">Akademik</option>
+					<option value="2">Karir</option>
+					<option value="3">Sosial</option>
+					<option value="4">Pribadi</option>
+				</select>
+			</div>
+		</div>
 		<div class="row mt-2">
 			<div class="col-sm-12 col-md-12 col-lg-3 mt-2">
 				<div class="btn-group w-100 mb-2">
@@ -59,12 +72,21 @@
 					</div>
 					<table class="w-100">
 						<tr v-for="(a, key) in questions[i].answers" class="row">
-							<td class="col-9 pr-1"><input class="form-control" type="text" placeholder="jawaban" v-model="a.answer"></td>
-							<td :class="questions[i].answers.length > 1 ? 'col-2 p-0' : 'col-3 pl-1'"><input class="form-control" type="number" min="0" placeholder="skor" v-model="a.score"></td>
-							<td v-if="questions[i]['answers'].length > 1" class="col-1 pl-1"><button class="btn btn-danger btn-block" @click="delAnswer(key)">X</button></td>
+							<td class="col-9 pr-1">
+								<input class="form-control" type="text" placeholder="jawaban" v-model="a.answer">
+							</td>
+							<td :class="questions[i].answers.length > 1 ? 'col-2 p-0' : 'col-3 pl-1'">
+								<input class="form-control" type="number" min="0" placeholder="skor" v-model="a.score">
+							</td>
+							<td v-if="questions[i]['answers'].length > 1" class="col-1 pl-1">
+								<button class="btn btn-danger btn-block" @click="delAnswer(key)">X</button>
+							</td>
 						</tr>
 					</table>
 					<button class="btn btn-success mt-2" @click="addAnswer(i)">+ Tambah jawaban</button>
+					<button v-if="questions.length > 1 && i !== 0" class="btn btn-success mt-2 ml-2" @click="dupAnswer(i)">
+						<font-awesome icon="clone" /> Duplikat jawaban sebelumnya
+					</button>
 				</div>
 			</div>
 		</div>
@@ -72,7 +94,7 @@
 			<button class="btn btn-primary" data-toggle="modal" data-target="#confirm-quest">{{ routeName == 'teacher-quest-create' ? 'Kirim' : 'Update' }} kuesioner</button>
 		</div>
 		<div id="confirm-quest" class="modal fade" tabindex="-1">
-			<div class="modal-dialog modal-dialog-scrollable">
+			<div class="modal-dialog">
 				<div class="modal-content">
 					<div class="modal-header">
 						<h5>Konfirmasi {{ id ? 'update' : 'kirim' }} kuesioner</h5>
@@ -99,6 +121,7 @@
 	export default{
 		data: () => ({
 			title: '',
+			category: 0,
 			desc: '',
 			i: 0,
 			page: 1,
@@ -153,6 +176,9 @@
 					score: ''
 				})
 			},
+			dupAnswer(i){
+				this.questions[i].answers = this.questions[i - 1].answers
+			},
 			delAnswer(n){
 				Vue.delete(this.questions[this.i].answers, n)
 			},
@@ -175,6 +201,7 @@
 
 				axios.post(url, {
 					title: this.title,
+					category: this.category,
 					desc: this.desc,
 					questions: this.questions,
 					results: this.results
@@ -204,6 +231,7 @@
 							else{
 								this.title = r.info.title
 								this.desc = r.info.desc
+								this.category = r.info.category
 								this.questions = []
 								this.results = []
 

@@ -12,10 +12,10 @@ class DoneTableSeeder extends Seeder
      */
     public function run()
     {
-        for($i = 1; $i <= 5; $i++) $data[] = [
-        	'user_id' => $i + 5,
+        for($i = 0; $i < 15; $i++) $data[] = [
+        	'user_id' => rand(6, 10),
         	'total_score' => rand(10, 200),
-        	'quest_id' => $i,
+        	'quest_id' => rand(1, 5),
         	'created_at' => now(),
         	'updated_at' => now()
         ];

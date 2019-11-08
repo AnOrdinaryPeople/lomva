@@ -22,25 +22,39 @@
                         </form>
                     </li>
                     <li v-if="resize" class="nav-item">
-                        <router-link class="nav-link" to="/home"><font-awesome icon="home" /> Beranda</router-link>
+                        <router-link class="nav-link" to="/home">
+                            <font-awesome icon="home" /> Beranda
+                        </router-link>
                     </li>
                     <li v-if="resize" class="nav-item">
-                        <router-link class="nav-link" :to="$auth.user().role === 1 ? '/teacher/questionnaire' : '/questionnaire'"><font-awesome icon="pen-square" /> Kuesioner</router-link>
+                        <router-link class="nav-link" :to="$auth.user().role === 1 ? '/teacher/questionnaire' : '/questionnaire'">
+                            <font-awesome icon="pen-square" /> Kuesioner
+                        </router-link>
                     </li>
                     <li v-if="resize" class="nav-item">
-                        <router-link v-if="$auth.user().role === 1" class="nav-link" to="/students"><font-awesome icon="users" /> Daftar siswa</router-link>
+                        <router-link v-if="$auth.user().role === 1" class="nav-link" to="/students">
+                            <font-awesome icon="users" /> Daftar siswa
+                        </router-link>
                     </li>
                     <li v-if="resize" class="nav-item">
-                        <router-link class="nav-link" to="/chat"><font-awesome icon="comments" /> Konsultasi</router-link>
+                        <router-link class="nav-link" to="/chat">
+                            <font-awesome icon="comments" /> Konsultasi
+                        </router-link>
                     </li>
                     <li v-if="resize" class="nav-item">
-                        <router-link class="nav-link" to="/add-post"><font-awesome icon="plus-square" /> Buat postingan baru</router-link>
+                        <router-link class="nav-link" to="/add-post">
+                            <font-awesome icon="plus-square" /> Buat postingan baru
+                        </router-link>
                     </li>
                     <li v-if="resize" class="nav-item">
-                        <router-link class="nav-link" to="/my-post"><font-awesome icon="list" /> Postinganku</router-link>
+                        <router-link class="nav-link" to="/my-post">
+                            <font-awesome icon="list" /> Postinganku
+                        </router-link>
                     </li>
                     <li v-if="resize" class="nav-item">
-                        <a class="nav-link" href="#" @click.prevent="openAppModal()"><font-awesome icon="info-circle" /> Format tambahan</a>
+                        <a class="nav-link" href="#" @click.prevent="openAppModal()">
+                            <font-awesome icon="info-circle" /> Format tambahan
+                        </a>
                     </li>
                 </ul>
                 <ul v-else class="navbar-nav mr-auto">
@@ -83,13 +97,27 @@
             <div :class="$auth.check() ? (!resize ? 'row' : '') : ''">
                 <div v-if="$auth.check()" :class="!resize ? 'col-2 bg-white position-sticky overflow-auto shadow-sm' : 'invisible'" :style="!resize ? 'height: 100vh;top: 0' : ''">
                     <nav v-if="!resize" class="nav nav-pills flex-column pt-3">
-                        <router-link class="nav-link" to="/home"><font-awesome icon="home" size="lg" /> Beranda</router-link>
-                        <router-link class="nav-link" :to="$auth.user().role === 1 ? '/teacher/questionnaire' : '/questionnaire'"><font-awesome icon="pen-square" size="lg" /> Kuesioner</router-link>
-                        <router-link v-if="$auth.user().role === 1" class="nav-link" to="/students"><font-awesome icon="users" size="lg" /> Daftar siswa</router-link>
-                        <router-link class="nav-link" to="/chat"><font-awesome icon="comments" size="lg" /> Konsultasi</router-link>
-                        <router-link class="nav-link" to="/add-post"><font-awesome icon="plus-square" size="lg" /> Buat postingan baru</router-link>
-                        <router-link class="nav-link" to="/my-post"><font-awesome icon="list" size="lg" /> Postinganku</router-link>
-                        <a class="nav-link" href="#" @click.prevent="openAppModal()"><font-awesome icon="info-circle" size="lg" /> Format tambahan</a>
+                        <router-link class="nav-link" to="/home">
+                            <font-awesome icon="home" size="lg" /> Beranda
+                        </router-link>
+                        <router-link class="nav-link" :to="$auth.user().role === 1 ? '/teacher/questionnaire' : '/questionnaire'">
+                            <font-awesome icon="pen-square" size="lg" /> Kuesioner
+                        </router-link>
+                        <router-link v-if="$auth.user().role === 1" class="nav-link" to="/students">
+                            <font-awesome icon="users" size="lg" /> Daftar siswa
+                        </router-link>
+                        <router-link class="nav-link" to="/chat">
+                            <font-awesome icon="comments" size="lg" /> Konsultasi
+                        </router-link>
+                        <router-link class="nav-link" to="/add-post">
+                            <font-awesome icon="plus-square" size="lg" /> Buat postingan baru
+                        </router-link>
+                        <router-link class="nav-link" to="/my-post">
+                            <font-awesome icon="list" size="lg" /> Postinganku
+                        </router-link>
+                        <a class="nav-link" href="#" @click.prevent="openAppModal()">
+                            <font-awesome icon="info-circle" size="lg" /> Format tambahan
+                        </a>
                     </nav>
                 </div>
                 <div :class="$auth.check() ? (!resize ? 'col-10 py-4 px-4' : 'container py-4') : 'container py-4'">
