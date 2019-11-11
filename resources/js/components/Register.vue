@@ -22,7 +22,7 @@
 					<div class="form-group">
 						<label for="reg-pass"><font-awesome icon="key" /> Password</label>
 						<input id="reg-pass" class="form-control" :class="has_error && errors.password ? 'is-invalid' : ''" type="password" v-model="pass">
-						<small class="text-muted">Minimal panjang password 8 huruf</small><br/>
+						<small class="text-muted">Minimal panjang password 8 karakter</small><br/>
 						<small v-if="has_error && errors.password" v-for="errPass in errors.password" class="text-danger">{{ errPass }}<br/></small>
 					</div>
 					<div class="form-group">

@@ -1,29 +1,34 @@
 <template>
 	<div class="bg-white p-4">
-		<laravel-vue-pagination :data="content" @pagination-change-page="changePage"></laravel-vue-pagination>
-		<div v-if="content.total > 0">
-			<div v-for="c in content.data" class="card mb-4" @click="goTo(c.toId)">
-				<div class="card-body">
-					<h1 class="text-bold">{{ c.title }}</h1>
-					<p class="text-secondary">{{ regexDesc(c.desc) }}</p>
-					<div class="row">
-						<div class="col">
-							<small>Dibuat oleh <strong>{{ c.name }}</strong> | {{ dateFill(c.date_post) }}</small>
-						</div>
-						<div class="col">
-							<div class="text-right">
-								<small>Comments (...)</small>
+		<div v-if="loader" class="text-center">
+			<font-awesome icon="spinner" spin size="3x" class="text-primary" />
+		</div>
+		<div v-else>
+			<laravel-vue-pagination :data="content" @pagination-change-page="changePage"></laravel-vue-pagination>
+			<div v-if="content.total > 0">
+				<div v-for="c in content.data" class="card mb-4" @click="goTo(c.toId)">
+					<div class="card-body">
+						<h1 class="text-bold">{{ c.title }}</h1>
+						<p class="text-secondary">{{ regexDesc(c.desc) }}</p>
+						<div class="row">
+							<div class="col">
+								<small>Dibuat oleh <strong>{{ c.name }}</strong> | {{ dateFill(c.date_post) }}</small>
+							</div>
+							<div class="col">
+								<div class="text-right">
+									<small>Comments (...)</small>
+								</div>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
+			<div v-else class="text-center">
+				<h1>Hasil <i>{{ $route.query.q }}</i> tidak ditemukan</h1>
+				<h4>Silahkan coba cari lagi</h4>
+			</div>
+			<laravel-vue-pagination :data="content" @pagination-change-page="changePage"></laravel-vue-pagination>
 		</div>
-		<div v-else class="text-center">
-			<h1>Hasil <i>{{ $route.query.q }}</i> tidak ditemukan</h1>
-			<h4>Silahkan coba cari lagi</h4>
-		</div>
-		<laravel-vue-pagination :data="content" @pagination-change-page="changePage"></laravel-vue-pagination>
 	</div>
 </template>
 
@@ -36,17 +41,24 @@
 	export default{
 		data: () => ({
 			content: {total: 1},
-			sauce: ''
+			sauce: '',
+			loader: true
 		}),
 		mounted(){
 			const q = this.$route.query.q
 			this.sauce = this.$auth.user().role === 1 ? '/all-post/with-bk' : '/all-post/public'
 
 			if(q) axios.post('/post-search', {search: q, role: this.$auth.user().role || 0})
-				.then(resp => this.content = resp.data)
+				.then(resp => {
+					this.content = resp.data
+					this.loader = false
+				})
 				.catch(err => console.error(err))
 			else axios.post(this.sauce)
-				.then(resp => this.content = resp.data)
+				.then(resp => {
+					this.content = resp.data
+					this.loader = false
+				})
 				.catch(err => console.error(err))
 		},
 		methods: {
@@ -73,7 +85,10 @@
 		watch: {
 			$route(to){
 				axios.post('/post-search', {search: this.$route.query.q, role: this.$auth.user().role || 0})
-					.then(resp => this.content = resp.data)
+					.then(resp => {
+						this.content = resp.data
+						this.loader = false
+					})
 					.catch(err => console.error(err))
 			}
 		}
