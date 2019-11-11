@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use App\Result;
 
 class LaporanSeeder extends Seeder
 {
@@ -11,10 +12,11 @@ class LaporanSeeder extends Seeder
      */
     public function run()
     {
-       DB::table('laporan')->insert([
+       [
             'nama_laporan' => 1,
             'hasil' =>(''),
             'jawaban' => ('siswa',10),
-        ]
+        ];
+        Result::insert($data);
     }
 }

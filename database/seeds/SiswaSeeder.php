@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use App\
 
 class SiswaSeeder extends Seeder
 {
@@ -11,7 +12,7 @@ class SiswaSeeder extends Seeder
      */
     public function run()
     {
-         DB::table('siswa')->insert([
+         $data[]=[
             'name' => ('adiputra',10),
             'email' => ('adiputra',10).'@mail.com',
             'kelas' => ('XII-RPL',10),

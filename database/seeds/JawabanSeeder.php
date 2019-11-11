@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use App\Answer;
 
 class JawabanSeeder extends Seeder
 {
@@ -11,7 +12,7 @@ class JawabanSeeder extends Seeder
      */
     public function run()
     {
-         DB::table('jawaban')->insert([
+        $data[]=[
             'id_pertanyaan' => '1',
             'jawaban' => ('Sangat Sering',50),
             'hasil' => (''),
@@ -234,7 +235,7 @@ class JawabanSeeder extends Seeder
         	 'id_pertanyaan' => '8',
             'jawaban' => ('Jarang Sekali',50),
             'hasil' => (''),
-        
-        ]
+        ];
+        Jawaban::insert($data);
     }
 }
