@@ -27,7 +27,7 @@ class ProfileTableSeeder extends Seeder
         for($i = 6; $i <= 10; $i++) $dataa[] = [
         	'phone' => $faker->e164PhoneNumber,
         	'gender' => rand(0, 1),
-        	'cls' => $cls[rand(0, 2)].'-'.$clss[rand(0, 6)],
+        	'cls' => $cls[rand(0, 2)].'-'.$clss[rand(0, 5)],
         	'school' => $faker->company,
         	'born' => $faker->date('Y-m-d', '-16 years'),
         	'user_id' => $i,
