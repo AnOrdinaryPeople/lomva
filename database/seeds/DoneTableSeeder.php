@@ -17,7 +17,7 @@ class DoneTableSeeder extends Seeder
         	'total_score' => rand(10, 200),
         	'quest_id' => $i,
         	'created_at' => now(),
-        	'updated_at' => now()
+        	'updated_at' => now(),
         ];
         Done::insert($data);
     }
