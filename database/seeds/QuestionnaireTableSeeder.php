@@ -12,14 +12,33 @@ class QuestionnaireTableSeeder extends Seeder
      */
     public function run()
     {
-        $faker = Faker\Factory::create();
-
-        for($i = 1; $i <= 5; $i++) $data[] = [
-        	'title' => str_replace('.', '', $faker->sentence(mt_rand(3, 6))),
-            'desc' => $faker->text(255),
+        $data[] = [
+            'title'=>'Mengetes Diri Sendiri',
+            'desc'=>'Test Untuk Mengetahui Diri Sendiri',
+            'user_id'=>$i,
+            'created_at'=>now(),
+            'updated_at'=>now()
+        ],
+        [
+        	'title' => 'Mengetes Tingkat Kesehatan Mental',
+            'desc' => 'Test Untuk Mengukur Kesehatan Mental.',
         	'user_id' => $i,
         	'created_at' => now(),
         	'updated_at' => now()
+        ],
+        [
+            'title'=>'Cek Tingkat Depresi Kamu Lewat Test Ini',
+            'desc'=> 'Tes Psikologi untuk Melihat Sebesar apa Depresi Diri Anda.',
+            'user_id'=>$i,
+            'created_at'=>now(),
+            'updated_at'=>now()
+        ],
+        [
+            'title'=>'Mengukur Tingkat Stress',
+            'desc'=>'Test Untuk Mengukur Tingkat Stress Yang Dimiliki.',
+            'user_id'=>$i,
+            'created_at'=>now(),
+            'updated_at'=>now()
         ];
         Questionnaire::insert($data);
     }
