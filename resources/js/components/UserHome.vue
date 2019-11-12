@@ -9,8 +9,7 @@
 				<div v-for="c in content.data" class="card mb-4 shadow" @click="goTo(c.toId)">
 					<div class="card-body">
 						<h1 class="text-bold">{{ c.title }}</h1>
-						<!-- <p class="text-secondary">{{ regexDesc(c.desc) }}</p> -->
-						<p class="text-secondary">{{ c.desc }}</p>
+						<p class="text-secondary">{{ regexDesc(c.desc) }}</p>
 						<div class="row">
 							<div class="col">
 								<small>Dibuat oleh <strong>{{ c.name }}</strong> | {{ dateFill(c.date_post) }}</small>
@@ -46,21 +45,7 @@
 			loader: true
 		}),
 		mounted(){
-			const q = this.$route.query.q
-			this.sauce = this.$auth.user().role === 1 ? '/all-post/with-bk' : '/all-post/public'
-
-			if(q) axios.post('/post-search', {search: q, role: this.$auth.user().role || 0})
-				.then(resp => {
-					this.content = resp.data
-					this.loader = false
-				})
-				.catch(err => console.error(err))
-			else axios.post(this.sauce)
-				.then(resp => {
-					this.content = resp.data
-					this.loader = false
-				})
-				.catch(err => console.error(err))
+			this.checkPath()
 		},
 		methods: {
 			goTo(id){
@@ -75,22 +60,34 @@
 				var d = new Date(date)
 				return d.toLocaleString('id-ID', {dateStyle: 'medium'})
 			},
-			// regexDesc(desc){
-				// var d = desc.replace(/\[([^])*\]/, '')
-				// 	.replace(/\(([^])*\)/, '')
-				// 	.replace(/[#*_~>\`]/g, '')
+			regexDesc(desc){
+				var d = desc.replace(/\[([^])*\]/, '')
+					.replace(/\(([^])*\)/, '')
+					.replace(/[#*_~>\`]/g, '')
 
-				// return desc.length > 50 ? desc.substring(0, 50)+'....' : d
-			// }
-		},
-		watch: {
-			$route(to){
-				axios.post('/post-search', {search: this.$route.query.q, role: this.$auth.user().role || 0})
+				return desc.length > 50 ? desc.substring(0, 50)+'....' : d
+			},
+			checkPath(){
+				const q = this.$route.query.q
+				this.sauce = this.$auth.user().role === 1 ? '/all-post/with-bk' : '/all-post/public'
+
+				if(q) axios.post('/post-search', {search: q, role: this.$auth.user().role || 0})
 					.then(resp => {
 						this.content = resp.data
 						this.loader = false
 					})
 					.catch(err => console.error(err))
+				else axios.post(this.sauce)
+					.then(resp => {
+						this.content = resp.data
+						this.loader = false
+					})
+					.catch(err => console.error(err))
+			}
+		},
+		watch: {
+			$route(to){
+				this.checkPath()
 			}
 		}
 	}
