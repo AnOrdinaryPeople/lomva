@@ -54,34 +54,38 @@ class QuestController extends Controller
     	]);
     	if($check->fails()) return response()->json($check->errors(), 422);
     	else{
-	    	$store = Quest::create([
-	    		'title' => $req->title,
-	    		'desc' => $req->desc,
-	    		'category' => $req->category,
-	    		'user_id' => $id,
-	    	]);
-	    	for($i = 0; $i < count($req->questions); $i++){
-	    		$obj = $req['questions'][$i];
-
-	    		$quest = Question::create([
-		    		'number' => $i + 1,
-	    			'question' => $obj['question'],
-	    			'quest_id' => $store->id
-		    	]);
-		    	foreach ($obj['answers'] as $key) {
-		    		$answer[] = [
-		    			'answer' => $key['answer'],
-		    			'score' => $key['score'],
-		    			'q_id' => $quest->id,
-		    			'created_at' => now(),
-			    		'updated_at' => now()
-		    		];
-		    	}
-	    	}
-	    	foreach ($req->results as $key){
-	    		if($key['max'] <= $key['min'] || $key['min'] >= $key['max'])
+    		foreach ($req->results as $key){
+	    		if($key['max'] <= $key['min'] || $key['min'] >= $key['max']){
+	    			$checker = 'checked';
 	    			return response()->json(['error_range' => 'error range number'], 422);
-	    		else $result[] = [
+	    		}
+	    	}
+	    	if(empty($checker)){
+		    	$store = Quest::create([
+		    		'title' => $req->title,
+		    		'desc' => $req->desc,
+		    		'category' => $req->category,
+		    		'user_id' => $id,
+		    	]);
+		    	for($i = 0; $i < count($req->questions); $i++){
+		    		$obj = $req['questions'][$i];
+
+		    		$quest = Question::create([
+			    		'number' => $i + 1,
+		    			'question' => $obj['question'],
+		    			'quest_id' => $store->id
+			    	]);
+			    	foreach ($obj['answers'] as $key) {
+			    		$answer[] = [
+			    			'answer' => $key['answer'],
+			    			'score' => $key['score'],
+			    			'q_id' => $quest->id,
+			    			'created_at' => now(),
+				    		'updated_at' => now()
+			    		];
+			    	}
+		    	}
+		    	foreach ($req->results as $key) $result[] = [
 	    			'quest_id' => $store->id,
 		    		'min_score' => $key['min'],
 		    		'max_score' => $key['max'],
@@ -89,11 +93,11 @@ class QuestController extends Controller
 		    		'created_at' => now(),
 		    		'updated_at' => now()
 		    	];
-	    	}
-	    	Answer::insert($answer);
-	    	Result::insert($result);
+		    	Answer::insert($answer);
+		    	Result::insert($result);
 
-	    	return response()->json(['status' => 'success']);
+		    	return response()->json(['status' => 'success']);
+	    	}
     	}
     }
 	public function edit($id, $userId){
