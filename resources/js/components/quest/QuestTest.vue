@@ -8,7 +8,7 @@
 				<h1>{{ content[n]['number'] }}. {{ content[n]['question'] }}</h1>
 				<div class="form-group">
 					<div v-for="(a, key) in content[n]['answer']" class="custom-control custom-radio">
-						<input :id="`q-${n}-${key}`" class="custom-control-input" type="radio" name="option" @click.prevent="saveAnswer(n, a.score, key)" :checked="checker(n, key)">
+						<input :id="`q-${n}-${key}`" class="custom-control-input" type="radio" name="option" @click="saveAnswer(n, a.score, key)" :checked="checker(n, key)">
 						<label class="custom-control-label" :for="`q-${n}-${key}`">{{ a.answer }}</label>
 					</div>
 				</div>
@@ -71,17 +71,21 @@
 			next(i){
 				if(i < 0) i = 0
 				else if(i >= this.content.length) i = this.content.length - 1
+				
 				this.n = i
 			},
 			saveAnswer(n, score, key){
-				var id = document.getElementById('btn-q-'+n).classList
 				this.answer[n] = {'score': score, 'key': key}
+				var id = document.getElementById('btn-q-'+n).classList,
+					a = JSON.parse(JSON.stringify(this.answer))
 
 				if(!this.answer.includes(undefined) && this.total === this.answer.length) this.btnFinish = true
 				else this.btnFinish = false
 
+				this.answer = []
 				id.add('btn-primary')
 				id.remove('btn-outline-primary')
+				this.answer = a
 			},
 			checker(n, key){
 				try{

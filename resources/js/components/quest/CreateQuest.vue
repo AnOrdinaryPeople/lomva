@@ -8,17 +8,17 @@
 			</ol>
 		</div>
 		<div class="row">
-			<div class="col-9 pr-1">
-				<input class="form-control" type="text" placeholder="Judul kuesioner" v-model="title">
-			</div>
-			<div class="col-3 pl-1">
+			<div class="col-3">
 				<select class="form-control" v-model="category">
 					<option value="" disabled>-- Jenis kuesioner --</option>
-					<option value="1">Akademik</option>
-					<option value="2">Karir</option>
-					<option value="3">Sosial</option>
-					<option value="4">Pribadi</option>
+					<option value="1" :selected="category === 1 ? true : false">Akademik</option>
+					<option value="2" :selected="category === 2 ? true : false">Karir</option>
+					<option value="3" :selected="category === 3 ? true : false">Sosial</option>
+					<option value="4" :selected="category === 4 ? true : false">Pribadi</option>
 				</select>
+			</div>
+			<div class="col-9">
+				<input class="form-control" type="text" placeholder="Judul kuesioner" v-model="title">
 			</div>
 		</div>
 		<div class="row mt-2">
@@ -34,7 +34,22 @@
 			</div>
 			<div class="col-sm-12 col-md-12 col-lg-9 mt-2">
 				<div v-if="page === 1">
-					<textarea class="form-control" style="height: 250px" placeholder="deskripsi tentang kuesioner ini *Bisa menggunakan format tambahan" v-model="desc"></textarea>
+					<div class="card">
+						<div class="card-header">
+							<ul class="nav nav-tabs card-header-tabs">
+								<li class="nav-item">
+									<a class="nav-link" :class="section === 0 ? 'active' : ''" href="#" @click.prevent="selectSection(0)">Inputan</a>
+								</li>
+								<li class="nav-item">
+									<a class="nav-link" :class="section === 1 ? 'active' : ''" href="#" @click.prevent="selectSection(1)">Lihat hasil</a>
+								</li>
+							</ul>
+						</div>
+						<div class="card-body">
+							<textarea v-if="section === 0" class="form-control" style="height: 250px" placeholder="deskripsi tentang kuesioner ini *Bisa menggunakan format tambahan" v-model="desc"></textarea>
+							<markdown-it-vue v-else-if="section === 1" class="md-body" :content="desc" />
+						</div>
+					</div>
 				</div>
 				<div v-else-if="page === 2">
 					<table class="w-100">
@@ -117,6 +132,13 @@
 	</div>
 </template>
 
+<style scoped>
+	.nav-tabs .nav-link.active {
+		background-color: #fff;
+		border-color: #dee2e6 #dee2e6 #fff
+	}
+</style>
+
 <script>
 	export default{
 		data: () => ({
@@ -140,7 +162,8 @@
 			error: false,
 			canLeave: false,
 			id: 0,
-			routeName: ''
+			routeName: '',
+			section: 0
 		}),
 		mounted(){
 			this.routeName = this.$route.name
@@ -156,6 +179,9 @@
 			toQuest(n){
 				this.page = 0
 				this.i = n - 1
+			},
+			selectSection(i){
+				this.section = i
 			},
 			addQuest(n){
 				this.questions.push({
@@ -177,7 +203,7 @@
 				})
 			},
 			dupAnswer(i){
-				this.questions[i].answers = this.questions[i - 1].answers
+				this.questions[i].answers = JSON.parse(JSON.stringify(this.questions[i - 1].answers))
 			},
 			delAnswer(n){
 				Vue.delete(this.questions[this.i].answers, n)
@@ -201,11 +227,11 @@
 
 				axios.post(url, {
 					title: this.title,
-					category: this.category,
+					category: parseInt(this.category),
 					desc: this.desc,
 					questions: this.questions,
 					results: this.results
-				}).then(resp => {
+				}).then(() => {
 					this.canLeave = true
 					this.$router.push({ name: 'teacher-quest' })
 					$('#confirm-quest').modal('hide')
@@ -282,9 +308,8 @@
 			}
 		},
 		beforeRouteLeave(to, from, next){
-			if(this.canLeave){
-				next()
-			}else{
+			if(this.canLeave) next()
+			else{
 				if(this.title != '' || this.desc != '' || this.questions.length > 1 || this.questions[0].answers.length > 1 || this.results.length > 1){
 					if(window.confirm('Apakah anda yakin ingin keluar dari halaman ini? jika anda keluar dari halaman ini, kuesioner tidak akan disimpan')) next()
 					else next(false)

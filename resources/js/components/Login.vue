@@ -1,23 +1,34 @@
 <template>
-	<div class="container">
-		<div class="card">
-			<div class="card-header">Login</div>
-			<div class="card-body">
-				<div v-if="has_error" class="alert alert-danger">Email atau password salah</div>
-				<button class="btn btn-google" @click="authProvider('google')"><font-awesome :icon="['fab', 'google']" /> Login dengan Google</button>
-				<button class="btn btn-facebook" @click="authProvider('facebook')"><font-awesome :icon="['fab', 'facebook']" /> Login dengan Facebook</button>
-				<form autocomplete="off" @submit.prevent="login()" method="post">
-					<div class="form-group">
-						<label for="log-email"><font-awesome icon="envelope" /> Email</label>
-						<input id="log-email" class="form-control" type="email" v-model="email" autofocus>
+	<div class="jumbroton jumbroton-fluid mt-0">
+		<div class="container">
+			<div class="row justify-content-center">
+				<div class="col-sm-12 col-md-9 col-lg-6">
+					<div class="card p-3">
+						<div class="card-body">
+							<h1 class="text-center">Login</h1>
+							<div v-if="has_error" class="alert alert-danger">Email atau password salah</div>
+							<form autocomplete="off" @submit.prevent="login()" method="post">
+								<div class="form-group">
+									<label for="log-email"><font-awesome icon="envelope" /> Email</label>
+									<input id="log-email" class="form-control" type="email" v-model="email" autofocus>
+								</div>
+								<div class="form-group">
+									<label for="log-pass"><font-awesome icon="key" /> Password</label>
+									<input id="log-pass" class="form-control" type="password" v-model="pass">
+								</div>
+								<button id="btn-log-submit" class="btn btn-primary"><font-awesome icon="sign-in-alt" /> Masuk</button>
+								<font-awesome icon="spinner" spin size="lg" class="text-primary" style="display: none" id="icon-loader" />
+							</form>
+							<hr/>
+							<button class="btn btn-google btn-block" @click="authProvider('google')">
+								<font-awesome :icon="['fab', 'google']" /> Login dengan Google
+							</button>
+							<button class="btn btn-facebook btn-block" @click="authProvider('facebook')">
+								<font-awesome :icon="['fab', 'facebook-f']" /> Login dengan Facebook
+							</button>
+						</div>
 					</div>
-					<div class="form-group">
-						<label for="log-pass"><font-awesome icon="key" /> Password</label>
-						<input id="log-pass" class="form-control" type="password" v-model="pass">
-					</div>
-					<button id="btn-log-submit" class="btn btn-primary"><font-awesome icon="sign-in-alt" /> Masuk</button>
-					<font-awesome icon="spinner" spin size="lg" class="text-primary" style="display: none" id="icon-loader" />
-				</form>
+				</div>
 			</div>
 		</div>
 	</div>

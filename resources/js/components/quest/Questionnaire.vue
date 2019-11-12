@@ -21,7 +21,7 @@
 		</div>
 		<div v-else>
 			<div v-if="content.total > 0">
-				<div v-for="c in list" class="card mb-4" @click="toQuest(c.quest_id)">
+				<div v-for="c in list" class="card mb-4 shadow-sm" @click="toQuest(c.quest_id)">
 					<div class="card-body">
 						<div class="row">
 							<div class="col-8">

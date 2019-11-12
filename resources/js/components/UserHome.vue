@@ -6,17 +6,18 @@
 		<div v-else>
 			<laravel-vue-pagination :data="content" @pagination-change-page="changePage"></laravel-vue-pagination>
 			<div v-if="content.total > 0">
-				<div v-for="c in content.data" class="card mb-4" @click="goTo(c.toId)">
+				<div v-for="c in content.data" class="card mb-4 shadow" @click="goTo(c.toId)">
 					<div class="card-body">
 						<h1 class="text-bold">{{ c.title }}</h1>
-						<p class="text-secondary">{{ regexDesc(c.desc) }}</p>
+						<!-- <p class="text-secondary">{{ regexDesc(c.desc) }}</p> -->
+						<p class="text-secondary">{{ c.desc }}</p>
 						<div class="row">
 							<div class="col">
 								<small>Dibuat oleh <strong>{{ c.name }}</strong> | {{ dateFill(c.date_post) }}</small>
 							</div>
 							<div class="col">
 								<div class="text-right">
-									<small>Comments (...)</small>
+									<small>Komentar ({{ c.total }})</small>
 								</div>
 							</div>
 						</div>
@@ -74,13 +75,13 @@
 				var d = new Date(date)
 				return d.toLocaleString('id-ID', {dateStyle: 'medium'})
 			},
-			regexDesc(desc){
-				var d = desc.replace(/\[([^])*\]/, '')
-					.replace(/\(([^])*\)/, '')
-					.replace(/[#*_~>\`]/g, '')
+			// regexDesc(desc){
+				// var d = desc.replace(/\[([^])*\]/, '')
+				// 	.replace(/\(([^])*\)/, '')
+				// 	.replace(/[#*_~>\`]/g, '')
 
-				return d.length > 50 ? d.substring(0, 50)+'....' : d
-			}
+				// return desc.length > 50 ? desc.substring(0, 50)+'....' : d
+			// }
 		},
 		watch: {
 			$route(to){
