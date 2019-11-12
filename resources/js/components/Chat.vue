@@ -33,9 +33,9 @@
 						<font-awesome icon="spinner" spin size="3x" class="text-primary" style="display: none" id="icon-loader" />
 					</div>
 					<div v-if="selected" v-for="m in msg">
-						<p v-if="m.user_id === $auth.user().id"><img class="img-fluid rounded-circle" width="40" height="40" :src="$auth.user().avatar || sauce+'/img/default.png'" /> {{ $auth.user().name }} <small class="text-muted">{{ dateFill(m.created_at) }}</small></p>
+						<p v-if="m.user_id === $auth.user().id" align="right" ><img class="img-fluid rounded-circle" width="40" height="40" :src="$auth.user().avatar || sauce+'/img/default.png'" /> {{ $auth.user().name }} <small class="text-muted">{{ dateFill(m.created_at) }}</small></p>
 						<p v-else><img class="img-fluid rounded-circle" width="40" height="40" :src="select.avatar || sauce+'/img/default.png'" /> {{ select.name }} <small class="text-muted">{{ dateFill(m.created_at) }}</small></p>
-						<p class="text-break">{{ m.msg }}</p>
+						<p :class="m.user_id === $auth.user().id ? 'text-right' : ''" class="text-break">{{ m.msg }}</p>
 						<hr/>
 					</div>
 				</div>
