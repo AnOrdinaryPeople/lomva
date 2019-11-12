@@ -42,12 +42,15 @@ class UserPost extends Model
     }
     public static function search($q, $role){
     	$db = DB::table('user_posts')
-    		->select('user_posts.id as toId', 'title', 'name', 'user_posts.created_at as date_post')
+    		->select('user_posts.id as toId', 'title', 'name', 'user_posts.created_at as date_post', 'desc', DB::raw('count(reply) as total'))
     		->join('users', 'user_id', '=', 'users.id')
+
+            ->leftJoin('comments', 'post_id', '=', 'user_posts.id')
+            ->groupBy('user_posts.id')
     		->where('title', 'like', '%'.$q.'%');
 
-    	if($role === 1) return $db->paginate(10);
-    	else return $db->where('type', 0)->paginate(10);
+    	if($role === 1) return $db->orderBy('user_posts.id', 'desc')->paginate(10);
+    	else return $db->where('type', 0)->orderBy('user_posts.id', 'desc')->paginate(10);
     }
     public static function getThisPost($id, $userId){
         return DB::table('user_posts')
