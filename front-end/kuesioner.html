@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Kuesioner | </title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="all,follow">
+  <!-- Bootstrap CSS-->
+  <link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.min.css">
+  <!-- Font Awesome CSS-->
+  <link rel="stylesheet" href="vendor/font-awesome/css/font-awesome.min.css">
+  <!-- Fontastic Custom icon font-->
+  <link rel="stylesheet" href="css/fontastic.css">
+  <!-- Google fonts - Roboto -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700">
+  <!-- jQuery Circle-->
+  <link rel="stylesheet" href="css/grasp_mobile_progress_circle-1.0.0.min.css">
+  <!-- Custom Scrollbar-->
+  <link rel="stylesheet" href="vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.css">
+  <!-- theme stylesheet-->
+  <link rel="stylesheet" href="css/style.default.css" id="theme-stylesheet">
+  <!-- Custom stylesheet - for your changes-->
+  <link rel="stylesheet" href="css/custom.css">
+  <!-- Sweet Alert -->
+  <link rel="stylesheet" href="vendor/sweetalert2/dist/sweetalert2.min.css">
+  <!-- Favicon-->
+  <link rel="shortcut icon" href="img/favicon.ico">
+  <!-- Tweaks for older IEs-->
+  <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
+
+  <!-- Custom -->
+  <link rel="stylesheet" href="style.css" type="text/css">
+
+</head>
+
+<body>
+  <nav class="side-navbar">
+    <div class="side-navbar-wrapper" style="margin-top:70px;">
+      <div class="main-menu">
+        <div class="sidenav-header d-flex align-items-center justify-content-center">
+          <div class="sidenav-header-inner text-center"><img src="images/employee.png" alt="person"
+              class="img-fluid rounded-circle">
+            <h2 class="h5">Username</h2><span>Web Developer</span>
+          </div>
+          <div class="sidenav-header-logo"><a href="index.html" class="brand-small text-center"> <img
+                src="images/employee.png" alt="person" class="rounded-circle" style="width: 40px;height: 40px;"></a>
+          </div>
+        </div>
+        <h5 class="sidenav-heading">Menu</h5>
+        <ul id="side-main-menu" class="side-menu list-unstyled">
+          <li><a href="index.html"> <i class="icon-home"></i>Beranda</a></li>
+          <li><a href="kuesioner.html"> <i class="icon-interface-windows"></i>Kuesioner</a></li>
+          <li><a href="chat.html"> <i class="fa fa-comment"></i>Konsultasi</a></li>
+          <li><a href="siswa.html"> <i class="fa fa-user"></i>Daftar Siswa</a></li>
+        </ul>
+      </div>
+      <div class="admin-menu">
+        <h5 class="sidenav-heading">Pintasan</h5>
+        <ul id="side-admin-menu" class="side-menu list-unstyled">
+          <li> <a href="profil.html"> <i class="icon-user"> </i>Profil</a></li>
+          <li> <a href="edit_kuesioner.html"> <i class="icon-pencil-case"> </i>Edit Kuesioner</a></li>
+          <li> <a href="#"> <i class="fa fa-bell"> </i>Pemberitahuan</a></li>
+          <li> <a href="#"> <i class="fa fa-cog"> </i>Pengaturan</a></li>
+          <li> <a href="#"> <i class="fa fa-sign-out"> </i>Keluar</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="page" style="background-color: #b8e7d7 !important;">
+    <header class="header">
+      <nav class="navbar fixed-top" style="background-color:#028692 !important;">
+        <div class="container-fluid">
+          <div class="navbar-holder d-flex align-items-center justify-content-between">
+            <div class="navbar-header"><a id="toggle-btn" href="#" class="menu-btn"
+                style="background-color:#028692 !important;"><i class="icon-bars"> </i></a>
+              <a href="index.html" class="navbar-brand">
+                <div class="brand-text d-none d-md-inline-block"><Strong>HOPE</strong></div>
+                <!-- <form class="form-inline">
+                  <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                  <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
+                </form> -->
+              </a></div>
+            <ul class="nav-menu list-unstyled d-flex flex-md-row align-items-md-center">
+              <li class="nav-item dropdown"> <a id="notifications" rel="nofollow" data-target="#" href="#"
+                  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link"><i
+                    class="fa fa-bell"></i><span class="badge badge-warning">12</span></a>
+                <ul aria-labelledby="notifications" class="dropdown-menu">
+                  <li><a rel="nofollow" href="#" class="dropdown-item">
+                      <div class="notification d-flex justify-content-between">
+                        <div class="notification-content"><i class="fa fa-envelope"></i>You have 6 new messages </div>
+                        <div class="notification-time"><small>4 minutes ago</small></div>
+                      </div>
+                    </a></li>
+                  <li><a rel="nofollow" href="#" class="dropdown-item">
+                      <div class="notification d-flex justify-content-between">
+                        <div class="notification-content"><i class="fa fa-twitter"></i>You have 2 followers</div>
+                        <div class="notification-time"><small>4 minutes ago</small></div>
+                      </div>
+                    </a></li>
+                  <li><a rel="nofollow" href="#" class="dropdown-item">
+                      <div class="notification d-flex justify-content-between">
+                        <div class="notification-content"><i class="fa fa-upload"></i>Server Rebooted</div>
+                        <div class="notification-time"><small>4 minutes ago</small></div>
+                      </div>
+                    </a></li>
+                  <li><a rel="nofollow" href="#" class="dropdown-item">
+                      <div class="notification d-flex justify-content-between">
+                        <div class="notification-content"><i class="fa fa-twitter"></i>You have 2 followers</div>
+                        <div class="notification-time"><small>10 minutes ago</small></div>
+                      </div>
+                    </a></li>
+                  <li><a rel="nofollow" href="#" class="dropdown-item all-notifications text-center"> <strong> <i
+                          class="fa fa-bell"></i>view all notifications</strong></a></li>
+                </ul>
+              </li>
+              <li class="nav-item dropdown">
+                <a id="messages" rel="nofollow" data-target="#" href="#" data-toggle="dropdown" aria-haspopup="true"
+                  aria-expanded="false" class="nav-link"><i class="fa fa-envelope"></i><span
+                    class="badge badge-warning">10</span></a>
+                <ul aria-labelledby="notifications" class="dropdown-menu">
+                  <li><a rel="nofollow" href="#" class="dropdown-item d-flex">
+                      <div class="msg-profile"> <img src="images/avatar.png" alt="..." class="img-fluid rounded-circle">
+                      </div>
+                      <div class="msg-body">
+                        <h3 class="h5">Jason Doe</h3><span>sent you a direct message</span><small>3 days ago at 7:58 pm
+                          - 10.06.2014</small>
+                      </div>
+                    </a></li>
+                  <li><a rel="nofollow" href="#" class="dropdown-item d-flex">
+                      <div class="msg-profile"> <img src="images/avatar.png" alt="..." class="img-fluid rounded-circle">
+                      </div>
+                      <div class="msg-body">
+                        <h3 class="h5">Frank Williams</h3><span>sent you a direct message</span><small>3 days ago at
+                          7:58 pm - 10.06.2014</small>
+                      </div>
+                    </a></li>
+                  <li><a rel="nofollow" href="#" class="dropdown-item d-flex">
+                      <div class="msg-profile"> <img src="images/avatar.png" alt="..." class="img-fluid rounded-circle">
+                      </div>
+                      <div class="msg-body">
+                        <h3 class="h5">Ashley Wood</h3><span>sent you a direct message</span><small>3 days ago at 7:58
+                          pm - 10.06.2014</small>
+                      </div>
+                    </a></li>
+                  <li><a rel="nofollow" href="#" class="dropdown-item all-notifications text-center"> <strong> <i
+                          class="fa fa-envelope"></i>Read all messages </strong></a></li>
+                </ul>
+              </li>
+              <li class="nav-item dropdown" style="padding-left: 10px;">
+                <a href="#" id="messages" rel="nofollow" data-target="#" href="#" data-toggle="dropdown"
+                  aria-haspopup="true" aria-expanded="false" class="nav-link">
+                  <img src="images/employee.png" alt="" class="img-fluid rounded-circle" width="30px"
+                    style="margin-top:-10px">Username
+                </a>
+                <div class="dropdown-menu dropdown-usermenu pull-right" style="box-shadow: 2px 2px 1px 2px #888888"
+                  aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="javascript:;"> Profile</a>
+                  <a class="dropdown-item" href="javascript:;">
+                    <span>Pengaturan</span>
+                  </a>
+                  <a class="dropdown-item" href="javascript:;">Bantuan</a>
+                  <a class="dropdown-item" href="login.html"><i class="fa fa-sign-out pull-right"></i> Keluar</a>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </header>
+    <div style="margin-top:100px"></div>
+
+    <!-- ================================= CONTENT ======================================== -->
+
+    <section class="mt-30px mb-30px">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-lg-12 col-md-6">
+            <div id="daily-feeds" class="card updates daily-feeds">
+              <div id="feeds-header" class="card-header d-flex justify-content-between align-items-center">
+                <h2 class="h5 display"><a data-toggle="collapse" data-parent="#daily-feeds" href="#feeds-box"
+                    aria-expanded="true" aria-controls="feeds-box">Laman Kuis </a></h2>
+              </div>
+              <div id="feeds-box" role="tabpanel" class="collapse show">
+                <div class="feed-box">
+                  <ul class="feed-elements list-unstyled">
+                    <!-- List-->
+                    <li class="clearfix">
+                      <div class="form-group row">
+                        <div class="circle-sb" style="margin-left:80px;">
+                          Gajah apa yang bisa terbang?
+                          <div class="dcircle"></div>
+                          <div class="dcircle1"></div>
+                        </div>
+                        <!-- <h3 class="col-sm-2 col-md-12 form-control-label" style="margin-top:10px;">Ini contoh soal dari kuesioner</h3> -->
+                        <div class="col-sm-10" style="margin-top:20px;">
+                          <div class="i-checks">
+                            <input id="radioCustom1" type="radio" value="option1" name="a"
+                              class="form-control-custom radio-custom">
+                            <label for="radioCustom1">A. Pilihan ganda</label>
+                          </div>
+                          <div class="i-checks">
+                            <input id="radioCustom2" type="radio" value="option2" name="a"
+                              class="form-control-custom radio-custom">
+                            <label for="radioCustom2">B. Pilihan ganda</label>
+                          </div>
+                          <div class="i-checks">
+                            <input id="radioCustom3" type="radio" value="option3" name="a"
+                              class="form-control-custom radio-custom">
+                            <label for="radioCustom3">C. Pilihan ganda</label>
+                          </div>
+                          <div class="i-checks">
+                            <input id="radioCustom4" type="radio" value="option4" name="a"
+                              class="form-control-custom radio-custom">
+                            <label for="radioCustom4">D. Pilihan ganda</label>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="CTAs pull-left"><a href="#" class="btn btn-xl btn-warning">Previous</a></div>
+                      <div class="CTAs pull-right"><a href="#" class="btn btn-xl btn-success"
+                          onClick="myfunction()">Next</a></div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Statistics Section-->
+    <footer class="main-footer">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-sm-6">
+            <p>SMK BPI &copy; 2019</p>
+          </div>
+          <div class="col-sm-6 text-right">
+            <p>Psikolog <a href="https://bootstrapious.com/p/bootstrap-4-dashboard" class="external">App</a></p>
+            <!-- Please do not remove the backlink to us unless you support further theme's development at https://bootstrapious.com/donate. It is part of the license conditions and it helps me to run Bootstrapious. Thank you for understanding :)-->
+          </div>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    function myfunction() {
+      Swal.fire({
+        title: 'Good Job!',
+        text: 'Anda memiliki potentsi yang luar biasa.',
+        imageUrl: 'images/1.jpeg',
+        imageWidth: 400,
+        imageHeight: 200,
+        imageAlt: 'Custom image',
+        animation: false,
+      });
+    }
+  </script>
+  <!-- JavaScript files-->
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/popper.js/umd/popper.min.js"> </script>
+  <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+  <script src="js/grasp_mobile_progress_circle-1.0.0.min.js"></script>
+  <script src="vendor/jquery.cookie/jquery.cookie.js"> </script>
+  <script src="vendor/chart.js/Chart.min.js"></script>
+  <script src="vendor/jquery-validation/jquery.validate.min.js"></script>
+  <script src="vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
+  <script src="js/charts-home.js"></script>
+  <!-- Main File-->
+  <script src="js/front.js"></script>
+  <script src="vendor/sweetalert2/dist/sweetalert2.min.js"></script>
+</body>
+
+</html>

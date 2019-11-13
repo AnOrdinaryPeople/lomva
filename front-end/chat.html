@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Chat | </title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="all,follow">
+
+  <link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="vendor/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="css/fontastic.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700">
+  <link rel="stylesheet" href="css/grasp_mobile_progress_circle-1.0.0.min.css">
+  <link rel="stylesheet" href="vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.css">
+  <link rel="stylesheet" href="css/style.default.css" id="theme-stylesheet">
+  <link rel="stylesheet" href="css/custom.css">
+  <link rel="shortcut icon" href="img/favicon.ico">
+
+  <link rel="stylesheet" href="style.css" type="text/css">
+
+</head>
+<nav class="side-navbar">
+  <div class="side-navbar-wrapper" style="margin-top:70px;">
+    <div class="main-menu">
+      <div class="sidenav-header d-flex align-items-center justify-content-center">
+        <div class="sidenav-header-inner text-center"><img src="images/employee.png" alt="person"
+            class="img-fluid rounded-circle">
+          <h2 class="h5">Username</h2><span>Web Developer</span>
+        </div>
+        <div class="sidenav-header-logo"><a href="index.html" class="brand-small text-center"> <img
+              src="images/employee.png" alt="person" class="rounded-circle" style="width: 40px;height: 40px;"></a>
+        </div>
+      </div>
+      <h5 class="sidenav-heading">Menu</h5>
+      <ul id="side-main-menu" class="side-menu list-unstyled">
+        <li><a href="index.html"> <i class="icon-home"></i>Beranda</a></li>
+        <li><a href="kuesioner.html"> <i class="icon-interface-windows"></i>Kuesioner</a></li>
+        <li><a href="chat.html"> <i class="fa fa-comment"></i>Konsultasi</a></li>
+        <li><a href="siswa.html"> <i class="fa fa-user"></i>Daftar Siswa</a></li>
+      </ul>
+    </div>
+    <div class="admin-menu">
+      <h5 class="sidenav-heading">Pintasan</h5>
+      <ul id="side-admin-menu" class="side-menu list-unstyled">
+        <li> <a href="profil.html"> <i class="icon-user"> </i>Profil</a></li>
+        <li> <a href="edit_kuesioner.html"> <i class="icon-pencil-case"> </i>Edit Kuesioner</a></li>
+        <li> <a href="#"> <i class="fa fa-bell"> </i>Pemberitahuan</a></li>
+        <li> <a href="#"> <i class="fa fa-cog"> </i>Pengaturan</a></li>
+        <li> <a href="#"> <i class="fa fa-sign-out"> </i>Keluar</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="page" style="background-color: #b8e7d7 !important;">
+  <header class="header">
+    <nav class="navbar fixed-top" style="background-color:#028692 !important;">
+      <div class="container-fluid">
+        <div class="navbar-holder d-flex align-items-center justify-content-between">
+          <div class="navbar-header"><a id="toggle-btn" href="#" class="menu-btn"
+              style="background-color:#028692 !important;"><i class="icon-bars"> </i></a>
+            <a href="index.html" class="navbar-brand">
+              <div class="brand-text d-none d-md-inline-block"><Strong>HOPE</strong></div>
+              <!-- <form class="form-inline">
+                  <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                  <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
+                </form> -->
+            </a></div>
+          <ul class="nav-menu list-unstyled d-flex flex-md-row align-items-md-center">
+            <li class="nav-item dropdown"> <a id="notifications" rel="nofollow" data-target="#" href="#"
+                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link"><i
+                  class="fa fa-bell"></i><span class="badge badge-warning">12</span></a>
+              <ul aria-labelledby="notifications" class="dropdown-menu">
+                <li><a rel="nofollow" href="#" class="dropdown-item">
+                    <div class="notification d-flex justify-content-between">
+                      <div class="notification-content"><i class="fa fa-envelope"></i>You have 6 new messages </div>
+                      <div class="notification-time"><small>4 minutes ago</small></div>
+                    </div>
+                  </a></li>
+                <li><a rel="nofollow" href="#" class="dropdown-item">
+                    <div class="notification d-flex justify-content-between">
+                      <div class="notification-content"><i class="fa fa-twitter"></i>You have 2 followers</div>
+                      <div class="notification-time"><small>4 minutes ago</small></div>
+                    </div>
+                  </a></li>
+                <li><a rel="nofollow" href="#" class="dropdown-item">
+                    <div class="notification d-flex justify-content-between">
+                      <div class="notification-content"><i class="fa fa-upload"></i>Server Rebooted</div>
+                      <div class="notification-time"><small>4 minutes ago</small></div>
+                    </div>
+                  </a></li>
+                <li><a rel="nofollow" href="#" class="dropdown-item">
+                    <div class="notification d-flex justify-content-between">
+                      <div class="notification-content"><i class="fa fa-twitter"></i>You have 2 followers</div>
+                      <div class="notification-time"><small>10 minutes ago</small></div>
+                    </div>
+                  </a></li>
+                <li><a rel="nofollow" href="#" class="dropdown-item all-notifications text-center"> <strong> <i
+                        class="fa fa-bell"></i>view all notifications</strong></a></li>
+              </ul>
+            </li>
+            <li class="nav-item dropdown">
+              <a id="messages" rel="nofollow" data-target="#" href="#" data-toggle="dropdown" aria-haspopup="true"
+                aria-expanded="false" class="nav-link"><i class="fa fa-envelope"></i><span
+                  class="badge badge-warning">10</span></a>
+              <ul aria-labelledby="notifications" class="dropdown-menu">
+                <li><a rel="nofollow" href="#" class="dropdown-item d-flex">
+                    <div class="msg-profile"> <img src="images/avatar.png" alt="..." class="img-fluid rounded-circle">
+                    </div>
+                    <div class="msg-body">
+                      <h3 class="h5">Jason Doe</h3><span>sent you a direct message</span><small>3 days ago at 7:58 pm
+                        - 10.06.2014</small>
+                    </div>
+                  </a></li>
+                <li><a rel="nofollow" href="#" class="dropdown-item d-flex">
+                    <div class="msg-profile"> <img src="images/avatar.png" alt="..." class="img-fluid rounded-circle">
+                    </div>
+                    <div class="msg-body">
+                      <h3 class="h5">Frank Williams</h3><span>sent you a direct message</span><small>3 days ago at
+                        7:58 pm - 10.06.2014</small>
+                    </div>
+                  </a></li>
+                <li><a rel="nofollow" href="#" class="dropdown-item d-flex">
+                    <div class="msg-profile"> <img src="images/avatar.png" alt="..." class="img-fluid rounded-circle">
+                    </div>
+                    <div class="msg-body">
+                      <h3 class="h5">Ashley Wood</h3><span>sent you a direct message</span><small>3 days ago at 7:58
+                        pm - 10.06.2014</small>
+                    </div>
+                  </a></li>
+                <li><a rel="nofollow" href="#" class="dropdown-item all-notifications text-center"> <strong> <i
+                        class="fa fa-envelope"></i>Read all messages </strong></a></li>
+              </ul>
+            </li>
+            <li class="nav-item dropdown" style="padding-left: 10px;">
+              <a href="#" id="messages" rel="nofollow" data-target="#" href="#" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false" class="nav-link">
+                <img src="images/employee.png" alt="" class="img-fluid rounded-circle" width="30px"
+                  style="margin-top:-10px">Username
+              </a>
+              <div class="dropdown-menu dropdown-usermenu pull-right" style="box-shadow: 2px 2px 1px 2px #888888"
+                aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="javascript:;"> Profile</a>
+                <a class="dropdown-item" href="javascript:;">
+                  <span>Pengaturan</span>
+                </a>
+                <a class="dropdown-item" href="javascript:;">Bantuan</a>
+                <a class="dropdown-item" href="login.html"><i class="fa fa-sign-out pull-right"></i> Keluar</a>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
+  <div style="margin-top:100px"></div>
+
+  <!-- ================================= CONTENT ======================================== -->
+
+  <div class="container">
+    <div class="card">
+      <div class="messaging">
+        <div class="inbox_msg">
+          <div class="inbox_people">
+            <div class="headind_srch" style="background-color: silver;">
+              <div class="recent_heading">
+                <!-- <h4>Recent</h4> -->
+                <div class="col-sm-3 col-xs-3 heading-avatar">
+                  <div class="heading-avatar-icon">
+                    <img src="https://bootdey.com/img/Content/avatar/avatar1.png">
+                  </div>
+                </div>
+              </div>
+              <div class="srch_bar">
+                <div class="col-sm-1 col-xs-1  heading-dot  pull-right">
+                  <i class="fa fa-ellipsis-v fa-2x  pull-right" aria-hidden="true"></i>
+                </div>
+                <div class="col-sm-2 col-xs-2 heading-compose  pull-right">
+                  <i class="fa fa-comments fa-2x  pull-right" aria-hidden="true"></i>
+                </div>
+              </div>
+            </div>
+
+            <div class="inbox_chat">
+              <div class="row searchBox">
+                <div class="col-sm-12 searchBox-inner">
+                  <div class="form-group has-feedback">
+                    <input id="searchText" type="text" class="form-control" name="searchText" placeholder="Cari">
+                    <span class="glyphicon glyphicon-search form-control-feedback"></span>
+                  </div>
+                </div>
+              </div>
+              <div class="chat_list active_chat">
+                <div class="chat_people">
+                  <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
+                  <div class="chat_ib">
+                    <h5>Sunil Rajput <span class="chat_date">Dec 25</span></h5>
+                    <p>Test, which is a new approach to have all solutions
+                      astrology under one roof.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="chat_list">
+                <div class="chat_people">
+                  <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
+                  <div class="chat_ib">
+                    <h5>Sunil Rajput <span class="chat_date">Dec 25</span></h5>
+                    <p>Test, which is a new approach to have all solutions
+                      astrology under one roof.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="chat_list">
+                <div class="chat_people">
+                  <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
+                  <div class="chat_ib">
+                    <h5>Sunil Rajput <span class="chat_date">Dec 25</span></h5>
+                    <p>Test, which is a new approach to have all solutions
+                      astrology under one roof.</p>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+          <div class="headind_srch" style="background-color: silver;">
+            <div class="recent_heading">
+              <!-- <h4>Akun User</h4> -->
+              <div class="col-sm-3 col-xs-3 heading-avatar">
+                <div class="heading-avatar-icon">
+                  <img src="https://bootdey.com/img/Content/avatar/avatar1.png">
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-1 col-xs-1  heading-dot  pull-right">
+              <i class="fa fa-ellipsis-v fa-2x  pull-right" aria-hidden="true"></i>
+            </div>
+          </div>
+          <div class="mesgs">
+            <div class="msg_history">
+              <div class="outgoing_msg">
+                <div class="sent_msg">
+                  <p>p<span class="time_date"> 11:01</span></p>
+                </div>
+              </div>
+              <div class="outgoing_msg">
+                <div class="sent_msg">
+                  <p>p<span class="time_date"> 11:01</span></p>
+                </div>
+              </div>
+              <div class="outgoing_msg">
+                <div class="sent_msg">
+                  <p>p<span class="time_date"> 11:01</span></p>
+
+                </div>
+              </div>
+              <div class="incoming_msg">
+                <div class="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil">
+                </div>
+                <div class="received_msg">
+                  <div class="received_withd_msg">
+                    <p>Uyy... <span class="time_date"> 11:01 AM | Today</span></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- <div class="type_msg">
+              <div class="input_msg_write">
+                <input type="text" class="write_msg" placeholder="Type a message" />
+                <button class="msg_send_btn" type="button"><i class="fa fa-paper-plane-o"
+                    aria-hidden="true"></i></button>
+              </div>
+            </div> -->
+            <div class="row reply">
+              <div class="col-sm-1 col-xs-1 reply-emojis">
+                <i class="fa fa-smile-o fa-2x"></i>
+              </div>
+              <div class="col-sm-9 col-xs-9 reply-main">
+                <textarea class="form-control" rows="1" id="comment"></textarea>
+              </div>
+              <div class="col-sm-1 col-xs-1 reply-recording">
+                <i class="fa fa-microphone fa-2x" aria-hidden="true"></i>
+              </div>
+              <div class="col-sm-1 col-xs-1 reply-send">
+                <i class="fa fa-send fa-2x" aria-hidden="true"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <footer class="main-footer">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-6">
+          <p>SMK BPI &copy; 2019</p>
+        </div>
+        <div class="col-sm-6 text-right">
+          <p>Psikolog <a href="https://bootstrapious.com/p/bootstrap-4-dashboard" class="external">App</a></p>
+        </div>
+      </div>
+    </div>
+  </footer>
+</div>
+
+<script src="vendor/jquery/jquery.min.js"></script>
+<script src="vendor/popper.js/umd/popper.min.js"> </script>
+<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+<script src="js/grasp_mobile_progress_circle-1.0.0.min.js"></script>
+<script src="vendor/jquery.cookie/jquery.cookie.js"> </script>
+<script src="vendor/chart.js/Chart.min.js"></script>
+<script src="vendor/jquery-validation/jquery.validate.min.js"></script>
+<script src="vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
+<script src="js/charts-home.js"></script>
+<script src="js/front.js"></script>
+
+<script>
+  $(function () {
+    $(".heading-compose").click(function () {
+      $(".side-two").css({
+        "left": "0"
+      });
+    });
+
+    $(".newMessage-back").click(function () {
+      $(".side-two").css({
+        "left": "-100%"
+      });
+    });
+  })
+</script>
+
+</body>
+
+</html>
