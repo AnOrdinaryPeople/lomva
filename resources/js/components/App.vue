@@ -156,14 +156,14 @@
                     <p><a class="text-light text-decoration-none" href="https://facebook.com/SmkBpiBandung" target="_blank">
                         <font-awesome :icon="['fab', 'facebook-f']" /> Facebook</a>
                     </p>
-                    <p><a class="text-light text-decoration-none" href="https://twitter.com/smkbpibdg" target="_blank">
-                        <font-awesome :icon="['fab', 'twitter']" /> Twitter</a>
-                    </p>
                     <p><a class="text-light text-decoration-none" href="https://plus.google.com/u/0/114124411410825383869" target="_blank">
                         <font-awesome :icon="['fab', 'google']" /> Google</a>
                     </p>
                     <p><a class="text-light text-decoration-none" href="https://instagram.com/smkbpibandung" target="_blank">
                         <font-awesome :icon="['fab', 'instagram']" /> Instagram</a>
+                    </p>
+                    <p><a class="text-light text-decoration-none" href="https://twitter.com/smkbpibdg" target="_blank">
+                        <font-awesome :icon="['fab', 'twitter']" /> Twitter</a>
                     </p>
                 </div>
                 <div class="col-sm-12 col-md-6 col-lg-3" :class="resize ? 'text-center' : ''">
@@ -191,7 +191,7 @@
                         <div class="col-sm-12 col-md-12 col-lg-4">
                             <strong><font-awesome icon="globe" /> Website</strong>
                         </div>
-                        <div class="col-sm-12 col-md-12 col-lg-8">www.smkbpi.sch.id</div>
+                        <div class="col-sm-12 col-md-12 col-lg-8"><a class="text-light text-decoration-none" href="http://smkbpi.sch.id/" target="_blank">www.smkbpi.sch.id</a></div>
                     </div>
                 </div>
                 <div class="col-sm-12 col-md-6 col-lg-3 text-center">
@@ -263,7 +263,7 @@
             resize: false
         }),
         mounted(){
-            document.getElementById('footer-desc').innerHTML += ` ${new Date().getFullYear()} <strong><a class="text-light" href="http://smkbpi.sch.id/" target="_blank">SMK BPI</a></strong>. All Right Reserved`
+            document.getElementById('footer-desc').innerHTML += ` ${new Date().getFullYear()} <strong><a class="text-light text-decoration-none" href="http://smkbpi.sch.id/" target="_blank">SMK BPI</a></strong>. All Right Reserved`
             
             if(window.innerWidth <= 992) this.resize = true
             else this.resize = false

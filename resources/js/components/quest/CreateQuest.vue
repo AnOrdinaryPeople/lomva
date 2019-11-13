@@ -60,11 +60,14 @@
 								<td class="col-2 px-1">
 									<input class="form-control" type="number" :min="r.min" placeholder="skor terbesar" v-model="r.max">
 								</td>
-							<td :class="results.length > 1 ? 'col-7 px-0' : 'col-8 pl-1'">
-								<textarea class="form-control" placeholder="penjelasan" v-model="r.desc"></textarea>
+							<td class="px-0" :class="results.length > 1 ? 'col-6' : 'col-7 pl-1'">
+								<textarea class="form-control" placeholder="penjelasan *Bisa menggunakan format tambahan" v-model="r.desc"></textarea>
+							</td>
+							<td class="col-1 pl-1" :class="results.length > 1 ? 'pr-0' : ''">
+								<button class="btn btn-primary btn-block" @click="viewDone(delKey)"><font-awesome icon="eye" /></button>
 							</td>
 							<td v-if="results.length > 1" class="col-1 pl-1">
-								<button class="btn btn-danger btn-block" @click="delResult(delKey)">X</button>
+								<button class="btn btn-danger btn-block" @click="delResult(delKey)"><font-awesome icon="times" /></button>
 							</td>
 						</tr>
 					</table>
@@ -77,7 +80,7 @@
 						</div>
 						<input class="form-control bg-white" type="text" disabled="1" :value="q.question">
 						<div v-if="questions.length > 1" class="input-group-append">
-							<button class="btn btn-danger" @click="delQuest(qKey)">X</button>
+							<button class="btn btn-danger" @click="delQuest(qKey)"><font-awesome icon="times" /></button>
 						</div>
 					</div>
 				</div>
@@ -94,7 +97,7 @@
 								<input class="form-control" type="number" min="0" placeholder="skor" v-model="a.score">
 							</td>
 							<td v-if="questions[i]['answers'].length > 1" class="col-1 pl-1">
-								<button class="btn btn-danger btn-block" @click="delAnswer(key)">X</button>
+								<button class="btn btn-danger btn-block" @click="delAnswer(key)"><font-awesome icon="times" /></button>
 							</td>
 						</tr>
 					</table>
@@ -125,6 +128,21 @@
 						<button class="btn btn-secondary" data-dismiss="modal">Batalkan</button>
 						<button id="btn-confirm-modal" class="btn btn-success" @click="confirmQuest">{{ routeName == 'teacher-quest-create' ? 'Kirim' : 'Update' }} kuesioner</button>
 						<font-awesome icon="spinner" spin size="lg" class="text-primary" style="display: none" id="icon-loader" />
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="view-done" class="modal fade" tabindex="-1">
+			<div class="modal-dialog modal-xl">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5>Lihat hasil</h5>
+						<button class="close" data-dismiss="modal">
+							<span>&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<markdown-it-vue class="md-body" :content="doneDesc" />
 					</div>
 				</div>
 			</div>
@@ -163,7 +181,8 @@
 			canLeave: false,
 			id: 0,
 			routeName: '',
-			section: 0
+			section: 0,
+			doneDesc: ''
 		}),
 		mounted(){
 			this.routeName = this.$route.name
@@ -217,6 +236,10 @@
 			},
 			delResult(n){
 				Vue.delete(this.results, n)
+			},
+			viewDone(n){
+				this.doneDesc = this.results[n].desc
+				$('#view-done').modal()
 			},
 			confirmQuest(){
 				var id = document.getElementById('btn-confirm-modal'),
