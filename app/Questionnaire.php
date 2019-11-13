@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\DB;
 
 class Questionnaire extends Model
 {
-    protected $fillable = ['title', 'desc', 'user_id'];
+    protected $fillable = ['title', 'desc', 'category', 'user_id'];
 
     public function user(){
     	return $this->belongsTo(\App\User::class);

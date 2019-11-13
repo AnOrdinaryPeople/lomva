@@ -37,7 +37,7 @@ class UserController extends Controller
     	}
     	if(!empty($req->file('avatar')) && !empty($user->avatar)){
     		Storage::disk('public_upload')->delete(str_replace(url('/').'/','',$user->avatar));
-			$data['avatar'] = $req->file('avatar')->store('pic','public_upload');
+			$data['avatar'] = url('/').'/'.$req->file('avatar')->store('pic','public_upload');
     	}else if(!empty($req->file('avatar')))
             $data['avatar'] = url('/').'/'.$req->file('avatar')->store('pic','public_upload');
     	

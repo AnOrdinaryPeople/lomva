@@ -16,25 +16,30 @@
 			<option value="3">Sosial</option>
 			<option value="4">Pribadi</option>
 		</select>
-		<div v-if="content.total > 0">
-			<div v-for="c in list" class="card mb-4" @click="toQuest(c.quest_id)">
-				<div class="card-body">
-					<div class="row">
-						<div class="col-8">
-							<h1>{{ c.title }}</h1>
-							<small class="text-secondary">Jenis kuesioner <strong>{{ ctg(c.category) }}</strong></small>
-						</div>
-						<div class="col-4 text-right">
-							<p>{{ c.name }} <img class="img-fluid rounded-circle" width="40" height="40" :src="c.avatar || sauce+'/img/default.png'"></p>
+		<div v-if="loader" class="text-center">
+			<font-awesome icon="spinner" spin size="3x" class="text-primary" />
+		</div>
+		<div v-else>
+			<div v-if="content.total > 0">
+				<div v-for="c in list" class="card mb-4 shadow-sm" @click="toQuest(c.quest_id)">
+					<div class="card-body">
+						<div class="row">
+							<div class="col-8">
+								<h1>{{ c.title }}</h1>
+								<small class="text-secondary">Jenis kuesioner <strong>{{ ctg(c.category) }}</strong></small>
+							</div>
+							<div class="col-4 text-right">
+								<p>{{ c.name }} <img class="img-fluid rounded-circle" width="40" height="40" :src="c.avatar || sauce+'/img/default.png'"></p>
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
+			<div v-else>
+				<h1 class="text-center">Kuesioner tidak ditemukan</h1>
+			</div>
+			<laravel-vue-pagination :data="content" @pagination-change-page="changePage"></laravel-vue-pagination>
 		</div>
-		<div v-else>
-			<h1 class="text-center">Kuesioner tidak ditemukan</h1>
-		</div>
-		<laravel-vue-pagination :data="content" @pagination-change-page="changePage"></laravel-vue-pagination>
 	</div>
 </template>
 
@@ -50,17 +55,24 @@
 			content: { total: 1 },
 			sauce: process.env.MIX_APP_URL,
 			url: '',
-			category: 0
+			category: 0,
+			loader: true
 		}),
 		mounted(){
 			const q = this.$route.query.q
 			this.url = q ? '/questionnaire/search/' : '/questionnaire/all-quest/'
 
 			if(q) axios.post(this.url, {search: q})
-				.then(resp => this.content = resp.data)
+				.then(resp => {
+					this.content = resp.data
+					this.loader = false
+				})
 				.catch(err => console.error(err))
 			else axios.post(this.url)
-				.then(resp => this.content = resp.data)
+				.then(resp => {
+					this.content = resp.data
+					this.loader = false
+				})
 				.catch(err => console.error(err.response))
 		},
 		methods: {
@@ -98,7 +110,10 @@
 				this.url = q ? '/questionnaire/search/' : '/questionnaire/all-quest/'
 
 				axios.post(this.url, {search: this.$route.query.q})
-					.then(resp => this.content = resp.data)
+					.then(resp => {
+						this.content = resp.data
+						this.loader = false
+					})
 					.catch(err => console.error(err))
 			}
 		}

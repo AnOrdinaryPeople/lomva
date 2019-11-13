@@ -28,7 +28,7 @@ class UserTableSeeder extends Seeder
                 'email' => $faker->unique()->safeEmail,
                 'password' => Hash::make('12345678'),
                 'role' => $i < 4 ? 1 : 0,
-                'avatar' => str_replace('public/pic\\', url()->full().'/pic/', $faker->image('public/pic', 500, 500, 'people', true, true)),
+                'avatar' => str_replace('public/pic\\', url('/').'/pic/', $faker->image('public/pic', 500, 500, 'people', true, true)),
                 'created_at' => now(),
                 'updated_at' => now()
             ];

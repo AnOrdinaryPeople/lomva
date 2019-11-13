@@ -35,8 +35,8 @@
 			<button class="mt-2 btn" :class="$auth.user().role === 1 ? 'btn-success' : 'btn-primary'" @click.prevent="sendReply">Kirim komentar</button>
 		</div>
 		<div v-else class="text-center">
-			<h1><router-link to="/login">Login</router-link> untuk menambah komentar</h1>
-			<p>Tidak punya akun? <router-link to="/register">Daftar disini</router-link></p>
+			<h1><router-link class="text-decoration-none" to="/login">Login</router-link> untuk menambah komentar</h1>
+			<p>Tidak punya akun? <router-link class="text-decoration-none" to="/register">Daftar disini</router-link></p>
 		</div>
 		<div v-if="$auth.check()" id="post-del" class="modal fade" tabindex="-1">
 			<div class="modal-dialog">

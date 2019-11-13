@@ -43,6 +43,13 @@
 	</div>
 </template>
 
+<style scoped>
+	.nav-tabs .nav-link.active {
+		background-color: #fff;
+		border-color: #dee2e6 #dee2e6 #fff
+	}
+</style>
+
 <script>
 	export default{
 		data: () => ({
