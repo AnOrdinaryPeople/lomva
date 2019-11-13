@@ -12,11 +12,14 @@
 						<p class="text-secondary">{{ regexDesc(c.desc) }}</p>
 						<div class="row">
 							<div class="col">
-								<small>Dibuat oleh <strong>{{ c.name }}</strong> | {{ dateFill(c.date_post) }}</small>
+								<p>
+									Dibuat oleh <strong :class="c.role ? 'text-success' : 'text-primary'">{{ c.name }}</strong> | {{ dateFill(c.date_post) }}<br/>
+									<small v-if="c.type === 1" class="text-primary italic"><strong>khusus guru BK</strong></small>
+								</p>
 							</div>
 							<div class="col">
 								<div class="text-right">
-									<small>Komentar ({{ c.total }})</small>
+									<p>Komentar ({{ c.total }})</p>
 								</div>
 							</div>
 						</div>
@@ -53,7 +56,10 @@
 			},
 			changePage(page = 1){
 				axios.post(this.sauce+'?page='+page)
-					.then(resp => this.content = resp.data)
+					.then(resp => {
+						this.content = resp.data
+						console.log(this.content)
+					})
 					.catch(err => console.error(err))
 			},
 			dateFill(date){

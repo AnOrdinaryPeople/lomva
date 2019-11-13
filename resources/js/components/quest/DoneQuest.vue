@@ -20,7 +20,7 @@
 		</div>
 		<laravel-vue-pagination :data="content" @pagination-change-page="changePage"></laravel-vue-pagination>
 		<div id="result-score" class="modal fade" tabindex="-1">
-			<div class="modal-dialog modal-lg">
+			<div class="modal-dialog modal-xl">
 				<div class="modal-content">
 					<div class="modal-header">
 						<h5>Hasil kuesioner</h5>
@@ -38,7 +38,7 @@
 							<tr v-for="r in result">
 								<td>{{ r.min_score }}</td>
 								<td>{{ r.max_score }}</td>
-								<td>{{ r.desc }}</td>
+								<td><markdown-it-vue class="md-body" :content="r.desc" /></td>
 							</tr>
 						</table>
 					</div>

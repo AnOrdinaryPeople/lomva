@@ -24,7 +24,7 @@ class UserPost extends Model
     }
     public static function allPost($check){
     	$db = DB::table('user_posts')
-    		->select('user_posts.id as toId', 'title', 'name', 'user_posts.created_at as date_post', 'desc', DB::raw('count(reply) as total'))
+    		->select('user_posts.id as toId', 'title', 'name', 'role', 'type', 'user_posts.created_at as date_post', 'desc', DB::raw('count(reply) as total'))
     		->join('users', 'user_id', '=', 'users.id')
             ->leftJoin('comments', 'post_id', '=', 'user_posts.id')
             ->groupBy('user_posts.id')
@@ -42,7 +42,7 @@ class UserPost extends Model
     }
     public static function search($q, $role){
     	$db = DB::table('user_posts')
-    		->select('user_posts.id as toId', 'title', 'name', 'user_posts.created_at as date_post', 'desc', DB::raw('count(reply) as total'))
+    		->select('user_posts.id as toId', 'title', 'name', 'role', 'type', 'user_posts.created_at as date_post', 'desc', DB::raw('count(reply) as total'))
     		->join('users', 'user_id', '=', 'users.id')
 
             ->leftJoin('comments', 'post_id', '=', 'user_posts.id')
