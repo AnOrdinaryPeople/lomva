@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div class="bg-white p-4">
 		<laravel-vue-pagination :data="content" @pagination-change-page="changePage"></laravel-vue-pagination>
 		<div v-if="content.total > 0">
 			<div v-for="c in content.data" class="card mb-4">
@@ -13,7 +13,7 @@
 		</div>
 		<div v-else class="text-center">
 			<h1>Tidak ada postingan</h1>
-			<router-link to="/add-post"><font-awesome icon="plus" /> Buat postingan baru</router-link>
+			<router-link class="text-decoration-none" to="/add-post"><font-awesome icon="plus" /> Buat postingan baru</router-link>
 		</div>
 		<laravel-vue-pagination :data="content" @pagination-change-page="changePage"></laravel-vue-pagination>
 		<div id="post-del" class="modal fade" tabindex="-1">
