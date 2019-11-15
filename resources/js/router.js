@@ -18,6 +18,14 @@ import CreateQuest from './components/quest/CreateQuest'
 import DoneQuest from './components/quest/DoneQuest'
 import Chat from './components/Chat'
 import Students from './components/Students'
+import AboutUs from './components/AboutUs'
+import Dashboard from './components/admin/Dashboard'
+import TeacherList from './components/admin/TeacherList'
+import StudentList from './components/admin/StudentList'
+import UserPost from './components/admin/UserPost'
+import Quest from './components/admin/Quest'
+import DetailPost from './components/admin/DetailPost'
+import DetailQuest from './components/admin/DetailQuest'
 
 export default new VueRouter({
 	history: true,
@@ -130,6 +138,66 @@ export default new VueRouter({
 			name: 'chat',
 			component: Chat,
 			meta: { auth: true }
+		},{
+			path: '/about',
+			name: 'about',
+			component: AboutUs
+		},{
+			path: '/dashboard',
+			name: 'dashboard',
+			component: Dashboard,
+			meta: { auth: {
+				roles: 2,
+				redirect: '/home'
+			}}
+		},{
+			path: '/teacher-list',
+			name: 'teacher-list',
+			component: TeacherList,
+			meta: { auth: {
+				roles: 2,
+				redirect: '/home'
+			}}
+		},{
+			path: '/student-list',
+			name: 'student-list',
+			component: StudentList,
+			meta: { auth: {
+				roles: 2,
+				redirect: '/home'
+			}}
+		},{
+			path: '/post-list',
+			name: 'post-list',
+			component: UserPost,
+			meta: { auth: {
+				roles: 2,
+				redirect: '/home'
+			}}
+		},{
+			path: '/post-list/:id',
+			name: 'post-list-detail',
+			component: DetailPost,
+			meta: { auth: {
+				roles: 2,
+				redirect: '/home'
+			}}
+		},{
+			path: '/questionnaire-list',
+			name: 'questionnaire-list',
+			component: Quest,
+			meta: { auth: {
+				roles: 2,
+				redirect: '/home'
+			}}
+		},{
+			path: '/questionnaire-list/:id',
+			name: 'questionnaire-list-detail',
+			component: DetailQuest,
+			meta: { auth: {
+				roles: 2,
+				redirect: '/home'
+			}}
 		},{
 			path: '*',
 			redirect: { name: 'homepage' }

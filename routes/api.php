@@ -59,3 +59,20 @@ Route::prefix('chat')->group(function(){
 Route::post('check-profile/{id}', 'UserController@checkProfile');
 
 Route::post('students', 'UserController@getStudents');
+
+Route::prefix('admin')->group(function(){
+	Route::post('/count', 'AdminController@countAll');
+	Route::post('/search/{n}', 'AdminController@search');
+	Route::post('/all/{n}', 'AdminController@teacher');
+	Route::post('/add', 'AdminController@add');
+	Route::post('/update/{id}', 'AdminController@update');
+	Route::delete('/delete/{id}', 'AdminController@destroy');
+	Route::delete('/delete/student/{id}', 'AdminController@destroyStudent');
+
+	Route::post('/post', 'AdminController@getPost');
+	Route::post('/post/search', 'AdminController@searchPost');
+
+	Route::post('/quest', 'AdminController@getQuest');
+	Route::post('/quest/get/{id}', 'AdminController@getThisQuest');
+	Route::post('/quest/search', 'AdminController@questSearch');
+});
