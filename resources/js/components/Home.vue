@@ -4,7 +4,7 @@
 		    <div class="row align-items-center header-img h-vh" :style="'background-image:url('+sauce+'/img/header-img.jpg)'">
 		        <div class="col-6 mx-auto text-center text-light">
 	                <h1 class="header-txt"><strong>Hold</strong> on <strong>Pain</strong> Ends</h1>
-	                <router-link v-if="!$auth.check()" class="btn btn-success rounded-pill px-4 py-2" to="/register">Berbabung</router-link>
+	                <router-link v-if="!$auth.check()" class="btn btn-success rounded-pill px-4 py-2" to="/register">Bergabung</router-link>
 		        </div>
 		    </div>
 		</div>

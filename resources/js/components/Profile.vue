@@ -82,7 +82,7 @@
 					<input id="teach-phone" class="form-control" type="text" v-model="profile.phone">
 				</div>
 				<div class="form-group">
-					<label for="teach-school">Mengajar di sekolah</label>
+					<label for="teach-school">Instansi Tempat Mengajar</label>
 					<input id="teach-school" class="form-control" type="text" v-model="profile.school">
 				</div>
 			</div>
@@ -173,6 +173,11 @@
 			oven(){
 				document.getElementById('prof-upload').click()
 			}
+		},
+		beforeRouteLeave(to, from, next){
+			if(window.confirm('Apakah kamu yakin ingin keluar dari halaman ini?'))
+				next()
+			else next(false)
 		}
 	}
 </script>

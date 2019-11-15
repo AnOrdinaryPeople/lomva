@@ -25,7 +25,7 @@
 				<button class="btn" :class="$auth.user().role === 1 ? 'btn-success' : 'btn-primary'" @click="openEdit(r.reply, r.reply_id)">Edit komentar</button>
 				<button class="btn btn-danger" @click="confirmDel(r.reply_id)">Hapus komentar</button>
 			</div>
-			<p><img class="img-fluid rounded-circle" :src="r.avatar || sauce+'/img/default.png'" width="40" height="40" /> {{ r.name }} | {{ dateFill(r.date_reply) }}</p>
+			<p :class="r.role ? 'text-success' : 'text-primary'"><img class="img-fluid rounded-circle" :src="r.avatar || sauce+'/img/default.png'" width="40" height="40" /> {{ r.name }} | {{ dateFill(r.date_reply) }}</p>
 			<markdown-it-vue class="md-body" :content="r.reply" />
 			<hr/>
 		</div>

@@ -48,6 +48,7 @@
 			loader: true
 		}),
 		mounted(){
+			if(this.$auth.user().role === 2) this.$router.push({name: 'dashboard'})
 			this.checkPath()
 		},
 		methods: {
@@ -56,10 +57,7 @@
 			},
 			changePage(page = 1){
 				axios.post(this.sauce+'?page='+page)
-					.then(resp => {
-						this.content = resp.data
-						console.log(this.content)
-					})
+					.then(resp => this.content = resp.data)
 					.catch(err => console.error(err))
 			},
 			dateFill(date){

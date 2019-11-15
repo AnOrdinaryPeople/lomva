@@ -54,12 +54,12 @@
 				<div v-else-if="page === 2">
 					<table class="w-100">
 						<tr v-for="(r, delKey) in results" class="row">
-								<td class="col-2 pr-0">
-									<input class="form-control" type="number" min="0" placeholder="skor terkecil" v-model="r.min">
-								</td>
-								<td class="col-2 px-1">
-									<input class="form-control" type="number" :min="r.min" placeholder="skor terbesar" v-model="r.max">
-								</td>
+							<td class="col-2 pr-0">
+								<input class="form-control" type="number" min="0" placeholder="skor terkecil" v-model="r.min">
+							</td>
+							<td class="col-2 px-1">
+								<input class="form-control" type="number" :min="r.min" placeholder="skor terbesar" v-model="r.max">
+							</td>
 							<td class="px-0" :class="results.length > 1 ? 'col-6' : 'col-7 pl-1'">
 								<textarea class="form-control" placeholder="penjelasan *Bisa menggunakan format tambahan" v-model="r.desc"></textarea>
 							</td>

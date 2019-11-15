@@ -59,10 +59,12 @@
 							<tr>
 								<th>Selesai mengerjakan</th>
 								<th>Hasil akhir</th>
+								<th>Peningkatan</th>
 							</tr>
 							<tr v-for="(d, keyy) in detail">
 								<td>{{ dateFill(d.created_at) }}</td>
-								<td>{{ d.total_score }} <font-awesome :icon="status(keyy, true)" :class="status(keyy)" /> <span :class="status(keyy)">{{ status(keyy, false, true) }}</span></td>
+								<td>{{ d.total_score }}</td>
+								<td><font-awesome :icon="status(keyy, true)" :class="status(keyy)" /> <span :class="status(keyy)">{{ status(keyy, false, true) }}</span></td>
 							</tr>
 						</table>
 					</div>

@@ -4,6 +4,7 @@
 		<div v-if="content.total > 0">
 			<div v-for="c in content.data" class="card mb-4">
 				<div class="card-header">
+					<router-link class="btn btn-primary" :to="'/post/'+c.id"><font-awesome icon="eye" /> Lihat postingan</router-link>
 					<button class="btn btn-danger" @click="openModalDel(c.id, c.title)"><font-awesome :icon="['far', 'trash-alt']" /> Hapus postingan</button>
 				</div>
 				<div class="card-body" @click="goTo(c.id)">
