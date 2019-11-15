@@ -73,6 +73,26 @@ class User extends Authenticatable implements JWTSubject
             ->select('phone', 'gender', 'cls', 'school', 'born', 'name', 'avatar', 'email')
             ->leftJoin('profiles', 'user_id', '=', 'users.id')
             ->where('role', 0)
+            ->orderBy('users.id', 'desc')
+            ->paginate(10);
+    }
+    public static function getTeacher($n){
+        return DB::table('users')
+            ->select('users.id as i', 'name', 'email', 'school')
+            ->leftJoin('profiles', 'user_id', '=', 'users.id')
+            ->where('role', $n)
+            ->orderBy('users.id', 'desc')
+            ->paginate(10);
+    }
+    public static function search($q, $n){
+        return DB::table('users')
+            ->select('users.id as i', 'name', 'email', 'school')
+            ->leftJoin('profiles', 'user_id', '=', 'users.id')
+            ->where('role', $n)
+            ->where('name', 'like', '%'.$q.'%')
+            ->orWhere('school', 'like', '%'.$q.'%')
+            ->where('role', $n)
+            ->orderBy('users.id', 'desc')
             ->paginate(10);
     }
 }

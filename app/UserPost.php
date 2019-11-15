@@ -58,4 +58,20 @@ class UserPost extends Model
             ->where('id', $id)
             ->first();
     }
+    public static function getAll(){
+        return DB::table('user_posts')
+            ->select('user_posts.id as i', 'name', 'type', 'title', 'desc')
+            ->join('users', 'users.id', '=', 'user_id')
+            ->orderBy('user_posts.id', 'desc')
+            ->paginate(10);
+    }
+    public static function searchPost($q){
+        return DB::table('user_posts')
+            ->select('user_posts.id as i', 'name', 'type', 'title', 'desc')
+            ->join('users', 'users.id', '=', 'user_id')
+            ->where('title', 'like', '%'.$q.'%')
+            ->orWhere('name', 'like', '%'.$q.'%')
+            ->orderBy('user_posts.id', 'desc')
+            ->paginate(10);
+    }
 }

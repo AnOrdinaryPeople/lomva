@@ -16,7 +16,7 @@ class Question extends Model
         return $this->hasMany(\App\Answer::class);
     }
 
-    public static function test($id, $edit = false){
+    public static function test($id){
         $db = DB::table('questions')
             ->where('quest_id', $id)
             ->select('id', 'number', 'question')

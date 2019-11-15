@@ -17,7 +17,7 @@ class Comment extends Model
     }
     public static function getReply($id){
     	return DB::table('comments')
-    		->select('reply', 'name', 'avatar', 'comments.created_at as date_reply', 'comments.user_id as id_user', 'comments.id as reply_id')
+    		->select('reply', 'name', 'avatar', 'role', 'comments.created_at as date_reply', 'comments.user_id as id_user', 'comments.id as reply_id')
     		->join('user_posts', 'user_posts.id', '=', 'post_id')
     		->join('users', 'users.id', '=', 'comments.user_id')
     		->where('post_id', $id)

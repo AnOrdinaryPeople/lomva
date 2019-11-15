@@ -55,4 +55,20 @@ class Questionnaire extends Model
             ->where('user_id', $userId)
             ->first();
     }
+    public static function getQuest(){
+        return DB::table('questionnaires')
+            ->select('questionnaires.id as i', 'name', 'title', 'category')
+            ->join('users', 'users.id', '=', 'user_id')
+            ->orderBy('questionnaires.id', 'desc')
+            ->paginate(10);
+    }
+    public static function questSearch($q){
+        return DB::table('questionnaires')
+            ->select('questionnaires.id as i', 'name', 'title', 'category')
+            ->join('users', 'users.id', '=', 'user_id')
+            ->where('title', 'like', '%'.$q.'%')
+            ->orWhere('name', 'like', '%'.$q.'%')
+            ->orderBy('questionnaires.id', 'desc')
+            ->paginate(10);
+    }
 }
