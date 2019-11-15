@@ -6,10 +6,6 @@
 				<div class="col-6">
 					<h1><font-awesome icon="user-edit" /> Edit Profil</h1>
 				</div>
-				<div class="col-6 text-right">
-					<button id="prof-btn" class="btn" :class="role > 0 ? 'btn-success' : 'btn-primary'">Simpan</button>
-					<font-awesome icon="spinner" spin size="lg" class="text-primary" style="display: none" id="icon-loader" />
-				</div>
 			</div>
 			<div class="row">
 				<div class="col-sm-12 col-md-4 col-lg-4 text-center">
@@ -84,6 +80,14 @@
 				<div class="form-group">
 					<label for="teach-school">Instansi Tempat Mengajar</label>
 					<input id="teach-school" class="form-control" type="text" v-model="profile.school">
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-12 text-right">
+					<button id="prof-btn" class="btn col-3" :class="role > 0 ? 'btn-success' : 'btn-primary'">
+						<font-awesome icon="save" /> Simpan
+					</button>
+					<font-awesome icon="spinner" spin size="lg" class="text-primary" style="display: none" id="icon-loader" />
 				</div>
 			</div>
 		</form>

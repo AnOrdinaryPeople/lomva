@@ -24,39 +24,23 @@
 			</div>
 		</div>
 		<div v-else class="container">
-			<div v-if="resize">
-				<div class="text-center">
+			<div class="row mb-4">
+				<div class="col-sm-12 col-md-12 col-lg-4"></div>
+				<div class="col-sm-12 col-md-12 col-lg-4">
 					<div class="circle-sb">
 						Skor akhir {{ totalScore }}
 						<div class="dcircle"></div>
 						<div class="dcircle1"></div>
 					</div>
 				</div>
-				<div class="row">
-					<div class="col-6">
-						<img class="img-fluid" width="100px" height="100px" :src="sauce+'/img/done-1.gif'" />
-					</div>
-					<div class="col-6">
-						<img class="img-fluid" width="100px" height="100px" :src="sauce+'/img/done-2.gif'" />
-					</div>
-				</div>
-			</div>
-			<div v-else class="row">
-				<div class="col-4">
-					<img class="img-fluid" width="100px" height="100px" :src="sauce+'/img/done-1.gif'" />
-				</div>
-				<div class="col-4">
-					<div class="circle-sb">
-						Skor akhir {{ totalScore }}
-						<div class="dcircle"></div>
-						<div class="dcircle1"></div>
-					</div>
-				</div>
-				<div class="col-4 text-right">
-					<img class="img-fluid" width="100px" height="100px" :src="sauce+'/img/done-2.gif'" />
-				</div>
+				<div class="col-sm-12 col-md-12 "></div>
 			</div>
 			<markdown-it-vue class="md-body" :content="descFinish" />
+			<div class="text-center">
+				<img class="img-fluid" width="200px" height="200px" :src="sauce+'/img/done-1.gif'" />
+				<h4>Kayaknya kamu kurang piknik deh. Piknik aja ga cukup.</h4>
+				<router-link class="mt-4" to="/chat">Butuh Curhat?</router-link>
+			</div>
 			<router-link class="mt-4 btn btn-primary" to="/home">Kembali ke beranda</router-link>
 		</div>
 	</div>
