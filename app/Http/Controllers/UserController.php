@@ -93,6 +93,7 @@ class UserController extends Controller
     	}
     }
     public function destroy($id){
+        Comment::where('post_id', $id)->delete();
     	UserPost::destroy($id);
     	return response()->json(['status' => 'success']);
     }

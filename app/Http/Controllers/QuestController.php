@@ -110,7 +110,7 @@ class QuestController extends Controller
 		]);
 		else return response()->json([
 			'info' => $info,
-			'question' => Question::test($id, true),
+			'question' => Question::test($id),
 			'result' => Result::getResult($id)
 		]);
 	}
