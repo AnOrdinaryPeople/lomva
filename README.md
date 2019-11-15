@@ -10,7 +10,7 @@
 1. klik kanan, pilih `git bash here`
 1. ketik `https://github.com/AnOrdinaryPeople/lomva.git`
 1. setelah beres donlot ketik `cd lomva`
-1. buat file baru namanya `.env` buat isinya copas di `.env.example`
+1. ketik lagi `cp .env.example .env`
 1. bikin database baru namanya bebas contoh `bebas`
 1. di `.env` pastikan `DB_DATABASE` nya sesuai sama step yg di atas. contoh `DB_DATABASE=bebas`
 1. di `git bash` ketik `composer install`
