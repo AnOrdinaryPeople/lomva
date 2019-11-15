@@ -8,7 +8,7 @@
 # install
 1. buka htdocs
 1. klik kanan, pilih `git bash here`
-1. ketik `https://github.com/AnOrdinaryPeople/lomva.git`
+1. ketik `git clone https://github.com/AnOrdinaryPeople/lomva.git`
 1. setelah beres donlot ketik `cd lomva`
 1. ketik lagi `cp .env.example .env`
 1. bikin database baru namanya bebas contoh `bebas`
