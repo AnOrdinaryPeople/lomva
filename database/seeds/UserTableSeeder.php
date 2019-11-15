@@ -34,11 +34,22 @@ class UserTableSeeder extends Seeder
             ];
         }
         User::insert($data);
-        User::create([
-            'name' => 'Student',
-            'email' => 'student@mail.com',
-            'password' => Hash::make('12345678'),
-            'role' => 0
+        User::insert([
+            [
+                'name' => 'Student',
+                'email' => 'student@mail.com',
+                'password' => Hash::make('12345678'),
+                'role' => 0,
+                'created_at' => now(),
+                'updated_at' => now()
+            ],[
+                'name' => 'Admin',
+                'email' => 'admin@mail.com',
+                'password' => Hash::make('12345678'),
+                'role' => 2,
+                'created_at' => now(),
+                'updated_at' => now()
+            ]
         ]);
     }
 }

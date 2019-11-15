@@ -12,9 +12,9 @@ class CommentTableSeeder extends Seeder
      */
     public function run()
     {
-        for($i = 0; $i < 50; $i++) $data[] = [
+        for($i = 0; $i < 30; $i++) $data[] = [
     		'reply' => Faker\Factory::create()->text(255),
-    		'post_id' => rand(1, 30),
+    		'post_id' => rand(1, 21),
     		'user_id' => rand(1, 10),
     		'created_at' => now(),
     		'updated_at' => now()

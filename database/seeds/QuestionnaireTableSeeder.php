@@ -12,16 +12,29 @@ class QuestionnaireTableSeeder extends Seeder
      */
     public function run()
     {
-        $faker = Faker\Factory::create();
-
-        for($i = 1; $i <= 5; $i++) $data[] = [
-        	'title' => str_replace('.', '', $faker->sentence(mt_rand(3, 6))),
-            'desc' => $faker->text(255),
-            'category' => rand(1, 4),
-        	'user_id' => $i,
-        	'created_at' => now(),
-        	'updated_at' => now()
-        ];
-        Questionnaire::insert($data);
+        Questionnaire::insert([
+            [
+                'title' => 'Mengetes diri sendiri',
+                'desc' => 'aaaaaaaa',
+                'category' => 4,
+                'user_id' => rand(1, 5),
+                'created_at' => now(),
+                'updated_at' => now()
+            ],[
+                'title' => 'Kesehatan Mental',
+                'desc' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod\ntempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,\nquis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo\nconsequat. Duis aute irure dolor in reprehenderit in voluptate velit esse\ncillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non\nproident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+                'category' => 4,
+                'user_id' => rand(1, 5),
+                'created_at' => now(),
+                'updated_at' => now()
+            ],[
+                'title' => 'Personality Test',
+                'desc' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod\ntempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,\nquis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo\nconsequat. Duis aute irure dolor in reprehenderit in voluptate velit esse\ncillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non\nproident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+                'category' => 4,
+                'user_id' => rand(1, 5),
+                'created_at' => now(),
+                'updated_at' => now()
+            ],
+        ]);
     }
 }
